@@ -44,7 +44,7 @@ function AuthModals() {
                     <div className="modal-content">
                         <div className="modal-header">
                             <img
-                                src={require("../../assets/images/computer.png")}
+                                src={require("../../assets/images/login_bg.JPG")}
                                 className="d-block w-100"
                                 height={120}
                                 alt="menu"
