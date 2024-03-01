@@ -1,0 +1,15 @@
+.dealsContainer-div {
+  padding: 4rem;
+  gap: 3rem;
+}
+.deals-poster-div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.deals-poster-div img {
+  cursor: pointer;
+}
+
+.deals-imgs img{width:100%;}

@@ -1,0 +1,22 @@
+.bg-banner-liner {
+  padding: 50px 0px;
+  background-color: #292929;
+}
+
+.banner-liners h1 {
+  color: #fff;
+  margin: 0px 0px -2px;
+  font-weight: 600;
+}
+
+.common-content-area h2 {
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+  color: #ec3357;
+  font-size: 18px;
+}
+
+.common-content-area {
+  padding: 55px 0px;
+}

@@ -1,0 +1,128 @@
+.poster-content h1 {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 38px;
+}
+.banner-slider {
+  .slick-list {
+    padding: 0 !important;
+  }
+  .lazy-load-image-background.blur.lazy-load-image-loaded {
+    &:hover {
+      transform: none !important;
+    }
+  }
+}
+
+.poster-image {
+  position: relative;
+}
+
+.banner-image {
+  width: 100%;
+  height: 450px;
+  object-fit: contain !important;
+}
+
+@media (max-width: 992px) {
+  .banner-image {
+    height: 360px;
+    width: 100%;
+    object-fit: cover !important;
+  }
+}
+
+.banner-overlay-wrapper {
+  position: relative;
+  min-height: 360px;
+}
+
+.banner-overlay-wrapper::before {
+  position: absolute;
+  content: "";
+  top: -5px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(50deg, black, transparent);
+}
+
+.poster-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 603px;
+}
+
+@media (min-width: 992px) {
+  .poster-content {
+    line-height: 4rem;
+  }
+}
+
+.btn.btn-cta {
+  padding: 12px, 22px, 12px, 22px;
+  background: var(--primary-color);
+  color: var(--white-color);
+  border-radius: 2px;
+}
+
+.btn.btn-cta:hover {
+  background-color: var(--white-color);
+  color: var(--primary-color);
+}
+
+/* Slick Slider */
+.slick-slider {
+  position: relative;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: 2rem;
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: transparent;
+}
+
+.slick-dots li {
+  text-align: center;
+  margin: 0px !important;
+  width: 20px !important;
+  height: 7px !important;
+  transition: all 0.3s ease;
+}
+
+.slick-dots li.slick-active {
+  width: 40px !important;
+  transition: all 0.3s ease;
+}
+
+.slick-dots li button {
+  padding: 0px !important;
+  background: var(--grey-color) !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 10px !important;
+  opacity: 1 !important;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  border: 1px solid gray !important;
+}
+
+.slick-dots li button:before {
+  display: none !important;
+}
+
+.slick-dots li.slick-active button {
+  width: 35px !important;
+  background: var(--white-color) !important;
+  transition: all 0.3s ease;
+  border: 1px;
+}
+
+.search-result li {
+  cursor: pointer;
+}

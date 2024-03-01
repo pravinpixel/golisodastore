@@ -1,0 +1,154 @@
+.myaccount-sidebar {
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+
+  div {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  h1 {
+    margin: 1rem auto;
+    font-weight: 600;
+    font-size: 26px;
+    color: #212363;
+  }
+
+  div {
+    a {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 25px;
+      text-transform: capitalize;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    a.active {
+      font-weight: 500;
+      color: #000000;
+      border-right: 2px solid #ec3357;
+      display: flex;
+      justify-content: space-between;
+      margin-right: -2.2rem;
+    }
+  }
+}
+
+.myaccount-personal-details {
+  line-height: 3.3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  .heading-div {
+    margin: 0.5rem auto 1.8rem;
+
+    h2 {
+      font-weight: 600;
+      font-size: 30px;
+      color: #212363;
+    }
+  }
+
+  form {
+    div {
+      label {
+        font-weight: 500;
+        font-size: 20px;
+        color: #212363;
+      }
+
+      input {
+        font-weight: 400;
+        font-size: 16px;
+        color: #000000;
+      }
+    }
+  }
+}
+
+.btn.edit-btn {
+  padding: 10px;
+  color: #d1bd0b;
+  border: 1px transparent;
+  background: rgba(226, 205, 6, 0.2);
+  border-radius: 3px;
+}
+
+.btn.save-btn {
+  padding: 10px;
+  color: #000000;
+  border: 1px transparent;
+  background: rgba(6, 226, 13, 0.2);
+  border-radius: 3px;
+}
+
+.address-book-details {
+  h2 {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+    color: #212363;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 35px;
+    color: #212363;
+  }
+
+  .btn.default-address-btn {
+    padding: 10px;
+    background: rgba(47, 180, 255, 0.2);
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #009ef7;
+  }
+
+  .btn.del-btn {
+    padding: 10px;
+    background: rgba(241, 65, 108, 0.2);
+    color: #bc2f03;
+    border: 1px transparent;
+    border-radius: 3px;
+  }
+
+  .btn.add-address-btn {
+    font-family: "Quicksand";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
+    border-radius: 4px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .password-btn-div {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 1rem;
+  }
+
+  .product-listing {
+    margin: 1.8rem 2rem 1.8rem 0.65rem;
+
+    h2 {
+      margin-top: 1rem;
+    }
+
+    .img-details {
+      margin-left: 0;
+    }
+  }
+}
+
+.navbar-nav .show>.nav-link,
+.navbar-nav .nav-link.active {
+  color: black !important;
+}

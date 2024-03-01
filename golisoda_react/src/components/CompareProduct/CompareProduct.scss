@@ -1,0 +1,89 @@
+.compare-menu-button {
+    position: fixed; 
+    background-color: rgba(0, 0, 0, 0.848);
+    border: 1px solid #fff;
+    border-radius: 3rem;
+    color: #fff;
+    padding: .5rem 1rem;
+    z-index: 4;
+    line-height: 1;
+    font-weight: 700;
+    &:hover {
+        background-color: black;
+    }
+    right: 81px;
+    bottom: 19px;
+    
+    @media (min-width:600px) {
+        padding: 1rem 3rem;
+        right: 140px;
+        bottom: 10px;
+    }
+}
+
+.compare-menu-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #eee;
+    box-shadow: 0 0.5rem 1rem rgb(0, 0, 0) !important;
+    z-index: 9999;
+
+    @media (min-width:600px) {
+        padding: 20px;
+    }
+}
+
+.compare-menu-bar.hide {
+    display: none;
+}
+
+.compare-menu-bar.show {
+    display: unset;
+}
+
+.compare-card-group {
+
+    @media (min-width:600px) {
+        display: inline-flex;
+        justify-content: center !important;
+        gap: 20px;
+    }
+
+    @media (max-width:600px) {
+        overflow: auto;
+        width: 100%;
+        padding: 20px 20px 20px 0;
+    }
+
+    .compare-card {
+        background-color: #fff;
+        padding: 20px;
+
+        @media (min-width:600px) {
+            max-width: 33%;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 132px;
+            height: 132px;
+            object-fit: contain;
+            overflow: hidden;
+        }
+    }
+
+    .product-title {
+        font-size: 12px;
+        font-weight: 400;
+        max-height: 4rem;
+        line-height: 17px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        margin-bottom: 10px;
+    }
+}

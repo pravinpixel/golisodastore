@@ -1,0 +1,62 @@
+.new-arrivals.for-gamers {
+  background-color: #f9f9f9;
+  
+  background: url("../../../assets/images/bg-3.jpg") no-repeat rgba(0, 0, 0, 0);
+  background-size: auto;
+  background-size: cover;
+}
+
+.new-arrivals.for-gamers .comon-heads h2 {
+  color: #fff;
+}
+
+.new-arrivals.for-gamers .next-jump a {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  top: 7px;
+  padding-right: 22px;
+  transition: all 0.3s ease;
+}
+
+.new-arrivals.for-gamers .next-jump svg {
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  top: 1px;
+  right: 0px;
+  transition: all 0.3s ease;
+}
+
+.next-jump a:hover {
+  transition: all 0.3s ease;
+}
+
+.next-jump a:hover svg {
+  transition: all 0.3s ease;
+  transform: rotate(360deg);
+}
+
+
+
+.arrival-slider .slick-slide > div {
+  padding: 0px 10px;
+}
+
+
+
+.arrival-slider .slick-dots {
+  bottom: -60px;
+}
+.new-arrivals.for-gamers .arrival-slider .slick-dots li button {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+}
+.new-arrivals.for-gamers .arrival-slider .slick-dots li.slick-active button {
+  background-color: #fff !important;
+}
