@@ -20,7 +20,7 @@ const MyOrderDetails = () => {
     })
   }, [])
 
-  console.log("order", order);
+  // console.log("order", order);
 
   return (
     <>

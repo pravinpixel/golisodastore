@@ -1,7 +1,7 @@
 import "./App.scss";
 import "animate.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Loader, strRandom } from "utils";
 import {
   AboutPage,
@@ -32,14 +32,21 @@ import {
   TermsConditions,
   VerifyPayment,
   PaymentFaild
-} from "lazy"; 
+} from "lazy";
 import PageComponent from "components/PageComponent";
 import ServicesListingComponent from "components/ServicesListingComponent";
+import ReturnPolicy from "components/ReurnPolicy";
 
 function App() {
   if (localStorage.getItem('guest_token') === null) {
     localStorage.setItem('guest_token', strRandom())
   }
+
+  useEffect(() => {
+    sessionStorage.removeItem("home_page_collection")
+  }, [])
+
+
   return (
     <BrowserRouter>
       <Suspense fallback={<Loader />}>
@@ -53,6 +60,8 @@ function App() {
             <Route path="/about-us" element={<AboutPage />} />
             <Route path="/shipping-delivery" element={<ShippingDeliveryPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/return-policy" element={<ReturnPolicy />} />
+
             <Route path="/warantty-policy" element={<WaranttyPolicyPage />} />
             <Route path="/contact-us" element={<ContactUsPage />} />
             <Route path="/my-account" element={<ProfileLayout />}>
@@ -63,7 +72,7 @@ function App() {
               <Route path="wishlist" element={<MyWishlist />} />
             </Route>
             <Route path="/store-locator-for-sales" element={<ServicesListingComponent />} />
-            <Route path="/store-locator-for-service" element={<ServicesListingComponent  />} />
+            <Route path="/store-locator-for-service" element={<ServicesListingComponent />} />
             <Route path="/verify-account/:token" element={<VerifyAccount />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="*" element={<NotFound />} />
@@ -72,7 +81,7 @@ function App() {
 
             <Route path="/verify-payment/:token" element={<VerifyPayment />} />
             <Route path="/terms-conditions" element={<TermsConditions />} />
-            <Route path=":page_slug" element={<PageComponent/>} />
+            <Route path=":page_slug" element={<PageComponent />} />
           </Route>
           {/* <Route path="/stores" element={<StorePage />} /> */}
         </Routes>

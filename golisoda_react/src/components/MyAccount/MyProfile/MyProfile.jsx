@@ -10,6 +10,7 @@ import { AuthUser } from "utils";
 
 const MyProfile = () => {
   const customer = AuthUser();
+  console.log("customer", customer);
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: {
       first_name: customer?.first_name,
@@ -174,6 +175,7 @@ const SecuritySetting = () => {
 }
 
 const SectionHeader = ({ disabled, setDisabled, loading, title, editBtnText, saveBtnText, setValue }) => {
+  const customer = AuthUser()
   const cancel = () => {
     if (setValue) {
       const customer = AuthUser()
@@ -188,7 +190,10 @@ const SectionHeader = ({ disabled, setDisabled, loading, title, editBtnText, sav
   }
   return (
     <div className="flex-jc-btwn flex-wrap heading-div">
-      <h2 className="m-0 fs-5">{title}</h2>
+      <h2 className="m-0 fs-5">{title}
+        <span className="verfifyPending" >
+          {customer?.email_verified_at ? "" : "Profile Verfication Pending"}</span>
+      </h2>
       {
         disabled ?
           <button type="button" className="btn-sm btn btn-outline-info" onClick={() => setDisabled(!disabled)}>

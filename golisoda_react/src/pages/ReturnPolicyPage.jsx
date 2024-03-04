@@ -1,23 +1,23 @@
-import ShippingDelivery from "components/ShippingDelivery/ShippingDelivery";
+import ReturnPolicy from "components/ReurnPolicy";
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { scrollToTop } from "utils";
 
-function ShippingDeliveryPage() {
+function ReturnPolicyPage() {
   useEffect(() => {
     scrollToTop();
   }, []);
   return (
     <div>
       <Helmet>
-        <title>Golisoda | Delivery & Shipping</title>
+        <title>Golisoda | Return Policy</title>
         <link rel="canonical" href={window.location.href} />
         <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
-        <meta name="description" content="We Shipping and Delivery Laptops all over India" />
+        <meta name="description" content="Return Policy" />
       </Helmet>
-      <ShippingDelivery />
+      <ReturnPolicy />
     </div>
   );
 }
 
-export default ShippingDeliveryPage;
+export default ReturnPolicyPage;

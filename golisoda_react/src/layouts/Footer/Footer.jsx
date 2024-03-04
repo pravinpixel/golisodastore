@@ -65,7 +65,7 @@ const Footer = () => {
             </div>
           </Col>
 
-          <Col xs={12} sm={12} md={6} lg={2} xl={2}>
+          {/* <Col xs={12} sm={12} md={6} lg={2} xl={2}>
             <h4>Shop Brands</h4>
             <div className="footer-links">
               {brands &&
@@ -74,6 +74,16 @@ const Footer = () => {
                     {brand.title}
                   </Link>
                 ))}
+            </div>
+          </Col> */}
+
+          <Col xs={12} sm={12} md={6} lg={2} xl={2}>
+            <h5>Policies</h5>
+            <div className="footer-links">
+              <Link to="/shipping-delivery">Delivery & Shipping</Link>
+              <Link to="/terms-conditions">Terms & Conditions</Link>
+              <Link to="/privacy-policy">Privacy Policy</Link>
+              <Link to="/return-policy">Return Policy</Link>
             </div>
           </Col>
 

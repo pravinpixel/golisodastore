@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import { RegisterApi } from "services/auth.service";
-import { useState } from "react"; 
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Register() {
   const dispatch = useDispatch()
@@ -16,7 +17,7 @@ function Register() {
     last_name: Yup.string().required(),
     mobile: Yup.string().matches(/^[6-9]\d{9}$/).required(),
     email: Yup.string().required(),
-    password: Yup.string().required().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/),
+    password: Yup.string().required().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,),
     confirm_password: Yup.string().required().oneOf([Yup.ref('password')], 'Passwords does not match'),
   })
   const formOptions = { resolver: yupResolver(formSchema) }
@@ -26,7 +27,7 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState("")
   const [eye, setEye] = useState(true)
   const [eyeConfirm, setConfirmEye] = useState(true)
-  
+
   const RegisterHandler = async (data) => {
     setLoading(true)
     const response = await RegisterApi(data)
@@ -71,7 +72,7 @@ function Register() {
               {eye ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
             </button>
           </div>
-        </Form.Group> 
+        </Form.Group>
         <Form.Group className="mb-3" controlId="ConfirmPassword">
           <Form.Label className="small">Confirm Password</Form.Label>
           <div className="input-group">
@@ -87,13 +88,21 @@ function Register() {
             <path d="M8 10.8V8" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M8 5.20032H8.007" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Your password must contain minimum eight alphanumeric and special characters, excluding: & , ^ , | , “ & .
+          Your password Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character
+          {/* Your password must contain minimum eight alphanumeric and special characters, excluding: & , ^ , | , “ & . */}
         </Form.Text>
         <Form.Text className="text-muted d-flex mt-3">
           <Form.Check type="checkbox" />
           <span className="fs-14 ms-2">
-            By continuing, you're agreeing to our <button className="btn btn-sm text-info p-0 border-0">customer terms of service</button> ,<button className="btn btn-sm text-info px-0 border-0">privacy policy</button>  and
-            <button className="btn btn-sm text-info p-0 border-0">cookie policy</button>
+            By continuing, you're agreeing to our
+            <div className="mt-1">
+              <Link className="text-info">customer terms of service</Link>,
+              <Link className="text-info">privacy policy</Link> and
+              <Link className="text-info"> cookie policy</Link>
+            </div>
+            {/* <button className="btn btn-sm text-info p-0 border-0">customer terms of service</button>
+            ,<button className="btn btn-sm text-info px-0 border-0">privacy policy</button>  and
+            <button className="btn btn-sm text-info p-0 border-0">cookie policy</button> */}
           </span>
         </Form.Text>
         <div className="text-center">
