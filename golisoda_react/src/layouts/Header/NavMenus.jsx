@@ -122,7 +122,6 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                   </g>
                 </svg>
                 <div className={`me-auto text-dark ms-2`}>
-                  {/* Exclusive at GBS */}
                   Exclusive at GOLISODA STORE
                 </div>
               </div>

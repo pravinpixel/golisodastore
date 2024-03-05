@@ -46,7 +46,7 @@ const HomePage = () => {
       <Helmet>
         <title>Golisoda | Home</title>
         <link rel="canonical" href={window.location.href} />
-        <meta name="description" content="GBS Systems is one of the leading laptop sale & service center in South India, Having branches in Chennai, Madurai, Trichy, Coimbatore & Bangalore." />
+        <meta name="description" content="Golisoda | Home" />
       </Helmet>
       <HomeProductsSlider />
       <DealsProduct />

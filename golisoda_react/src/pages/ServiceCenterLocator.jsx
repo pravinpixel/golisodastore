@@ -61,7 +61,7 @@ const ServiceCenterLocator = () => {
         <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
         <meta
           name="description"
-          content="Check out GBS Systems Laptop Service Center near your location."
+          content="Check out Golisoda | Service Center Location"
         />
       </Helmet>
       <ServiceCenterLocatorBanner

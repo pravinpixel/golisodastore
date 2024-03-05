@@ -1,9 +1,9 @@
-import AboutBanner from "components/AboutUs/AboutBanner";
-import AwardsAcolades from "components/AboutUs/AwardsAcolades";
-import CeoMessage from "components/AboutUs/CeoMessage";
-import Counters from "components/AboutUs/Counters";
-import CustomerSays from "components/AboutUs/CustomerSays";
-import ServiceOffers from "components/AboutUs/ServiceOffers";
+// import AboutBanner from "components/AboutUs/AboutBanner";
+// import AwardsAcolades from "components/AboutUs/AwardsAcolades";
+// import CeoMessage from "components/AboutUs/CeoMessage";
+// import Counters from "components/AboutUs/Counters";
+// import CustomerSays from "components/AboutUs/CustomerSays";
+// import ServiceOffers from "components/AboutUs/ServiceOffers";
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { scrollToTop } from "utils";
@@ -18,15 +18,15 @@ function AboutPage() {
         <title>Golisoda | About Us</title>
         <link rel="canonical" href={window.location.href} />
         <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
-        <meta name="description" content="GBS Systems is a leading provider of IT solutions and services for businesses. Learn more about our company's history, mission, and expertise. Visit now!" />
+        <meta name="description" content="Golisoda | About Us" />
       </Helmet>
 
-      <AboutBanner />
+      {/* <AboutBanner />
       <CeoMessage />
       <AwardsAcolades />
       <Counters />
       <ServiceOffers />
-      <CustomerSays />
+      <CustomerSays /> */}
     </div>
   );
 }

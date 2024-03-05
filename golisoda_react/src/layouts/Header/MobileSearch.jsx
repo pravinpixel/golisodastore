@@ -15,7 +15,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 
 function MobileSearch({ searchMobileSearch, setMobileSearch }) {
-    
+
     return (
         <Dialog
             fullScreen
@@ -26,7 +26,7 @@ function MobileSearch({ searchMobileSearch, setMobileSearch }) {
             <AppBar sx={{ position: 'relative' }} className="sticky-top bg-primary">
                 <Toolbar>
                     <Typography sx={{ flex: 1 }} variant="h6" component="div">
-                        <img src={require("assets/Brand/gbsLogoHighRes.png")} alt="logo" width={80} />
+                        {/* <img src={require("assets/Brand/gbsLogoHighRes.png")} alt="logo" width={80} /> */}
                     </Typography>
                     <IconButton
                         edge="start"
@@ -40,10 +40,10 @@ function MobileSearch({ searchMobileSearch, setMobileSearch }) {
             </AppBar>
             <div className="p-3">
                 <div className="input-group shadow rounded border">
-                    <SearchInput type='HEADER'/>
+                    <SearchInput type='HEADER' />
                 </div>
             </div>
-            <SearchResult type="HEADER" setMobileSearch={setMobileSearch}/>
+            <SearchResult type="HEADER" setMobileSearch={setMobileSearch} />
         </Dialog>
     )
 }

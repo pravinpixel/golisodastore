@@ -16,7 +16,7 @@ const ServiceCenter = () => {
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="details-locations">
               <span>
-                Don't worry, the experts at GBS Services can help you fix
+                Don't worry, the experts at can help you fix
                 issues <br />
                 with your PC in no time
               </span>
@@ -29,7 +29,7 @@ const ServiceCenter = () => {
                 )) : null}
               </ul>
               <Link to="/store-locator-for-service" className="btn-action">
-                Find Your Nearest GBS After Sales Service Center
+                Find Your Nearest Golisoda Store
               </Link>
             </div>
           </div>
