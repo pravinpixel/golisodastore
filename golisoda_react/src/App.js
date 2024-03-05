@@ -57,16 +57,16 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products" element={<ProductLists />} />
             <Route path="/products/:slug" element={<ProductPage />} />
-            <Route path="/about-us" element={<AboutPage />} />
+            {/* <Route path="/about-us" element={<AboutPage />} /> */}
             <Route path="/shipping-delivery" element={<ShippingDeliveryPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/return-policy" element={<ReturnPolicy />} />
 
-            <Route path="/warantty-policy" element={<WaranttyPolicyPage />} />
+            {/* <Route path="/warantty-policy" element={<WaranttyPolicyPage />} /> */}
             <Route path="/contact-us" element={<ContactUsPage />} />
             <Route path="/my-account" element={<ProfileLayout />}>
               <Route path="profile" element={<MyProfile />} />
-              <Route path="address-book" element={<MyAddressBook />} />
+              {/* <Route path="address-book" element={<MyAddressBook />} /> */}
               <Route path="myorders" element={<MyOrders />} />
               <Route path="myorders/:order_id" element={<MyOrdersDetails />} />
               <Route path="wishlist" element={<MyWishlist />} />

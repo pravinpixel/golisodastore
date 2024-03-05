@@ -68,7 +68,9 @@ export const NavMenuList = ({ className, toggleHeader }) => {
         </>
       )}
       {isSuccess && (
-        <div className="menu-list" style={{ maxHeight: windowSize[1] - 100, overflow: 'auto' }}>
+        <div className="menu-list"
+        // style={{ maxHeight: windowSize[1] - 100, overflow: 'auto' }}
+        >
           <ul className="list-group list-group-flush">
             <li className="list-group-item px-3" onClick={() => linkHandler(`products?exclusive=goli_soda`)}  >
               <div className="d-flex justify-content-between align-items-center">
