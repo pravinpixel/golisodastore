@@ -9,12 +9,13 @@ import "components/Home/HomeProductsSlider/styles.scss";
 import "components/Home/NewArrivals/styles.css";
 import ProductBreadcrumb from "./ProductBreadcrumb";
 import CompareButton from "components/CompareButton";
+import { Image } from "utils";
 
 function ProductDetails({ product }) {
   console.log("product", product);
   if (product) {
     return (
-      <div >
+      <div className="mt-3">
         <Row className=" h-100">
           <Col xl={6} className={`${window.innerWidth > 992 ? 'sticky-top' : ''} h-100 sticky-padding-2 bg-xl-white`}>
             <ProductBreadcrumb
@@ -30,7 +31,11 @@ function ProductDetails({ product }) {
                   </div>
                 </span>
               }
-              <ProductGallery videos={product.video_link} images={product.gallery || product.image} />
+              {product?.gallery?.length === 0 ?
+                <Image src={product?.image} width="100%" className="product-mobile-image" />
+                :
+                <ProductGallery videos={product.video_link} images={product.gallery || product.image} />
+              }
             </div>
             {/* <div className="text-center pb-3">
               <CompareButton className="btn btn-outline-info" product={product} />

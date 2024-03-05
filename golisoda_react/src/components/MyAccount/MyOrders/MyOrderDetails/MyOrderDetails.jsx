@@ -38,14 +38,15 @@ const MyOrderDetails = () => {
                     #{order.order_no}
                   </h2>
                   <div className="btn-group">
-                    <a href={order.status === 'delivered' ? order.delivery_document : order.invoice_file} download target="_blank" rel="noreferrer" className="btn btn-info">Download Invoice</a>
+                    <a href={order.status === 'delivered' ? order.delivery_document : order.invoice_file}
+                      download target="_blank" rel="noreferrer" className="btn btn-info">Download Invoice</a>
                     <CancelOrderRequested order={order} />
                   </div>
                 </div>
                 <div className="time-line-group my-5">
                   {orderTracking.map((track, index) => (
                     <div className="time-line-item" key={index} >
-                      <div className={`time-line-icon ${track.status_name === "Order Delivered" ? 'bg-success' : ''} 
+                      <div className={`time-line-icon
                        ${track.has_tracking ? 'bg-info' : 'bg-secondary'}`}><FaCheckCircle /></div>
                       <div >
                         <div className="time-line-text">{track.status_name}</div>
