@@ -1,4 +1,5 @@
 import axios from "axios"
+import NotFound from "errors/NotFound"
 import ServiceCenterDetails from "pages/ServiceCenterDetails"
 import StoreLocationDetailsPage from "pages/StoreLocationDetails"
 import { useEffect, useState } from "react"
@@ -17,12 +18,12 @@ export default function PageComponent() {
             setPageType(res.data.type)
             setData(res.data.data)
         });
-    },[])
+    }, [])
     if (page === "service_center") {
         return <ServiceCenterDetails data={data} />
-    }
-    if(page === "store_locator") {
+    } else if (page === "store_locator") {
         return <StoreLocationDetailsPage data={data} />
+    } else {
+        return <NotFound />
     }
-    return  <Loader/>
 }

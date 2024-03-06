@@ -5,8 +5,8 @@ function NotFound() {
     <div className="error-body text-center">
       <Helmet>
         <title>Golisoda | 404 Not Found</title>
-        <meta name="description" content={"page?.meta?.description"} />
-        <meta name="keywords" content={"page?.meta?.keywords"} />
+        <meta name="description" content={"notfound"} />
+        <meta name="keywords" content={"notfound"} />
       </Helmet>
       <div className="number">404</div>
       <div className="text">
