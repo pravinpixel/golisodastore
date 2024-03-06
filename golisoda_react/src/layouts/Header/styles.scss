@@ -1828,3 +1828,21 @@ small {
     }
   }
 }
+
+iframe#webpack-dev-server-client-overlay {
+  display: none !important
+}
+
+.szh-menu__item .szh-menu__submenu {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  width: 100%;
+}
+
+.szh-menu__item .szh-menu__submenu .szh-menu__item--submenu {
+  padding-right: 0px !important;
+}
+
+.szh-menu-container {
+  top: 100px;
+}

@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import { setfooterCollection } from "redux/features/footerSlice";
 // import { AiOutlineInstagram } from "react-icons/ai";
 // import { RiFacebookFill, RiTwitterFill } from "react-icons/ri";
-// import Logo from "assets/Brand/gbsLogoHighRes.png";
 
 const Footer = () => {
   useEffect(() => {
