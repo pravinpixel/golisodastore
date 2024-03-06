@@ -34,7 +34,6 @@ const Footer = () => {
   const quickLink = useSelector((state) => state.footerCollection.quickLink);
   const mobNum = siteInfo && siteInfo.site_mobile_no.split(",");
   const address = siteInfo && siteInfo.address.split(",");
-
   if (fetching) return <Loader />;
   // if (siteInfo && quickLink && brands)
   return (
@@ -57,7 +56,10 @@ const Footer = () => {
             <h3>Quick Links</h3>
             <div className="footer-links">
               {quickLink.map((item) => (
-                <Link to={item.url} key={item.id}>
+                // <div onClick={() => navigate(`${item.url}`)}>
+                //   {item.name}
+                // </div>
+                <Link to={item.url} key={item.id} target={item.name === "Blog" && "_blank"}>
                   {item.name}
                 </Link>
               ))}

@@ -142,6 +142,8 @@ const Header = () => {
                 {window.innerWidth > 992 && (
                   <div className="d-flex align-items-center">
                     <Menu
+                      overflow={"auto"}
+                      position={"anchor"}
                       menuButton={<MenuButton className={
                         navMenu
                           ? "btn btn-sm border-0 me-md-3 menu-btn"
@@ -231,10 +233,7 @@ const Header = () => {
                             </div>
                           </>
                         )}
-
                       </MenuButton>}
-                      overflow={"auto"}
-                      position={"anchor"}
                     >
                       <NavMenus toggleHeader={toggleHeader} />
                       {/* <SubMenu label="Edit">

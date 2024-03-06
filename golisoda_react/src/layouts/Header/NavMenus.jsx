@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Placeholder } from "react-bootstrap";
 import { useNavMenuQuery } from "redux/features/homePage/navMenuService";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setfilter } from "redux/features/filterSlice";
@@ -247,13 +247,24 @@ export const NavMenuList = ({ className, toggleHeader }) => {
           {data &&
             data.data.map((item) => (
               item.child && item.child.length > 0 ?
-                <MenuItem style={{ padding: "0px" }}>
-                  <SubMenu label={item?.name}>
-                    {item.child.map((data) => (
-                      <MenuItem onClick={() => linkHandler(`/products?categories=${data.slug.toLowerCase()}`)}>{data?.name}</MenuItem>
-                    ))}
-                  </SubMenu>
-                </MenuItem>
+                <React.Fragment key={item?.id}>
+                  <div className="innerLi">
+                    <SubMenu label={item?.name}>
+                      {item.child.map((data) => (
+                        <MenuItem
+                        // onClick={(e) => {
+                        //   linkHandler(`/products?categories=${data.slug.toLowerCase()}`)
+                        // }
+                        // }
+                        >
+                          <a href={`/products?categories=${data.slug.toLowerCase()}`} style={{ color: 'black' }}>
+                            {data?.name}
+                          </a>
+                        </MenuItem>
+                      ))}
+                    </SubMenu>
+                  </div>
+                </React.Fragment>
                 :
                 <MenuItem onClick={() => linkHandler(`/products?categories=${item.slug}`)}>{item?.name}</MenuItem>
             ))
