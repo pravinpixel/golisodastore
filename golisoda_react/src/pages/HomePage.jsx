@@ -46,7 +46,8 @@ const HomePage = () => {
       <Helmet>
         <title>Golisoda | Home</title>
         <link rel="canonical" href={window.location.href} />
-        <meta name="description" content="Golisoda | Home" />
+        <meta name="title" content="Buy Natural, Organic, Eco Friendly &amp; Sustainable Products | golisodastore.com| golisodastore.com" />
+        <meta name="description" content="Goli Soda is a curated marketplace with a wide variety of Organic, Chemical-free, Zero Waste, Sustainable &amp; Eco-Friendly Products. Shop from 100+ handpicked Sustainable Brands." />
       </Helmet>
       <HomeProductsSlider />
       <DealsProduct />

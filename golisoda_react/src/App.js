@@ -36,6 +36,7 @@ import {
 import PageComponent from "components/PageComponent";
 import ServicesListingComponent from "components/ServicesListingComponent";
 import ReturnPolicy from "components/ReurnPolicy";
+import BrandsPage from "pages/BrandsPage";
 
 function App() {
   if (localStorage.getItem('guest_token') === null) {
@@ -82,6 +83,7 @@ function App() {
             <Route path="/verify-payment/:token" element={<VerifyPayment />} />
             <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route path=":page_slug" element={<PageComponent />} />
+            <Route path="brands" element={<BrandsPage />} />
           </Route>
           {/* <Route path="/stores" element={<StorePage />} /> */}
         </Routes>

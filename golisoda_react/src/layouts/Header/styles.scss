@@ -1843,6 +1843,43 @@ iframe#webpack-dev-server-client-overlay {
   padding-right: 0px !important;
 }
 
-.szh-menu-container {
-  top: 100px;
+.szh-menu {
+  max-height: 650px;
+  overflow: auto;
+}
+
+
+.brands-shots ul {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  // align-items: center;
+  // justify-content: center;
+}
+
+.brands-shots ul li {
+  display: inline-block;
+  width: 25%;
+  padding-top: 40px;
+  border-right: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
+  text-align: center;
+}
+
+.brands-shots ul li a {
+  color: #000000;
+}
+
+.brands-shots ul li img {
+  height: 100px;
+}
+
+.brands-shots ul li span {
+  display: block;
+  margin: 30px 0px 10px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
 }
