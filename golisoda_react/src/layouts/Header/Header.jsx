@@ -44,13 +44,12 @@ const Header = () => {
       expand={`${expand}`}
       variant="dark"
       fixed="top"
-      id="gbs-navbar"
+      id="golisoda-navbar"
     >
       <Container>
         <Link to="/" className="brand">
           <img
             src="https://admin.golisodastore.com/public/assets/global_setting/logo/1707472536_logo.png"
-            // src={require("assets/Brand/gbsLogoHighRes.png")}
             alt="logo" />
         </Link>
         <div className="d-flex align-items-center">
@@ -131,7 +130,6 @@ const Header = () => {
               <Link to="/" className="brand">
                 <img
                   src="https://admin.golisodastore.com/public/assets/global_setting/logo/1707472536_logo.png"
-                  // src={require("assets/Brand/gbsLogoHighRes.png")}
                   alt="logo"
                 />
               </Link>
