@@ -16,7 +16,7 @@ const ProductListDetails = ({
   tackLoader,
   subcategory
 }) => {
-  const [activeGroup, setActiveGroup] = useState("list")
+  const [activeGroup, setActiveGroup] = useState("grid")
   return (
     <Col lg={10} className="align-self-start px-0 sticky-padding" >
       {subcategory?.banner_image &&
@@ -36,11 +36,11 @@ const ProductListDetails = ({
               </div>
               <div>
                 <ButtonGroup className="btnGroupWithIcon">
-                  <Button className={activeGroup === "list" && "groupBtn-active"}
-                    onClick={() => setActiveGroup("list")}><FiList /> List</Button>
                   <Button className={activeGroup === "grid" && "groupBtn-active"}
                     onClick={() => setActiveGroup("grid")}
                   ><FiGrid /> Grid</Button>
+                  <Button className={activeGroup === "list" && "groupBtn-active"}
+                    onClick={() => setActiveGroup("list")}><FiList /> List</Button>
                 </ButtonGroup>
               </div>
             </div>

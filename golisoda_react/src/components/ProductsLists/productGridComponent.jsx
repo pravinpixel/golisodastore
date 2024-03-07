@@ -6,7 +6,7 @@ function ProductGridComponent({ products, action }) {
     return (
       <div className="row g-2 g-lg-0 border-start">
         {products.map((product) => (
-          <div className='col-6 col-lg-4 border-bottom col-md-4 p-3'>
+          <div className='col-6 col-lg-3 border-bottom col-md-3 p-3'>
             <CardComponent
               product={product}
               key={product.id} />
