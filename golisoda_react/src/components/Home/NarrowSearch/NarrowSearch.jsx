@@ -11,9 +11,9 @@ const NarrowSearch = () => {
       <div className="section-wrapper">
         <div className="container">
           <div className="d-flex justify-content-between align-items-center mb-2 mb-md-4 px-3">
-            <h3 className="h2 section-title m-0 w-75 text-start">Narrow Your Search to the Brands you Trust</h3>
+            <h3 className="h2 section-title m-0 w-100 text-center">Narrow Your Search to the Brands you Trust</h3>
             <FilterLink to={`/brands`}>
-              <small className="d-flex align-items-center">
+              <small className="d-flex align-items-center viewallCtr">
                 View All <FiChevronRight className="ms-2" />
               </small>
             </FilterLink>

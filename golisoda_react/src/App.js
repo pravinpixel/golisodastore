@@ -64,6 +64,7 @@ function App() {
             <Route path="/contact-us" element={<ContactUsPage />} />
             <Route path="/my-account" element={<ProfileLayout />}>
               <Route path="profile" element={<MyProfile />} />
+              <Route path="address-book" element={<MyAddressBook />} />
               <Route path="myorders" element={<MyOrders />} />
               <Route path="myorders/:order_id" element={<MyOrdersDetails />} />
               <Route path="wishlist" element={<MyWishlist />} />
