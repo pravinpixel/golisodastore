@@ -24,7 +24,7 @@ const ProductsAvailInStore = () => {
               </div>
             </div>
 
-            {subcategoryCollections.map(
+            {subcategoryCollections?.map(
               (item, index) =>
                 index < 4 && (
                   <span

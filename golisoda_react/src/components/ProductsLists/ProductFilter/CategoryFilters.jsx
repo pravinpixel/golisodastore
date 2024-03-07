@@ -9,7 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { setfilter } from "redux/features/filterSlice";
 import { useDispatch } from "react-redux";
 
-function CategoryFilters({ setCurrentLocation, subcategory }) {
+function CategoryFilters({ setCurrentLocation, subcategory, setCurrValue }) {
   // const [subcategory, setSubcategory] = useState([]);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -18,6 +18,7 @@ function CategoryFilters({ setCurrentLocation, subcategory }) {
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
+    setCurrValue(event?.target?.innerText)
     navigate(`/products?categories=${newValue}`)
     dispatch(setfilter(`/products?categories=${newValue}`));
     setValue(newValue);
@@ -31,6 +32,7 @@ function CategoryFilters({ setCurrentLocation, subcategory }) {
     // ).catch(() => {
     //   setSubcategory([]);
     // });
+
     setValue(location.search.replace('?categories=', ''))
   }, [searchParams.toString()]);
 

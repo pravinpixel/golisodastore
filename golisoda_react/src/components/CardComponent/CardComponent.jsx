@@ -61,9 +61,11 @@ function CardComponent({ product, type, className }) {
       <div className="arival-det" >
         <div className="ari-img cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
           <Image src={product.image} alt={product.product_name} />
-          <div className="off-prc">
-            <h3> {product.discount_percentage}% <br /> <span>OFF</span></h3>
-          </div>
+          {product.discount_percentage !== 0 &&
+            <div className="off-prc">
+              <h3> {product.discount_percentage}% <br /> <span>OFF</span></h3>
+            </div>
+          }
         </div>
         <div className="ari-cnt text-center">
           <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
@@ -77,8 +79,13 @@ function CardComponent({ product, type, className }) {
             </div>
             <h3 className='product-name h3'>{product.product_name.substring(0, 50)}</h3>
             <h4 className='h4'>
-              <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
+              {product.strike_price !== "0.00" &&
+                <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
+              }
               <span className="new-price">₹{product.price.replace('.00', '')}</span>
+              {product.save_price !== 0 &&
+                <div className="text-info fs-6">You Save (₹ {product.save_price}) </div>
+              }
             </h4>
           </div>
           <div className="d-flex justify-content-between">
@@ -102,10 +109,14 @@ function CardComponent({ product, type, className }) {
         <div className="product-info" >
           <h3 className='product-name'>{product.product_name.substring(0, 30)}...</h3>
           <hr className='my-1' />
-          <div className="small">You Save (₹ {product.save_price}) </div>
+          {product.discount_percentage !== 0 &&
+            <div className="small">You Save (₹ {product.save_price}) </div>
+          }
           <div className="product-prices">
             <span className="new-price">₹{product.price.replace('.00', '')}</span>
-            <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
+            {product.strike_price !== "0.00" &&
+              <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
+            }
           </div>
           {product?.common_review?.rating ? <Rating name="read-only" value={product?.common_review?.rating} readOnly size="small" /> : ''}
         </div>

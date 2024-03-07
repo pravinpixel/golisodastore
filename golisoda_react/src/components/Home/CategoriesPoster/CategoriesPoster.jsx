@@ -5,9 +5,15 @@ import { Image } from "utils";
 import Slider from "react-slick";
 
 const CategoriesPoster = (slidesToShow) => {
+  // const subcategoryCollections = useSelector(
+  //   (state) => state.homePageCollection.subcategoryCollections
+  // );
+
   const subcategoryCollections = useSelector(
-    (state) => state.homePageCollection.subcategoryCollections
+    (state) => state.footerCollection.siteInfo.home_page
   );
+
+  console.log("subcategoryCollections", subcategoryCollections);
 
   const settings = {
     autoplay: true,
@@ -59,24 +65,23 @@ const CategoriesPoster = (slidesToShow) => {
           <div className="row g-3 arrival-slider">
 
             <Slider {...settings}>
-              {subcategoryCollections.map(
+              {subcategoryCollections?.map(
                 (item, index) =>
-                  item?.is_home_page !== 0 && item?.parent_id === 0 && (
-                    <div
-                      key={index}
-                      className="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-6"
-                    >
-                      <FilterLink to={`/products?categories=${item.slug}`}>
-                        <Image
-                          src={item.image}
-                          alt={item.slug}
-                          className="img-fluid"
-                        />
-                        <div className="btm-liner">
-                          <h3 className="fs-20">{item.name}</h3>
-                        </div>
-                      </FilterLink>
-                    </div>)
+                  <div
+                    key={index}
+                    className="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-6"
+                  >
+                    <FilterLink to={`/products?categories=${item.slug}`}>
+                      <Image
+                        src={item.image}
+                        alt={item.slug}
+                        className="img-fluid"
+                      />
+                      <div className="btm-liner">
+                        <h3 className="fs-20">{item.name}</h3>
+                      </div>
+                    </FilterLink>
+                  </div>
                 // index < 4 && (
                 //   <div
                 //     key={item.id}
