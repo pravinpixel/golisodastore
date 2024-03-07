@@ -1247,3 +1247,18 @@ button[loading="true"] {
   color: #ec3357;
   padding-left: 10px
 }
+
+.btnGroupWithIcon svg {
+  position: relative;
+  top: -1px;
+}
+
+.btnGroupWithIcon button {
+  background: transparent;
+  color: black;
+}
+
+.groupBtn-active {
+  background: #ec3357 !important;
+  color: white !important;
+}

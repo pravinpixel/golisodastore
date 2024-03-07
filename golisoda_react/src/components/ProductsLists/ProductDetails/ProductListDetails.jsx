@@ -1,7 +1,10 @@
-import { Col } from "react-bootstrap";
+import { Button, ButtonGroup, Col } from "react-bootstrap";
 import ProductListComponent from "../ProductListComponent";
 import CategoryFilters from "../ProductFilter/CategoryFilters";
 import ProductListPreloader from "../ProductListPreloader";
+import { FiGrid, FiList } from "react-icons/fi";
+import { useState } from "react";
+import ProductGridComponent from "../productGridComponent";
 
 const ProductListDetails = ({
   products,
@@ -13,6 +16,7 @@ const ProductListDetails = ({
   tackLoader,
   subcategory
 }) => {
+  const [activeGroup, setActiveGroup] = useState("list")
   return (
     <Col lg={10} className="align-self-start px-0 sticky-padding" >
       {subcategory?.banner_image &&
@@ -24,10 +28,22 @@ const ProductListDetails = ({
       {products && (
         <div className="list-details-side pe-lg-5 pe-3">
           <div className="primary-heads p-md-3 mb-3 mb-md-0">
-            <h1 className="h3 m-0">
-              <span className="text-dark pe-2 fw-600">{subcategory?.name}</span> Displaying {products.to} of
-              {products.total_count} results
-            </h1>
+            <div className="hstack gap-3 justify-content-between">
+              <div>
+                <h1 className="h3 m-0">
+                  <span className="text-dark pe-2 fw-600">{subcategory?.name}</span> Displaying {products.to} of {products.total_count} results
+                </h1>
+              </div>
+              <div>
+                <ButtonGroup className="btnGroupWithIcon">
+                  <Button className={activeGroup === "list" && "groupBtn-active"}
+                    onClick={() => setActiveGroup("list")}><FiList /> List</Button>
+                  <Button className={activeGroup === "grid" && "groupBtn-active"}
+                    onClick={() => setActiveGroup("grid")}
+                  ><FiGrid /> Grid</Button>
+                </ButtonGroup>
+              </div>
+            </div>
           </div>
           {fetching ? (
             <ProductListPreloader />
@@ -38,7 +54,10 @@ const ProductListDetails = ({
               ) : (
                 <>
                   <div style={{ minHeight: '100vh' }}>
-                    <ProductListComponent products={products.products} />
+                    {activeGroup === "list" ?
+                      <ProductListComponent products={products.products} /> :
+                      <ProductGridComponent products={products.products} />
+                    }
                   </div>
                   <center>
                     {

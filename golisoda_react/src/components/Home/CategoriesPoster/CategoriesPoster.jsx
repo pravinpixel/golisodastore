@@ -61,7 +61,7 @@ const CategoriesPoster = (slidesToShow) => {
             <Slider {...settings}>
               {subcategoryCollections.map(
                 (item, index) =>
-                  item?.is_home_page !== 0 && (
+                  item?.is_home_page !== 0 && item?.parent_id === 0 && (
                     <div
                       key={index}
                       className="col-lg-3 col-md-3 col-sm-6 col-xs-12 col-6"
