@@ -79,11 +79,11 @@ function CardComponent({ product, type, className }) {
             </div>
             <h3 className='product-name h3'>{product.product_name.substring(0, 50)}</h3>
             <h4 className='h4'>
-              {product.strike_price !== "0.00" &&
+              {product.discount_percentage !== 0 &&
                 <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
               }
               <span className="new-price">₹{product.price.replace('.00', '')}</span>
-              {product.save_price !== 0 &&
+              {product.discount_percentage !== 0 &&
                 <div className="text-info fs-6">You Save (₹ {product.save_price}) </div>
               }
             </h4>
