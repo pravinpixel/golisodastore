@@ -4,7 +4,7 @@ import { AiFillStar } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import AddCartButton from 'components/AddCartButton'
 import AddFavButton from 'components/AddFavButton'
-import CompareButton from 'components/CompareButton'
+// import CompareButton from 'components/CompareButton'
 import './CardComponent.scss'
 
 function CardComponent({ product, type, className }) {

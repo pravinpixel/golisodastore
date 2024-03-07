@@ -40,9 +40,9 @@
   text-transform: capitalize;
   color: #000000;
 
-  &::after {
-    content: "...";
-  }
+  // &::after {
+  //   content: "...";
+  // }
 }
 
 .ari-cnt h4 {
@@ -50,7 +50,7 @@
   font-size: 22px !important;
   line-height: 28px !important;
   color: #000000 !important;
-  margin-top:0px !important;
+  margin-top: 0px !important;
   margin-bottom: 15px !important;
 }
 
@@ -187,7 +187,7 @@
   }
 
   .product-card {
-   
+
     img {
       width: 100px !important;
     }
@@ -223,7 +223,7 @@
   padding: 10px;
   position: relative;
   background-color: white;
-  min-height:228px
+  min-height: 228px
 }
 
 .product-card-image-sm {
@@ -292,11 +292,14 @@
   width: 212px;
   object-fit: contain;
 }
+
 .clk-optn {
   align-items: center;
 }
+
 .ari-cnt {
   padding: 10px;
+
   @media (min-width:992px) {
     min-height: 210px;
     display: flex;

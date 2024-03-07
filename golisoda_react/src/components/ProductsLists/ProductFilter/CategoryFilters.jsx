@@ -1,15 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { productListCategoryMenuApi } from "services/filters.service";
+// import { productListCategoryMenuApi } from "services/filters.service";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { setfilter } from "redux/features/filterSlice";
 import { useDispatch } from "react-redux";
 
-function CategoryFilters({ setCurrentLocation }) {
-  const [subcategory, setSubcategory] = useState([]);
+function CategoryFilters({ setCurrentLocation, subcategory }) {
+  // const [subcategory, setSubcategory] = useState([]);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [value, setValue] = useState(0);
@@ -21,17 +22,18 @@ function CategoryFilters({ setCurrentLocation }) {
     dispatch(setfilter(`/products?categories=${newValue}`));
     setValue(newValue);
   };
+
   useEffect(() => {
-    productListCategoryMenuApi(searchParams.toString().split("=")[1]).then(
-      (response) => {
-        if (response.data.length === undefined) setSubcategory(response.data.child_category);
-      }
-    ).catch(() => {
-      setSubcategory([]);
-    });
-    // console.log(location.search.replace('?categories=', ''))
+    // productListCategoryMenuApi(searchParams.toString().split("=")[1]).then(
+    //   (response) => {
+    //     if (response.data.length === undefined) setSubcategory(response.data.child_category);
+    //   }
+    // ).catch(() => {
+    //   setSubcategory([]);
+    // });
     setValue(location.search.replace('?categories=', ''))
   }, [searchParams.toString()]);
+
   const outerTheme = createTheme({
     palette: {
       primary: {
@@ -39,8 +41,7 @@ function CategoryFilters({ setCurrentLocation }) {
       },
     },
   });
-  // console.log(subcategory,"subcategory")
-  if (subcategory.length > 0) return (
+  if (subcategory?.child_category?.length > 0) return (
     <div className="mb-3 mb-md-0">
       <ThemeProvider theme={outerTheme}>
         <Tabs
@@ -54,7 +55,7 @@ function CategoryFilters({ setCurrentLocation }) {
           allowScrollButtonsMobile={true}
         >
           {
-            subcategory.map((item, i) => (
+            subcategory?.child_category?.map((item, i) => (
               <Tab
                 value={item.slug}
                 key={i}
