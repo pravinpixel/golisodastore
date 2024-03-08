@@ -11,6 +11,13 @@ import { useEffect, useState } from "react";
 import { setfooterCollection } from "redux/features/footerSlice";
 // import { AiOutlineInstagram } from "react-icons/ai";
 // import { RiFacebookFill, RiTwitterFill } from "react-icons/ri";
+import razorpayIcon from "assets/cards/razorpay_icon.png";
+import visaIcon from "assets/cards/visa_icon.png";
+import expressIcon from "assets/cards/express-icon.png";
+import mastercardIcon from "assets/cards/mastercard-icon.png";
+import paytmIcon from "assets/cards/paytm-icon.png";
+import rupayIcon from "assets/cards/rupay-icon.png";
+
 
 const Footer = () => {
   useEffect(() => {
@@ -21,6 +28,34 @@ const Footer = () => {
   const dispatch = useDispatch();
   const footerData = sessionStorage.getItem("footer_collection");
   const [fetching, setFetching] = useState(footerData !== null ? false : true);
+
+  const cardsList = [
+    {
+      name: "razorpay",
+      image: razorpayIcon
+    },
+    {
+      name: "visa",
+      image: visaIcon
+    },
+    {
+      name: "express",
+      image: expressIcon
+    },
+    {
+      name: "mastercard",
+      image: mastercardIcon
+    },
+    {
+      name: "paytm",
+      image: paytmIcon
+    },
+    {
+      name: "rupay",
+      image: rupayIcon
+    }
+  ]
+
   const GetPageData = () => {
     getFooterApi().then((response) => {
       if (response) {
@@ -42,15 +77,14 @@ const Footer = () => {
         <Row>
           <Col xs={12} sm={12} md={6} lg={3} xl={3}>
             <img src={siteInfo?.logo} alt="logo" />
-            <ListGroup>
-              {siteInfo?.links?.map((i, index) => (
-                <ListGroup.Item key={index}>
-                  <Link to={i.link_url} target="_blank">
-                    <i className={`fa-brands fa-${i.link_name}`}></i>
-                  </Link>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+            <div className="mt-2">
+              <small>
+                At Goli Soda, we believe that we can help you make sustainable changes to your consumption patterns, with very minimal alterations to your lifestyle and with superior product satisfaction.By actively enabling a circular economy and generating net-positive environmental and health benefits, Goli Soda helps you live Sustainably, Every Day.
+              </small>
+            </div>
+            <div>
+              <Link to="/about-us"><small>Read More....</small></Link>
+            </div>
           </Col>
           <Col xs={12} sm={12} md={6} lg={2} xl={2}>
             <h3>Quick Links</h3>
@@ -125,7 +159,18 @@ const Footer = () => {
                 ))}
               </Col>
             </Row>
-            <Row className="footer-text1">
+            <Row className="footer-text1 mt-2">
+              <Col xs={1}>
+                <RiMapPinLine />
+              </Col>
+              <Col>
+                <Link target="_blank"
+                  to={`https://www.google.com/maps?ll=13.042498,80.270771&z=14&t=m&hl=en&gl=IN&mapclient=embed&cid=1671591006991696382`}>
+                  Locate Us
+                </Link>
+              </Col>
+            </Row>
+            <Row className="footer-text1 mt-2">
               <Col xs={1}>
                 <TfiEmail />
               </Col>
@@ -135,7 +180,7 @@ const Footer = () => {
                 </Link>
               </Col>
             </Row>
-            <Row className="footer-text1">
+            <Row className="footer-text1 mt-2">
               <Col xs={1}>
                 <FiPhone />
               </Col>
@@ -156,6 +201,30 @@ const Footer = () => {
                   ))}
               </Col>
             </Row>
+
+            <ListGroup>
+              {siteInfo?.links?.map((i, index) => (
+                <ListGroup.Item key={index}>
+                  <Link to={i.link_url} target="_blank">
+                    <i className={`fa-brands fa-${i.link_name}`}></i>
+                  </Link>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+
+            <ListGroup>
+              {/* cardsList */}
+              {cardsList?.map((i, index) => (
+                <ListGroup.Item key={index} style={{ width: "auto", height: "auto" }}>
+                  <img
+                    className="mt-4 w100"
+                    src={i.image}
+                    alt={i.name}
+                  />
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+
           </Col>
         </Row>
       </Container>

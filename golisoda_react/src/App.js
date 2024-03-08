@@ -55,6 +55,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="/compare" element={<ComparePage />} />
+            <Route path="/about-us" element={<AboutPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/products" element={<ProductLists />} />
             <Route path="/products/:slug" element={<ProductPage />} />

@@ -15,6 +15,7 @@ import { Loader, scrollToTop } from "utils";
 import ProductCollection from "components/Home/ProductCollection/ProductCollection";
 import { Helmet } from "react-helmet";
 import { setLayoutStatus } from "redux/features/authLayoutSlice";
+import NewsLetterComponent from "components/Newsletter/NewsLetter";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const HomePage = () => {
       {/* <PrefferedProcessor /> */}
       <MustHaves />
       <PackageSupport />
+      <NewsLetterComponent />
     </div>
   );
 };
