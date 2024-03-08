@@ -14,12 +14,12 @@ function NewsLetterComponent() {
     <div className="bg-primary-bg">
       <div className="container py-5">
         <Row className='align-items-center'>
-          <Col md={6}>
-            <img src={newsImg} style={{ width: "80%" }} alt="" />
+          <Col md={6} className='text-center'>
+            <img src={newsImg} style={{ width: "40%" }} alt="" />
           </Col>
           <Col md={6}>
             <h4 className='text-white pb-3'>Subscribe to our newsletter</h4>
-            <p className='text-white pb-5'>Subscribe now for hand-picked deals and offers, straight to your inbox.</p>
+            <p className='text-white pb-4'>Subscribe now for hand-picked deals and offers, straight to your inbox.</p>
             <Form onSubmit={handleSubmit(newsLetterSubmit)}>
               <div className='newLetterCtr'>
                 <div className="hstack gap-3">
