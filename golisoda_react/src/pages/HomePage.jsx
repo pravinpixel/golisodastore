@@ -59,8 +59,8 @@ const HomePage = () => {
       {/* <ServiceCenter /> */}
       {/* <PrefferedProcessor /> */}
       <MustHaves />
-      <PackageSupport />
       <NewsLetterComponent />
+      <PackageSupport />
     </div>
   );
 };

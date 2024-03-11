@@ -1908,3 +1908,25 @@ iframe#webpack-dev-server-client-overlay {
     border-right: 0px;
   }
 }
+
+@media (max-width:575px) {
+  .btnGroupWithIcon {
+    display: none !important;
+  }
+
+  .responsiveDeskPro {
+    display: none !important;
+  }
+
+  .responsiveShowPro {
+    display: block !important;
+  }
+}
+
+.responsiveShowPro {
+  display: none;
+}
+
+.responsiveDeskPro {
+  display: block;
+}

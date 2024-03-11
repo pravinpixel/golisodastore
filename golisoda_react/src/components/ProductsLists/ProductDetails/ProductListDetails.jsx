@@ -65,11 +65,15 @@ const ProductListDetails = ({
                 "No Data"
               ) : (
                 <>
-                  <div style={{ minHeight: '100vh' }}>
+                  <div style={{ minHeight: '100vh' }} className="responsiveDeskPro">
                     {activeGroup === "list" ?
-                      <ProductListComponent products={products.products} /> :
+                      <ProductListComponent products={products.products}
+                        className="col-12 border-bottom" /> :
                       <ProductGridComponent products={products.products} />
                     }
+                  </div>
+                  <div style={{ minHeight: '100vh' }} className="responsiveShowPro">
+                    <ProductGridComponent products={products.products} />
                   </div>
                   <center>
                     {

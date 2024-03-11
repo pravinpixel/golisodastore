@@ -13,12 +13,11 @@ function CardComponent({ product, type, className }) {
     <div className={className}>
       <div className='product-card overflow-hidden'>
         <div className="row m-0" >
-          <div className="col-lg-4 pt-3" >
+          <div className='col-4'>
             <div className="position-relative text-center pb-3">
               <span onClick={() => navigate(`/products/${product.product_url}`)}>
-                <Image src={product.image} alt={product.product_name} className="product-list-image" />
+                <Image src={product.image} alt={product.product_name} className="product-list-image w-100" />
               </span>
-              {/* <CompareButton buttonType="icon" className="btn btn-outline-info ms-2 border-secondary btn-sm" product={product} /> */}
               {product.discount_percentage !== 0 &&
                 <div className="off-prc">
                   <h3> {product.discount_percentage}% <br /> <span>OFF</span></h3>
@@ -26,7 +25,7 @@ function CardComponent({ product, type, className }) {
               }
             </div>
           </div>
-          <div className="ari-cnt text-start w-100 bg-white col-lg">
+          <div className='col-8 ari-cnt text-start bg-white'>
             <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
               <div className="d-flex justify-content-between" >
                 <h2 className='text-start'>{product.category_name}</h2>
@@ -52,6 +51,44 @@ function CardComponent({ product, type, className }) {
               <AddCartButton type='button' className="btn btn-primary ms-2" product={product} />
             </div>
           </div>
+          {/* <div className="col-4 pt-3" >
+            <div className="position-relative text-center pb-3">
+              <span onClick={() => navigate(`/products/${product.product_url}`)}>
+                <Image src={product.image} alt={product.product_name} className="product-list-image" />
+              </span>
+              {product.discount_percentage !== 0 &&
+                <div className="off-prc">
+                  <h3> {product.discount_percentage}% <br /> <span>OFF</span></h3>
+                </div>
+              }
+            </div>
+          </div>
+          <div className="ari-cnt text-start w-100 bg-white col-8">
+            <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
+              <div className="d-flex justify-content-between" >
+                <h2 className='text-start'>{product.category_name}</h2>
+                {
+                  product?.common_review?.rating ?
+                    <h3><AiFillStar /> {product?.common_review?.rating}</h3>
+                    : ''
+                }
+              </div>
+              <h3 className='h3 text-start'>{product.product_name}</h3>
+              <h4 className="h5">
+                {product.discount_percentage !== 0 &&
+                  <i className='old-price'>₹{product.strike_price.replace('.00', '')}</i>
+                }
+                <span className="new-price text-info fw-bold">₹{product.price.replace('.00', '')}</span>
+                {product.discount_percentage !== 0 &&
+                  <div className="text-info fs-6">You Save (₹ {product.save_price}) </div>
+                }
+              </h4>
+            </div>
+            <div className="d-flex align-items-center clk-optn">
+              <AddFavButton buttonType="icon" className="btn btn-outline-info rounded-box-circle rounded-box-sm" product={product} />
+              <AddCartButton type='button' className="btn btn-primary ms-2" product={product} />
+            </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -77,7 +114,7 @@ function CardComponent({ product, type, className }) {
                   : ''
               }
             </div>
-            <h3 className='product-name h3'>{product.product_name.substring(0, 50)}</h3>
+            <h3 className='product-name h3'>{product.product_name}</h3>
             <h4 className='h4'>
               {product.discount_percentage !== 0 &&
                 <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
@@ -107,7 +144,7 @@ function CardComponent({ product, type, className }) {
         <AddFavButton buttonType="icon" className="btn-fav" product={product} />
         <Image src={product.image} alt={product.product_name} className="product-card-image-sm" />
         <div className="product-info" >
-          <h3 className='product-name'>{product.product_name.substring(0, 30)}...</h3>
+          <h3 className='product-name'>{product.product_name}</h3>
           <hr className='my-1' />
           {product.discount_percentage !== 0 &&
             <div className="small">You Save (₹ {product.save_price}) </div>

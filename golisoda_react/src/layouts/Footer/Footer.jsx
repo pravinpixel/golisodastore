@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import "./styles.scss";
 import { FiPhone } from "react-icons/fi";
 import { RiMapPinLine } from "react-icons/ri";
@@ -79,15 +80,15 @@ const Footer = () => {
             <h4>About Us</h4>
             <div className="footer-links">
               <div className="mt-2">
-                <small>
+                <span className="fs-14">
                   At Goli Soda, we believe that we can help you make sustainable changes to your consumption patterns, with very minimal alterations to your lifestyle and with superior product satisfaction.By actively enabling a circular economy and generating net-positive environmental and health benefits, Goli Soda helps you live Sustainably, Every Day.
-                </small>
+                </span>
               </div>
               <div>
-                <Link to="/about-us"><small>Read More....</small></Link>
+                <Link to="/about-us"><p>Read More....</p></Link>
               </div>
             </div>
-            <img src={footerLogo} alt="footer-logo" height="110" className="mt-3" />
+            <img src={footerLogo} alt="footer-logo" height="110" className="footernewLogo mt-3" />
           </Col>
           <Col xs={12} sm={12} md={6} lg={2} xl={2}>
             <h3>Quick Links</h3>
@@ -96,7 +97,7 @@ const Footer = () => {
                 // <div onClick={() => navigate(`${item.url}`)}>
                 //   {item.name}
                 // </div>
-                <Link to={item.url} key={item.id} target={item.name === "Blog" && "_blank"}>
+                <Link to={item.url} key={item.id} target={item.name === "Blog" || item.name === "Catalog" && "_blank"}>
                   {item.name}
                 </Link>
               ))}
