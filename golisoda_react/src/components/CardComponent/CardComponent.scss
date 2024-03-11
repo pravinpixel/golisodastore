@@ -2,6 +2,11 @@
   // box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.06);
   box-shadow: 0px 0px 5px rgb(0 0 0 / 12%);
   border-radius: 6px;
+  background: #efefef;
+}
+
+.h-100p {
+  height: 100%;
 }
 
 .ari-img {
@@ -309,3 +314,9 @@
     flex-direction: column;
   }
 }
+
+// .poa-card {
+//   position: absolute;
+//   bottom: -7px;
+//   width: 90%;
+// }

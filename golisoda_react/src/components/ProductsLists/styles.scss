@@ -468,3 +468,9 @@ ul.config-uration li:last-child:before {
     font-size: 12px;
   }
 }
+
+@media (min-width:996px) and (max-width:1200px) {
+  .cardMobileResponse .btn {
+    font-size: 12px;
+  }
+}

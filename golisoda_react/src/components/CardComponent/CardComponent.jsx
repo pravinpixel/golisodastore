@@ -94,8 +94,8 @@ function CardComponent({ product, type, className }) {
     </div>
   )
   if (window.innerWidth > 450 && type === undefined) return (
-    <div className='product-card'>
-      <div className="arival-det" >
+    <div className='product-card h-100p'>
+      <div className="arival-det h-100p">
         <div className="ari-img cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
           <Image src={product.image} alt={product.product_name} />
           {product.discount_percentage !== 0 &&
@@ -104,7 +104,7 @@ function CardComponent({ product, type, className }) {
             </div>
           }
         </div>
-        <div className="ari-cnt text-center">
+        <div className="ari-cnt text-center position-relative">
           <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
             <div className="d-flex justify-content-between" >
               <h2>{product.category_name}</h2>
@@ -125,7 +125,7 @@ function CardComponent({ product, type, className }) {
               }
             </h4>
           </div>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between poa-card">
             <div className="d-flex justify-content-center clk-optn">
               <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product} />
               {/* <CompareButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product} /> */}
@@ -139,8 +139,10 @@ function CardComponent({ product, type, className }) {
     </div>
   )
   if (window.innerWidth < 450) return (
-    <div className={className}>
-      <div className="product-card-sm shadow" onClick={() => navigate(`/products/${product.product_url}`)}>
+    <div className={`${className} product-card-sm shadow`} style={{ height: "100%" }}>
+      <div
+        // className="product-card-sm shadow"
+        onClick={() => navigate(`/products/${product.product_url}`)}>
         <AddFavButton buttonType="icon" className="btn-fav" product={product} />
         <Image src={product.image} alt={product.product_name} className="product-card-image-sm" />
         <div className="product-info" >
