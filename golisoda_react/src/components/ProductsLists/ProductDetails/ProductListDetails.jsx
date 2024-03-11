@@ -50,9 +50,9 @@ const ProductListDetails = ({
                 <ButtonGroup className="btnGroupWithIcon">
                   <Button className={activeGroup === "grid" && "groupBtn-active"}
                     onClick={() => setActiveGroup("grid")}
-                  ><FiGrid /> Grid</Button>
+                  ><FiGrid /></Button>
                   <Button className={activeGroup === "list" && "groupBtn-active"}
-                    onClick={() => setActiveGroup("list")}><FiList /> List</Button>
+                    onClick={() => setActiveGroup("list")}><FiList /></Button>
                 </ButtonGroup>
               </div>
             </div>

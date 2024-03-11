@@ -89,7 +89,7 @@ const ProductFilter = ({
   return (
     <Col lg={2} className={`p-0 ${window.innerWidth > 992 ? 'sticky-top' : ''} sticky-padding`} >
       {window.innerWidth < 992 ?
-        <div className="mb-2">
+        <div className="my-3">
           <div className="filter-title ps-0 d-flex align-items-center justify-content-between">
             <div>
               <button className="btn btn-sm btn-outline-primary rounded-pill px-2 me-3" onClick={() => setActive(!isActive)}>

@@ -17,7 +17,7 @@ function ProductDetails({ product }) {
     return (
       <div className="mt-3">
         <Row className=" h-100">
-          <Col xl={6} className={`${window.innerWidth > 992 ? 'sticky-top' : ''} h-100 sticky-padding-2 bg-xl-white`}>
+          <Col xl={6} className={`${window.innerWidth > 992 ? 'sticky-top' : ''} h-100 sticky-padding-2 bg-xl-white mt-3`}>
             <ProductBreadcrumb
               slug={product.category_slug}
               category={product.category_name}

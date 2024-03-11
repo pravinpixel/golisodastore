@@ -126,7 +126,7 @@ const ProductDetails = ({
   // }, [])
   return (
     <>
-      <div className="mb-2"><b className="fw-500 text-primary">Shopping Cart</b></div>
+      <div className="my-3"><b className="fw-500 text-primary">Shopping Cart</b></div>
       <ul className="list-group mb-3" style={{ maxHeight: "460px", overflow: "auto" }}>
         {cartProduct?.length
           ? cartProduct.map((product, i) => (

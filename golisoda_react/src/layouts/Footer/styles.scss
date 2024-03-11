@@ -11,7 +11,7 @@ footer h3,
 footer h4,
 footer h5,
 footer h6 {
-  color: white ;
+  color: white;
   font-size: 17px !important;
   font-weight: 700 !important;
   margin-top: 50px !important;
@@ -46,6 +46,7 @@ footer .list-group {
   justify-content: flex-start;
   flex-wrap: wrap;
   flex-direction: row;
+  margin-top: 10px;
 }
 
 footer .list-group .list-group-item {
@@ -115,16 +116,20 @@ footer .footer-bottom .footer-bottom-text1 a {
   footer .footer-links a {
     width: 50%;
   }
+
   footer .list-group .list-group-item a {
     margin: 0px !important;
   }
+
   footer .footer-bottom .footer-bottom-text1 {
     text-align: center;
     padding: 15px 0px;
   }
+
   footer .footer-bottom .footer-bottom-text1 {
     font-size: 10px !important;
   }
+
   footer img {
     margin: 20px 0;
   }

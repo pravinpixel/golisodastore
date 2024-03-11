@@ -6,7 +6,6 @@ import { Form } from "react-bootstrap";
 import { CheckProductAvailabilityApi } from "services/product.service";
 import AddCartButton from "components/AddCartButton";
 import AddFavButton from "components/AddFavButton";
-import CompareButton from "components/CompareButton";
 import BuyButton from "components/BuyButton";
 import PickupFromStoreAddress from "components/PickupFromStoreAddress/PickupFromStoreAddress";
 import { useDispatch, useSelector } from "react-redux";
@@ -163,7 +162,7 @@ function ProductInformation({ product }) {
             />
           </div>
           <div className="col-md-11 col-9 text-info d-md-flex">
-            <div className="fw-bold"> hipping:</div>
+            <div className="fw-bold"> Shipping:</div>
             <div className="text-dark ps-2"> {information} </div>
           </div>
         </div>

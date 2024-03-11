@@ -454,6 +454,7 @@
 }
 
 @media (max-width:767px) {
+
   .small-content p {
     font-size: 18px;
     line-height: 28px;

@@ -1391,7 +1391,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
 }
 
 .navigation ul li {
-  float: left;
+  // float: left;
   min-height: 0.05em;
   line-height: 1em;
   vertical-align: middle;
@@ -1894,4 +1894,17 @@ iframe#webpack-dev-server-client-overlay {
 
 .viewallCtr {
   width: 65px;
+}
+
+@media only screen and (max-width:767px) {
+  .brands-shots ul li {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width:400px) {
+  .brands-shots ul li {
+    width: 100%;
+    border-right: 0px;
+  }
 }
