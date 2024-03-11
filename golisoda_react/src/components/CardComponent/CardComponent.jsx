@@ -156,6 +156,14 @@ function CardComponent({ product, type, className }) {
             }
           </div>
           {product?.common_review?.rating ? <Rating name="read-only" value={product?.common_review?.rating} readOnly size="small" /> : ''}
+          <div className="d-flex justify-content-between mt-3">
+            <div className="d-flex justify-content-center clk-optn">
+              <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product} />
+            </div>
+            <div>
+              <AddCartButton type='button' className="btn btn-primary" product={product} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

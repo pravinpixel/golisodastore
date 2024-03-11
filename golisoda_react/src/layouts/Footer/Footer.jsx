@@ -85,7 +85,7 @@ const Footer = () => {
                 </span>
               </div>
               <div>
-                <Link to="/about-us"><p>Read More....</p></Link>
+                <Link to="/about-us"><p className="fs-14">Read More....</p></Link>
               </div>
             </div>
             <img src={footerLogo} alt="footer-logo" height="110" className="footernewLogo mt-3" />

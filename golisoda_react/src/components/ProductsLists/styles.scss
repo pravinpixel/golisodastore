@@ -448,3 +448,23 @@ ul.config-uration li:last-child:before {
   transform: rotate(270deg);
   z-index: 1;
 }
+
+@media (max-width:600px) {
+  .cardMobileResponse .btn {
+    font-size: 14px;
+  }
+
+  .cardMobileResponse {
+    padding: 5px !important;
+  }
+
+  .cardMobileResponse .btn svg {
+    height: 14px;
+  }
+}
+
+@media (max-width:350px) {
+  .cardMobileResponse .btn {
+    font-size: 12px;
+  }
+}
