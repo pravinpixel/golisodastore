@@ -23,3 +23,9 @@
   padding-left: 30px;
   padding-right: 30px;
 }
+
+.submitBtnNewsLetter:active,
+.submitBtnNewsLetter:hover,
+.submitBtnNewsLetter:focus-visible {
+  color: white !important;
+}

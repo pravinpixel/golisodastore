@@ -13,8 +13,6 @@ const CategoriesPoster = (slidesToShow) => {
     (state) => state.footerCollection.siteInfo.home_page
   );
 
-  console.log("subcategoryCollections", subcategoryCollections);
-
   const settings = {
     autoplay: true,
     autoplaySpeed: 3000,

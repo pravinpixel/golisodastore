@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link } from "react-router-dom";
 
 function ProductBreadcrumb({ slug, category, title }) {
@@ -15,7 +16,8 @@ function ProductBreadcrumb({ slug, category, title }) {
       </div>
       <a href="#">
         <small className="text-dark">
-          {title?.substring(0, 50)}
+          {title}
+          {/* {title?.substring(0, 50)} */}
         </small>
       </a>
     </div>

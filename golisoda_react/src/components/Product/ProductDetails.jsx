@@ -8,7 +8,6 @@ import ProductSlider from "components/ProductSlider/ProductSlider";
 import "components/Home/HomeProductsSlider/styles.scss";
 import "components/Home/NewArrivals/styles.css";
 import ProductBreadcrumb from "./ProductBreadcrumb";
-import CompareButton from "components/CompareButton";
 import { Image } from "utils";
 
 function ProductDetails({ product }) {
