@@ -219,7 +219,7 @@ const Footer = () => {
             <ListGroup>
               {/* cardsList */}
               {cardsList?.map((i, index) => (
-                <ListGroup.Item key={index} style={{ width: "auto", height: "auto" }}>
+                <ListGroup.Item key={index} className="footerPaymentLinks" style={{ width: "auto", height: "auto" }}>
                   <img
                     className="mt-4 w100"
                     src={i.image}

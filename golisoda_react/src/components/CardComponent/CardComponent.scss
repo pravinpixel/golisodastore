@@ -315,8 +315,19 @@
   }
 }
 
-// .poa-card {
-//   position: absolute;
-//   bottom: -7px;
-//   width: 90%;
-// }
+.bgCard {
+  background: #efefef;
+}
+
+.ari-cnt-mobile {
+  background: #efefef;
+  min-height: 150px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cardShadow {
+  box-shadow: 0 0 5px #0000001f;
+}

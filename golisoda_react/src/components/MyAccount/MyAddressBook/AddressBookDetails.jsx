@@ -48,7 +48,7 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
       deleteAddressApi(addressesId).then(response => {
         toast.success(response.data?.message);
         setDeleteAlert(false);
-        setAddressId(null); 
+        setAddressId(null);
         dispatch(setAddress(response.data.addresses))
       })
     }

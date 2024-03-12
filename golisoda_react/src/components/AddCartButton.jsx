@@ -68,7 +68,7 @@ function AddCartButton({ className, product, type, setCartId }) {
       <button
         loading={`${loading}`}
         onClick={addOrRemoveCart}
-        className={isAddCart ? "btn btn-outline-primary ms-md-3 mb-md-0 mb-3" : className}
+        className={isAddCart ? "btn btn-outline-primary ms-md-3 mb-md-0 mb-0" : className}
       >
         {isAddCart ? "Remove" : "Add to cart"}
       </button>
@@ -91,7 +91,7 @@ function AddCartButton({ className, product, type, setCartId }) {
             className="form-check-input me-2 rounded-0 border border-primary"
           />
         )}
-       {isAddCart === true ? 'Selected' : 'Select'} 
+        {isAddCart === true ? 'Selected' : 'Select'}
       </label>
     );
   }

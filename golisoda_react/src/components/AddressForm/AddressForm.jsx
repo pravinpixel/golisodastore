@@ -1,12 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Modal, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { addAddress, setAddress, setAdressForm } from "redux/features/addressSlice";
+import { addAddress, setAdressForm } from "redux/features/addressSlice";
 import { MdOutlineClose } from "react-icons/md";
 import { AuthUser } from 'utils';
 import { customerAddressApi, updateOrCreateAddressApi } from 'services/customer.service';
 import { toast } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 function AddressForm() {
   const address = useSelector((state) => state.address)
@@ -18,30 +21,49 @@ function AddressForm() {
     setValue,
     reset,
   } = useForm();
+  const [selectedOption, setSelectedOption] = useState([]);
+
   const onSubmit = (formData) => {
-    var payload = { ...formData, customer_id: AuthUser()?.id, id: address?.edit_value?.customer_address_id }
+    var payload = {
+      ...formData,
+      post_code: selectedOption[0]?.label,
+      customer_id: AuthUser()?.id, id: address?.edit_value?.customer_address_id
+    }
     updateOrCreateAddressApi(payload).then(response => {
       toast.success(response.data.message)
       dispatch(addAddress({ status: false, type: address.type, value: response.data.addresses }))
       reset()
+      setSelectedOption([])
     })
   };
   const [addressMaster, setAdressMaster] = useState([])
   const [countryMaster, setCountryMaster] = useState([])
   const [stateMaster, setStateMaster] = useState([])
   const [pincodeMaster, setPincodeMaster] = useState([])
+
   const getMasters = async () => {
     const { data } = await customerAddressApi()
     if (data?.status === "success") {
       setAdressMaster(data.address_type)
       setStateMaster(data.state)
       setCountryMaster(data.country)
-      setPincodeMaster(data.pincode)
+      setPincodeMaster(
+        // data?.pincode.map(data => reurn()
+        // )
+        data?.pincode?.map(
+          (value, index) => {
+            return {
+              id: value?.id,
+              label: value?.pincode
+            }
+          }
+        )
+      )
     }
   }
   useEffect(() => {
     getMasters()
-    if (address?.edit_value) {
+    if (address?.edit_value && address?.edit_value?.length !== 0) {
       setValue('id', address?.edit_value?.id)
       setValue('name', address?.edit_value?.name)
       setValue('address_type_id', address?.edit_value?.address_type_id)
@@ -51,11 +73,21 @@ function AddressForm() {
       setValue('city', address?.edit_value?.city)
       setValue('state', address?.edit_value?.stateid)
       setValue('country', address?.edit_value?.countryid)
-      setValue('post_code', address?.edit_value?.post_code)
+      setSelectedOption([
+        {
+          id: parseInt(address?.edit_value?.post_code),
+          "label": address?.edit_value?.post_code_number
+        }
+      ])
+      setValue('post_code', {
+        id: parseInt(address?.edit_value?.post_code),
+        value: address?.edit_value?.post_code_number
+      })
     } else {
       reset()
     }
   }, [address?.edit_value])
+
   if (address.status) return (
     <Modal
       show={true}
@@ -174,6 +206,27 @@ function AddressForm() {
               controlId="post_code"
               style={{ width: "49%" }}
             >
+              <Typeahead
+                id="my-typeahead"
+                labelKey="label"
+                {...register("post_code",
+                  // {
+                  //   required: "This is required.",
+                  // }
+                )}
+                clearButton
+                allowNew
+                placeholder="Pincode"
+                options={pincodeMaster}
+                selected={selectedOption}
+                onChange={setSelectedOption}
+              />
+            </Form.Group>
+            {/* <Form.Group
+              className="mb-3"
+              controlId="post_code"
+              style={{ width: "49%" }}
+            >
               <Form.Select
                 {...register("post_code", {
                   required: "This is required.",
@@ -185,8 +238,8 @@ function AddressForm() {
                     <option key={item.id} value={item.id}>{item.pincode}</option>
                   ))
                 }
-              </Form.Select>
-              {/* <Form.Control
+              </Form.Select> */}
+            {/* <Form.Control
                 type="text"
                 placeholder="Pincode"
                 className={`${errors.post_code ? 'border-danger' : ''}`}
@@ -194,7 +247,7 @@ function AddressForm() {
                   required: "This is required.",
                 })}
               /> */}
-            </Form.Group>
+            {/* </Form.Group> */}
           </div>
           <div className="flex-jc-btwn gap-1 flex-wrap">
             <Form.Group

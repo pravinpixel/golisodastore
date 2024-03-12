@@ -141,6 +141,12 @@ footer .footer-bottom .footer-bottom-text1 a {
   }
 }
 
+@media (max-width:767px) {
+  .footerPaymentLinks img {
+    width: 35px !important;
+  }
+}
+
 .fs-14 {
   font-size: 14px !important;
 }

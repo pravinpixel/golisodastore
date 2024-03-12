@@ -307,7 +307,7 @@ const ProductDetails = ({
             </div>
           </div>
           : <Alert variant='warning' className="m-0 border border-warning">
-            Before buying this item, you must first <u><Alert.Link className="text-primary" onClick={() => dispatch(setLayoutStatus({ status: true, type: "login" }))}>login</Alert.Link></u>.
+            Please  <u><Alert.Link className="text-primary" onClick={() => dispatch(setLayoutStatus({ status: true, type: "login" }))}>log in</Alert.Link></u> to your account in order to continue to the checkout.
           </Alert>
       }
       <SweetAlert
