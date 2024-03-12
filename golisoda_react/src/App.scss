@@ -1263,3 +1263,12 @@ button[loading="true"] {
   background: #ec3357 !important;
   color: white !important;
 }
+
+.rbt-close-content {
+  display: none;
+}
+
+.rbt-aux .rbt-close {
+  margin-top: 0px !important;
+  font-size: 12px;
+}

@@ -61,6 +61,7 @@ function AddressForm() {
       )
     }
   }
+
   useEffect(() => {
     getMasters()
     if (address?.edit_value && address?.edit_value?.length !== 0) {
@@ -99,7 +100,11 @@ function AddressForm() {
         <Modal.Title className="fs-5 fw-bold text-info">
           {address.type === "CREATE" ? "Add a New Shipping Address" : "Edit Shipping Address"}
         </Modal.Title>
-        <button className="btn btn-light" onClick={() => dispatch(setAdressForm({ status: false, type: address.type }))}>
+        <button className="btn btn-light" onClick={() => {
+          dispatch(setAdressForm({ status: false, type: address.type }))
+          setSelectedOption([])
+        }
+        }>
           <MdOutlineClose />
         </button>
       </Modal.Header>
