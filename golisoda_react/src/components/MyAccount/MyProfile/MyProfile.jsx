@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useState } from "react";
 import { Row, Form, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -10,7 +11,6 @@ import { AuthUser } from "utils";
 
 const MyProfile = () => {
   const customer = AuthUser();
-  console.log("customer", customer);
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: {
       first_name: customer?.first_name,
@@ -97,13 +97,13 @@ const MyProfile = () => {
           </Form.Group>
         </Form>
         <hr className="my-5" />
-        <SecuritySetting />
+        <SecuritySetting customer={customer} />
       </div>
     </Col>
   );
 };
 
-const SecuritySetting = () => {
+const SecuritySetting = (customer) => {
   const { handleSubmit, register, reset, setValue } = useForm();
   const [disabled, setDisabled] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -168,7 +168,7 @@ const SecuritySetting = () => {
             </Form.Group>
             : null
         }
-        <p className="mb-0">Last Changed: 4 May 2022</p>
+        <p className="mb-0">Last Changed: {dayjs(customer?.customer?.updated_at).format("DD MMM YYYY")}</p>
       </Form>
     </div>
   )

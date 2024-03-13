@@ -16,6 +16,7 @@ import ProductCollection from "components/Home/ProductCollection/ProductCollecti
 import { Helmet } from "react-helmet";
 import { setLayoutStatus } from "redux/features/authLayoutSlice";
 import NewsLetterComponent from "components/Newsletter/NewsLetter";
+import TestimonialSlider from "components/Testimonial/Testimonial";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ const HomePage = () => {
       <MustHaves />
       <NewsLetterComponent />
       <PackageSupport />
+      <TestimonialSlider />
     </div>
   );
 };

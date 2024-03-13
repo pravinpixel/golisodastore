@@ -214,6 +214,9 @@ function AddressForm() {
               <Typeahead
                 id="my-typeahead"
                 labelKey="label"
+                inputProps={{
+                  type: 'number',
+                }}
                 {...register("post_code",
                   // {
                   //   required: "This is required.",

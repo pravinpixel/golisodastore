@@ -97,7 +97,7 @@ const Footer = () => {
                 // <div onClick={() => navigate(`${item.url}`)}>
                 //   {item.name}
                 // </div>
-                <Link to={item.url} key={item.id} target={item.name === "Blog" || item.name === "Catalog" && "_blank"}>
+                <Link to={item.url} key={item.id} target={item.name === "Blog" || item.name === "Catalog" ? "_blank" : "_self"}>
                   {item.name}
                 </Link>
               ))}

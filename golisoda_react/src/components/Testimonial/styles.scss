@@ -1,0 +1,52 @@
+.patron-detil {
+  background: linear-gradient(var(--primary-color), #ec3357) !important;
+  padding: 40px 28px;
+  font-weight: 400;
+  font-size: 16px;
+  position: relative;
+  line-height: 20px;
+  margin-bottom: 40px;
+  color: #ffffff;
+  min-height: 185px;
+  border-radius: 20px
+}
+
+.patron-detil:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: -20px;
+  width: 0;
+  height: 0;
+  border-left: 0px solid transparent;
+  border-right: 33px solid transparent;
+  border-top: 36px solid #ec3357;
+}
+
+.patron-img {
+  margin-left: 20px;
+}
+
+.patron-img span {
+  position: relative;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 28px;
+  font-family: "Quicksand", sans-serif;
+  color: #ffffff;
+  padding-left: 65px;
+}
+
+.patron-img span img {
+  position: absolute;
+  top: -23px;
+  border-radius: 50%;
+}
+
+.patron {
+  margin: 0px 8px;
+}
+
+.patrons-slider {
+  margin: 10px -8px 0px;
+}
