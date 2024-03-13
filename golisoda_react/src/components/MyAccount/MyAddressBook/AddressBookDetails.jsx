@@ -13,6 +13,7 @@ import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import {
   clearBillingAddress,
+  clearBillingShippingAddress,
   clearShippingAddress,
   setBillingAddress,
   setShippingAddress,
@@ -36,20 +37,31 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
   };
   const deleteAddress = async () => {
     let selectedAddress = cartAddress[modalType === 'SHIPPING_ADDRESS' ? 'shipping_address' : 'billing_address']['customer_address_id']
-    if (selectedAddress === addressesId) {
+    let selectedAddress12 = cartAddress['billing_address']['customer_address_id']
+
+    if (selectedAddress === addressesId && selectedAddress12 === addressesId) {
+      dispatch(clearBillingShippingAddress())
+      localStorage.setItem("shipping_address", null)
+      localStorage.setItem("billing_address", null)
+    } else if (selectedAddress === addressesId) {
+      console.log("second condition");
       if (modalType === "SHIPPING_ADDRESS") {
+        localStorage.setItem("shipping_address", null)
         dispatch(clearShippingAddress());
       }
       if (modalType === "BILLING_ADDRESS") {
+        localStorage.setItem("billing_address", null)
         dispatch(clearBillingAddress());
       }
     }
+
     if (addressesId !== null) {
       deleteAddressApi(addressesId).then(response => {
         toast.success(response.data?.message);
         setDeleteAlert(false);
         setAddressId(null);
         dispatch(setAddress(response.data.addresses))
+        fetchData()
       })
     }
   };

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import CheckoutButton from "components/CheckoutButton";
 import { useSelector } from "react-redux";
 import {
@@ -10,14 +10,17 @@ import AddressBookDetails from "components/MyAccount/MyAddressBook/AddressBookDe
 import { Modal } from "react-bootstrap";
 import PickupFromStoreAddress from "components/PickupFromStoreAddress/PickupFromStoreAddress";
 import { toast } from "react-hot-toast";
-import { Tab } from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@material-ui/lab";
+// import { Tab } from "@mui/material";
+import { TabContext, TabPanel } from "@material-ui/lab";
 const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => {
 
-  const pickupSelector = useSelector((state) => state.footerCollection.siteInfo?.is_pickup_from_store);
+  // const pickupSelector = useSelector((state) => state.footerCollection.siteInfo?.is_pickup_from_store);
 
   const authUser = useSelector((state) => state.auth);
   const address = useSelector((state) => state.cartAddress);
+
+  console.log("address", address);
+
   // const [shippingMethod, setShippingMethod] = useState(pickupSelector !== 1 ?
   //   "Standard_Shipping" : "Pickup_From_Store");
   const [shippingMethod, setShippingMethod] = useState("Standard_Shipping")

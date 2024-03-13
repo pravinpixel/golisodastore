@@ -66,6 +66,13 @@ export const cartAddressSlice = createSlice(
                     store_address: JSON.parse(localStorage.getItem("store_address"))
                 }
             },
+            clearBillingShippingAddress: (state, action) => {
+                return state = {
+                    shipping_address: null,
+                    billing_address: null,
+                    store_address: JSON.parse(localStorage.getItem("store_address"))
+                }
+            },
         }
     }
 );
@@ -75,6 +82,7 @@ export const {
     setBillingAddress,
     setStoreAddress,
     clearBillingAddress,
-    clearShippingAddress
+    clearShippingAddress,
+    clearBillingShippingAddress
 } = cartAddressSlice.actions;
 export default cartAddressSlice.reducer;
