@@ -38,7 +38,7 @@ const ReadMore = ({ children }) => {
 function TestimonialSlider() {
 
   const settings = {
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     arrows: false,
     swipe: true,

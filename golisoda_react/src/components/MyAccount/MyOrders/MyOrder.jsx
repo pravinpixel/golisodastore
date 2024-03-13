@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import { Col } from "react-bootstrap";
 import "./styles.scss";
 import { Link } from "react-router-dom";
@@ -56,18 +57,26 @@ function MyOrder() {
                   <div>
                     <div className="flex-jc-btwn flex-wrap gap-2 align-c pb-3">
                       <h4 className="text-capitalize text-secondary">Order Status : <span className="text-dark">{order.status.replaceAll('_', ' ')}</span></h4>
-                      <Link
-                        to={`/my-account/myorders/${order.order_no}`}
-                        className="btn btn-info"
-                      >
-                        Track Order
-                      </Link>
+                      {order?.status === "pending" ?
+                        <CancelOrderRequested order={order} /> :
+                        order?.status !== "cancel_requested" && order?.status !== "delivered" &&
+                        <Link
+                          to={`/my-account/myorders/${order.order_no}`}
+                          className="btn btn-info"
+                        >
+                          Track Order
+                        </Link>
+                      }
                     </div>
                     <div className="flex-jc-btwn flex-wrap gap-2 align-c pb-2">
-                      <div style={{ fontWeight: "400", fontSize: "18px" }}>
-                        {order.items.length} items will be delivered soon
-                      </div>
-                      <CancelOrderRequested order={order} />
+                      {order?.status === "shipped" ?
+                        <div style={{ fontWeight: "400", fontSize: "18px" }}>
+                          {order.items.length} items will be delivered soon
+                        </div> : <div></div>
+                      }
+                      {/* {order?.status === "pending" &&
+                        <CancelOrderRequested order={order} />
+                      } */}
                     </div>
                     <div className="flex gap-4 align-c pt-1 pb-1 flex-wrap">
                       {

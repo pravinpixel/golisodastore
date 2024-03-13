@@ -49,6 +49,6 @@ export const setDefaultAddressApi = async (address_id) => {
 
 export const newsLetterApi = async (email) => {
     return await axios.post(`${process.env.REACT_APP_BASE_URL}/news-letter`, {
-        email: email
+        email: email?.email
     });
 }

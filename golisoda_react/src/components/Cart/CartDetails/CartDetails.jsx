@@ -18,8 +18,9 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
 
   const authUser = useSelector((state) => state.auth);
   const address = useSelector((state) => state.cartAddress);
-  const [shippingMethod, setShippingMethod] = useState(pickupSelector !== 1 ?
-    "Standard_Shipping" : "Pickup_From_Store");
+  // const [shippingMethod, setShippingMethod] = useState(pickupSelector !== 1 ?
+  //   "Standard_Shipping" : "Pickup_From_Store");
+  const [shippingMethod, setShippingMethod] = useState("Standard_Shipping")
   const shipping_charge_id = localStorage.getItem('shipping_charge_id')
   const [addressModalType, setAddressModalType] = useState(null);
   const [shippingTypes, setshippingTypes] = useState([]);
@@ -35,10 +36,11 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
     }
   }, [checkoutData, shippingMethod]);
 
-  const shippingMethodHandler = (e, value) => {
-    setShippingMethod(value);
-    localStorage.setItem("shipping_method", value?.toUpperCase());
-  };
+  // const shippingMethodHandler = (e, value) => {
+  //   setShippingMethod(value);
+  //   localStorage.setItem("shipping_method", value?.toUpperCase());
+  // };
+
   const setShippingCharges = async (id) => {
     localStorage.setItem("shipping_charge_id", id);
     const response = await setShippingChargesApi(id);
@@ -58,17 +60,15 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
             <div className="mb-2"><b className="fw-500 text-primary">Select Shipping Method</b></div>
             <div className=" mb-3">
               <div className="card-header p-0">
-                <TabList onChange={shippingMethodHandler} className="bg-white rounded border">
+                {/* <TabList onChange={shippingMethodHandler} className="bg-white rounded border">
                   <Tab label="Standard" value="Standard_Shipping" />
                   {pickupSelector === 1 ?
                     <Tab
-                      // disabled={!checkoutData?.has_pickup_store} 
                       label="Pickup From Store" value="Pickup_From_Store" />
                     : <Tab
-                      // disabled={!checkoutData?.has_pickup_store} 
                       label="" value="" />
                   }
-                </TabList>
+                </TabList> */}
               </div>
               <div >
                 <TabPanel value="Standard_Shipping" className="px-0 py-2">

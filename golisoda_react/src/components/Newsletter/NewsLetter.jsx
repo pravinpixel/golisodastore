@@ -20,7 +20,7 @@ function NewsLetterComponent() {
   const onSubmit = async (formData) => {
     setLoading(true)
     newsLetterApi(formData).then(response => {
-      if (response?.error === 0) {
+      if (response?.data?.status === 1) {
         setLoading(false)
         toast.success(response.data.message)
         reset()

@@ -14,7 +14,8 @@ const Sidebar = ({ Logout }) => {
             <Nav.Link as={NavLink} className="text-secondary" to="/my-account/address-book">Address Book</Nav.Link>
             <Nav.Link as={NavLink} className="text-secondary" to="/my-account/myorders">My Orders</Nav.Link>
             <Nav.Link as={NavLink} className="text-secondary" to="/my-account/wishlist">My Wishlist</Nav.Link>
-            <Nav.Link as={Button} onClick={Logout} className="mt-2" to="/my-account/wishlist">Logout</Nav.Link>
+            <Nav.Link as={NavLink} className="text-secondary text-secondaryColor" onClick={Logout}>Logout</Nav.Link>
+            {/* <Nav.Link as={Button} onClick={Logout} className="mt-2" to="/my-account/wishlist">Logout</Nav.Link> */}
           </Nav>
         </Navbar.Collapse>
       </div>

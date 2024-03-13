@@ -41,6 +41,27 @@ function AccountButton({ text, size, className }) {
             >
               Profile
             </Dropdown.Item>
+            <Dropdown.Item
+              className="text-dark"
+              as={Link}
+              to="/my-account/address-book"
+            >
+              Address Book
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="text-dark"
+              as={Link}
+              to="/my-account/myorders"
+            >
+              My Orders
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="text-dark"
+              as={Link}
+              to="/my-account/wishlist"
+            >
+              My Wishlist
+            </Dropdown.Item>
             <Dropdown.Item className="text-dark px-3" as={"button"} onClick={Logout}>
               Logout
             </Dropdown.Item>
