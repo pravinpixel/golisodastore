@@ -12,14 +12,15 @@
 .ari-img {
   transition: transform 0.5s ease;
 
-  &:hover {
-    transform: scale(1.05) !important;
-  }
+  // &:hover {
+  //   transform: scale(1.05) !important;
+  // }
 }
 
 .ari-cnt {
-  padding: 15px;
-  background: #efefef;
+  // padding: 15px;
+  // background: #f7f7f7;
+  // background: #efefef;
 }
 
 .ari-cnt h2 {
@@ -41,7 +42,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  text-align: center;
+  text-align: left;
   margin-top: 10px;
   text-transform: capitalize;
   color: #000000;
@@ -215,7 +216,6 @@
     font-size: 16px;
     display: block;
     font-weight: 800;
-    color: #164d16;
   }
 
 
@@ -316,18 +316,97 @@
 }
 
 .bgCard {
-  background: #efefef;
+  background: #f7f7f7;
+}
+
+.card-footer:last-child {
+  background: #f7f7f7;
 }
 
 .ari-cnt-mobile {
-  background: #efefef;
+  background: #f7f7f7;
   min-height: 150px;
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
 }
 
 .cardShadow {
-  box-shadow: 0 0 5px #0000001f;
+  box-shadow: 0 0 5px rgb(247 247 247);
+  border: 1px solid #f7f7f7;
+  height: 100%;
+  border-radius: 10px;
+  // background: #f7f7f7;
+}
+
+.card-body-ctr {
+  min-height: auto !important;
+  justify-content: unset !important;
+}
+
+.cartFavBtn {
+  position: absolute;
+  top: -25px;
+  background: white;
+  padding: 10px;
+  border-radius: 50%;
+  right: 10px;
+}
+
+.cartFavBtn button {
+  margin-right: 0px !important;
+}
+
+.gridCard .card-body {
+  background: #f7f7f7;
+}
+
+.gridCard .ari-img {
+  border-radius: 10px;
+}
+
+.gridCard:hover {
+  .card-footer:last-child {
+    background: #ee4868;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .btn-primary {
+    background: #fef900 !important;
+    color: black;
+  }
+
+  .card-body {
+    background-color: #ee4868 !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .ari-cnt h3,
+  .ari-cnt h2,
+  h4,
+  .old-price,
+  .text-info {
+    color: white !important;
+  }
+
+  // box-shadow: 0 0 5px #0000001f;
+  border: 1px solid #ee4868;
+}
+
+@media (max-width:600px) {
+  .clk-optn-mobile {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .cartbtnCtr {
+    width: 100%;
+  }
+
+  .cartbtnCtr button {
+    width: 100% !important;
+  }
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function ProductBreadcrumb({ slug, category, title }) {
   return (
     <div className="d-md-flex align-items-center">
-      <div className="d-flex">
+      <div className="d-flex align-items-center">
         <Link to={`/products?categories=${slug}`}>
           <small className="text-secondary">{category}</small>
         </Link>

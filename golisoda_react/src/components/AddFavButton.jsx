@@ -4,7 +4,7 @@ import { addOrRemoveWhishListApi } from "services/product.service";
 import { AuthUser } from "utils";
 import Tooltip from "@mui/material/Tooltip";
 
-function AddFavButton({ className, product, action, buttonType }) {
+function AddFavButton({ className, product, action, buttonType, roundRemove }) {
   const [loading, setLoading] = useState(false);
   const [isSelected, setIsSelected] = useState(product.is_wishlist);
 
@@ -35,6 +35,7 @@ function AddFavButton({ className, product, action, buttonType }) {
       <button
         style={{
           backgroundColor: isSelected ? "#edf2ff" : "none",
+          border: roundRemove && "none"
         }}
         loading={`${loading}`}
         className={className}
@@ -49,8 +50,8 @@ function AddFavButton({ className, product, action, buttonType }) {
         >
           <path
             d="M21.9515 3.48201C21.393 2.92145 20.7299 2.47679 20 2.1734C19.2702 1.87002 18.4879 1.71387 17.6979 1.71387C16.9079 1.71387 16.1256 1.87002 15.3957 2.1734C14.6659 2.47679 14.0028 2.92145 13.4443 3.48201L12.2852 4.6448L11.1261 3.48201C9.99796 2.35026 8.46788 1.71445 6.87247 1.71445C5.27705 1.71445 3.74697 2.35026 2.61884 3.48201C1.49071 4.61375 0.856934 6.14873 0.856934 7.74925C0.856934 9.34978 1.49071 10.8848 2.61884 12.0165L3.77793 13.1793L12.2852 21.7138L20.7924 13.1793L21.9515 12.0165C22.5103 11.4562 22.9535 10.791 23.2559 10.0588C23.5583 9.3266 23.714 8.54181 23.714 7.74925C23.714 6.9567 23.5583 6.17191 23.2559 5.43972C22.9535 4.70754 22.5103 4.04229 21.9515 3.48201V3.48201Z"
-            stroke={isSelected ? "#ec3357" : "#212363"}
-            strokeWidth="1.5"
+            stroke={isSelected ? "#ec3357" : "#ec3357"}
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />

@@ -6,7 +6,7 @@ import AddCartButton from 'components/AddCartButton'
 import AddFavButton from 'components/AddFavButton'
 // import CompareButton from 'components/CompareButton'
 import './CardComponent.scss'
-import { Card } from 'react-bootstrap'
+import { Card, Stack } from 'react-bootstrap'
 
 function CardComponent({ product, type, className }) {
   const navigate = useNavigate()
@@ -41,7 +41,7 @@ function CardComponent({ product, type, className }) {
                 {product.discount_percentage !== 0 &&
                   <i className='old-price'>₹{product.strike_price.replace('.00', '')}</i>
                 }
-                <span className="new-price text-info fw-bold">₹{product.price.replace('.00', '')}</span>
+                <span className="new-price text-info fw-bold">₹{product?.price?.replace('.00', '')}</span>
                 {product.discount_percentage !== 0 &&
                   <div className="text-info fs-6">You Save (₹ {product.save_price}) </div>
                 }
@@ -57,45 +57,47 @@ function CardComponent({ product, type, className }) {
     </div>
   )
   if (window.innerWidth > 450 && type === undefined) return (
-    <Card className='border-0 cardShadow'>
+    <Card className='cardShadow gridCard'>
+      <div className="ari-img cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
+        <Image src={product.image} alt={product.product_name} />
+        {product.discount_percentage !== 0 &&
+          <div className="off-prc">
+            <h3> {product.discount_percentage}% <br /> <span>OFF</span></h3>
+          </div>
+        }
+      </div>
       <Card.Body className='p-0'>
-        <div className="ari-img cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
-          <Image src={product.image} alt={product.product_name} />
-          {product.discount_percentage !== 0 &&
-            <div className="off-prc">
-              <h3> {product.discount_percentage}% <br /> <span>OFF</span></h3>
+        <div className='innerCardSec-1 position-relative'>
+          <div className="ari-cnt card-body-ctr text-center">
+            <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
+              <Stack direction="horizontal" gap={5}>
+                <div><h2 className='text-start'>{product.category_name}</h2></div>
+                <div>
+                  <div className='cartFavBtn'>
+                    <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product}
+                      roundRemove={true} />
+                  </div>
+                </div>
+              </Stack>
+              <h3 className='product-name h3'>{product.product_name}</h3>
             </div>
-          }
+          </div>
         </div>
-        <div className="ari-cnt text-center">
-          <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
-            <div className="d-flex justify-content-between" >
-              <h2>{product.category_name}</h2>
-              {
-                product?.common_review?.rating ?
-                  <h3><AiFillStar /> {product?.common_review?.rating}</h3>
-                  : ''
-              }
-            </div>
-            <h3 className='product-name h3'>{product.product_name}</h3>
+      </Card.Body>
+      <Card.Footer className='bgCard border-0'>
+        <div className="d-flex justify-content-between clk-optn-mobile">
+          <div className="d-flex justify-content-center clk-optn">
             <h4 className='h4'>
               {product.discount_percentage !== 0 &&
                 <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
               }
-              <span className="new-price">₹{product.price.replace('.00', '')}</span>
+              <span className="new-price">₹{product?.price?.replace('.00', '')}</span>
               {product.discount_percentage !== 0 &&
                 <div className="text-info fs-6">You Save (₹ {product.save_price}) </div>
               }
             </h4>
           </div>
-        </div>
-      </Card.Body>
-      <Card.Footer className='bgCard border-0'>
-        <div className="d-flex justify-content-between">
-          <div className="d-flex justify-content-center clk-optn">
-            <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product} />
-          </div>
-          <div>
+          <div className='cartbtnCtr'>
             <AddCartButton type='button' className="btn btn-primary" product={product} />
           </div>
         </div>
@@ -146,35 +148,47 @@ function CardComponent({ product, type, className }) {
     // </div>
   )
   if (window.innerWidth < 450) return (
-    <Card className='border-0 cardShadow'>
-      <Card.Body className='p-0 product-card-sm' onClick={() => navigate(`/products/${product.product_url}`)}>
+    <Card className='cardShadow gridCard'>
+      <div className="ari-img cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
         <Image src={product.image} alt={product.product_name} className="product-card-image-sm" />
         {product.discount_percentage !== 0 &&
           <div className="off-prc">
             <h3> {product.discount_percentage}% <br /> <span>OFF</span></h3>
           </div>
         }
-        <div className="ari-cnt-mobile text-center">
-          <h3 className='product-name'>{product.product_name}</h3>
-          <hr className='my-1' />
-          {product.discount_percentage !== 0 &&
-            <div className="small">You Save (₹ {product.save_price}) </div>
-          }
-          <div className="product-prices">
-            <span className="new-price">₹{product.price.replace('.00', '')}</span>
-            {product.strike_price !== "0.00" &&
-              <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
-            }
+      </div>
+      <Card.Body className='p-0'>
+        <div className='innerCardSec-1 position-relative'>
+          <div className="ari-cnt card-body-ctr text-center">
+            <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
+              <Stack direction="horizontal" gap={5}>
+                <div><h2 className='text-start'>{product.category_name}</h2></div>
+                <div>
+                  <div className='cartFavBtn'>
+                    <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product}
+                      roundRemove={true} />
+                  </div>
+                </div>
+              </Stack>
+              <h3 className='product-name h3'>{product.product_name}</h3>
+            </div>
           </div>
-          {product?.common_review?.rating ? <Rating name="read-only" value={product?.common_review?.rating} readOnly size="small" /> : ''}
         </div>
       </Card.Body>
       <Card.Footer className='bgCard border-0'>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between clk-optn-mobile">
           <div className="d-flex justify-content-center clk-optn">
-            <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product} />
+            <h4 className='h4'>
+              {product.discount_percentage !== 0 &&
+                <span className='old-price'>₹{product.strike_price.replace('.00', '')}</span>
+              }
+              <span className="new-price">₹{product?.price?.replace('.00', '')}</span>
+              {product.discount_percentage !== 0 &&
+                <div className="text-info fs-6">You Save (₹ {product.save_price}) </div>
+              }
+            </h4>
           </div>
-          <div>
+          <div className='cartbtnCtr'>
             <AddCartButton type='button' className="btn btn-primary" product={product} />
           </div>
         </div>
