@@ -52,3 +52,7 @@ export const newsLetterApi = async (email) => {
         email: email?.email
     });
 }
+
+export const brandsListApi = async (take) => {
+    return await axios.get(`${process.env.REACT_APP_BASE_URL}/get/brands?take=${take}`);
+}

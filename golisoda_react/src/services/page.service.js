@@ -23,7 +23,7 @@ export const homePageApi = async () => {
       subcategoryCollections: reponses[2].data,
       productCollections: reponses[3].data.data,
       browseHome: reponses[4].data.data,
-      brands: reponses[5].data.data,
+      brands: reponses[5].data,
       modalData: reponses[6].data,
       handpickedCollections: reponses[7].data,
     };
@@ -37,7 +37,7 @@ export const getFooterApi = async () => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/quickLink`),
   ]);
   return {
-    brands: reponses[0].data.data,
+    brands: reponses[0].data,
     siteInfo: reponses[1].data.data,
     quickLink: reponses[2].data.data,
   };

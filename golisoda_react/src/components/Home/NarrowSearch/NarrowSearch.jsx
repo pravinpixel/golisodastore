@@ -6,7 +6,7 @@ import { FiChevronRight } from "react-icons/fi";
 
 const NarrowSearch = () => {
   const brands = useSelector(state => state.homePageCollection.brands)
-  if (brands) return (
+  if (brands?.brands) return (
     <>
       <div className="section-wrapper">
         <div className="container">
@@ -18,10 +18,9 @@ const NarrowSearch = () => {
               </small>
             </FilterLink>
           </div>
-          {/* <h5 className="h2 section-title">Narrow Your Search to the Brands you Trust</h5> */}
           <div className="row g-3 justify-content-center">
             {
-              brands.map((item, i) => (
+              brands?.brands?.map((item, i) => (
                 i < 5 && (
                   <div className="col-6 col-xl col-lg-3 col-md-4" key={i}>
                     <FilterLink to={`products?brands=${item.slug}`}>
