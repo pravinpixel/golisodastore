@@ -8,7 +8,7 @@ import AddFavButton from 'components/AddFavButton'
 import './CardComponent.scss'
 import { Card, Stack } from 'react-bootstrap'
 
-function CardComponent({ product, type, className }) {
+function CardComponent({ product, type, className, sliderComponent }) {
   const navigate = useNavigate()
   if (type === 'list' && window.innerWidth > 450) return (
     <div className={className}>
@@ -68,9 +68,9 @@ function CardComponent({ product, type, className }) {
       </div>
       <Card.Body className='p-0'>
         <div className='innerCardSec-1 position-relative'>
-          <div className="ari-cnt card-body-ctr text-center">
+          <div className={sliderComponent ? "ari-cnt card-body-ctr-slider text-center" : "ari-cnt card-body-ctr text-center"}>
             <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
-              <Stack direction="horizontal" gap={5}>
+              <Stack direction="horizontal" gap={5} className="headerText">
                 <div><h2 className='text-start'>{product.category_name}</h2></div>
                 <div>
                   <div className='cartFavBtn'>
@@ -85,7 +85,7 @@ function CardComponent({ product, type, className }) {
         </div>
       </Card.Body>
       <Card.Footer className='bgCard border-0'>
-        <div className="d-flex justify-content-between clk-optn-mobile">
+        <div className="d-flex justify-content-between clk-optn-mobile align-items-center">
           <div className="d-flex justify-content-center clk-optn">
             <h4 className='h4'>
               {product.discount_percentage !== 0 &&
@@ -159,9 +159,9 @@ function CardComponent({ product, type, className }) {
       </div>
       <Card.Body className='p-0'>
         <div className='innerCardSec-1 position-relative'>
-          <div className="ari-cnt card-body-ctr text-center">
+          <div className={sliderComponent ? "ari-cnt card-body-ctr-slider text-center" : "ari-cnt card-body-ctr text-center"}>
             <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
-              <Stack direction="horizontal" gap={5}>
+              <Stack direction="horizontal" gap={5} className="headerText">
                 <div><h2 className='text-start'>{product.category_name}</h2></div>
                 <div>
                   <div className='cartFavBtn'>
@@ -176,7 +176,7 @@ function CardComponent({ product, type, className }) {
         </div>
       </Card.Body>
       <Card.Footer className='bgCard border-0'>
-        <div className="d-flex justify-content-between clk-optn-mobile">
+        <div className="d-flex justify-content-between clk-optn-mobile align-items-center">
           <div className="d-flex justify-content-center clk-optn">
             <h4 className='h4'>
               {product.discount_percentage !== 0 &&

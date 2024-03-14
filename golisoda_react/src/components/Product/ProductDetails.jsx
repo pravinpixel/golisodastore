@@ -11,7 +11,12 @@ import ProductBreadcrumb from "./ProductBreadcrumb";
 import { Image } from "utils";
 
 function ProductDetails({ product }) {
-  console.log("product", product);
+
+  const galleryImg = [
+    product?.image,
+    ...product?.gallery
+  ]
+
   if (product) {
     return (
       <div className="mt-3">
@@ -33,7 +38,7 @@ function ProductDetails({ product }) {
               {product?.gallery?.length === 0 ?
                 <Image src={product?.image} width="100%" className="product-mobile-image" />
                 :
-                <ProductGallery videos={product.video_link} images={product.gallery || product.image} />
+                <ProductGallery videos={product.video_link} images={galleryImg} />
               }
             </div>
             {/* <div className="text-center pb-3">

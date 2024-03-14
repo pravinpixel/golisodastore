@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
   RewriteBase /
   RewriteCond %{SERVER_PORT} 80
   RewriteRule ^(.*)$ http://golisodastore.com/$1 [R,L]
@@ -8,6 +9,9 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /index.html [L]
+  
+  Redirect 301 /Goli-Soda-Probiotics-Sulphate-Free-Shampoo-Bar-For-Normal-Hair-90-gm-All-Natural-Biodegradable-Non-Toxic-Cruelty-Free-Palm-Oil-Free  https://golisodastore.com/products/goli-soda-all-natural-probiotics-shampoo-bar-for-normal-hair-90-g
+
 </IfModule>
 
 # php -- BEGIN cPanel-generated handler, do not edit

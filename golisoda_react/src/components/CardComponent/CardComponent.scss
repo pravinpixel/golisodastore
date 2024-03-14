@@ -321,6 +321,9 @@
 
 .card-footer:last-child {
   background: #f7f7f7;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  padding: 10px 10px;
 }
 
 .ari-cnt-mobile {
@@ -335,14 +338,19 @@
 .cardShadow {
   box-shadow: 0 0 5px rgb(247 247 247);
   border: 1px solid #f7f7f7;
-  height: 100%;
-  border-radius: 10px;
+  height: 100% !important;
+  border-radius: 10px !important;
   // background: #f7f7f7;
 }
 
 .card-body-ctr {
   min-height: auto !important;
   justify-content: unset !important;
+}
+
+.card-body-ctr-slider {
+  justify-content: unset !important;
+  min-height: 150px !important;
 }
 
 .cartFavBtn {
@@ -392,14 +400,31 @@
     color: white !important;
   }
 
+  .cartbtnCtr .btn-outline-primary {
+    color: white;
+    border-color: #fef900 !important;
+  }
+
   // box-shadow: 0 0 5px #0000001f;
   border: 1px solid #ee4868;
+}
+
+.gridCard .headerText {
+  min-height: 45px;
+}
+
+// .clk-optn-mobile .text-info {
+//   font-size: 12px !important;
+// }
+
+.cartbtnCtr button {
+  font-size: 14px;
 }
 
 @media (max-width:600px) {
   .clk-optn-mobile {
     flex-direction: column;
-    align-items: start;
+    align-items: start !important;
   }
 
   .cartbtnCtr {
@@ -409,4 +434,24 @@
   .cartbtnCtr button {
     width: 100% !important;
   }
+}
+
+@media (max-width:1300px) {
+  .clk-optn-mobile .text-info {
+    font-size: 12px !important;
+  }
+
+  .old-price {
+    font-weight: 500;
+    font-size: 16px;
+    margin-right: 5px;
+    line-height: 23px;
+    text-decoration-line: line-through;
+    color: #929292;
+  }
+
+  .new-price {
+    font-size: 16px !important;
+  }
+
 }
