@@ -5,6 +5,7 @@ import ProductListPreloader from "../ProductListPreloader";
 import { FiGrid, FiList } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import ProductGridComponent from "../productGridComponent";
+import ProductGridPreloader from "../ProductGridPreloader";
 
 const ProductListDetails = ({
   products,
@@ -58,7 +59,7 @@ const ProductListDetails = ({
             </div>
           </div>
           {fetching ? (
-            <ProductListPreloader />
+            <ProductGridPreloader />
           ) : (
             <>
               {products.length === 0 ? (
