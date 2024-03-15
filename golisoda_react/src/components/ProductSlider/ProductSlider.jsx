@@ -3,7 +3,7 @@ import Slider from "react-slick";
 
 function ProductSlider({ products, children, slidesToShow }) {
   const settings = {
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     arrows: false,
     swipe: true,

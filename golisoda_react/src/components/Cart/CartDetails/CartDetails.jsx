@@ -19,8 +19,6 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
   const authUser = useSelector((state) => state.auth);
   const address = useSelector((state) => state.cartAddress);
 
-  console.log("address", address);
-
   // const [shippingMethod, setShippingMethod] = useState(pickupSelector !== 1 ?
   //   "Standard_Shipping" : "Pickup_From_Store");
   const [shippingMethod, setShippingMethod] = useState("Standard_Shipping")
@@ -28,6 +26,7 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
   const [addressModalType, setAddressModalType] = useState(null);
   const [shippingTypes, setshippingTypes] = useState([]);
   const [show, setShow] = useState(false);
+  const [codCheck, setCODCheck] = useState(false);
 
   useEffect(() => {
     if (shippingMethod === "Standard_Shipping" && checkoutData) {
@@ -105,6 +104,8 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
                         : "Fetching..."
                     }
                   </ul>
+
+
                   <div className="border rounded bg-white py-1 p-3">
                     <p className="m-0 text-info d-flex align-items-center justify-content-between">
                       <span><i className="fa fa-map-marker"></i> Shipping Address</span>
@@ -172,6 +173,25 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
           </TabContext>
           : null
         }
+
+        {/* <ul className="list-group mb-3">
+          <label htmlFor={"cashon_delivery"}
+            onChange={(e) => setCODCheck(e.target.checked)}
+            className="list-group-item list-group-item-action d-flex justify-content-between"
+          >
+            <span>
+              <input
+                type="checkbox"
+                name="shipping_type"
+                id="cashon_delivery"
+                className="me-2 form-check-input"
+              />Cash on delivery</span>
+            <div>
+              <b><span className="text-success">20.00</span></b>
+            </div>
+          </label>
+        </ul> */}
+
         <div className="mb-2"><b className="fw-500 text-primary">Cart details</b></div>
         <div>
           <ul className="list-group">
@@ -194,14 +214,24 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
               <span className="lead fw-bold">₹ {checkoutData.total}</span>
             </li>
           </ul>
-          <div>
-            <CheckoutButton
-              className="btn btn-dark w-100 mt-3"
-              shippingMethod={shippingMethod}
-              cartProduct={cartProduct}
-              checkoutData={checkoutData}
-            />
-          </div>
+          {codCheck ?
+            <div>
+              <button className="btn btn-dark w-100 mt-3"
+              // onClick={() => authUser.isLoggedIn ? checkoutHandler() : dispatch(setLayoutStatus({ status: true, type: 'login' }))}
+              >
+                Cash On Delivery
+              </button>
+            </div>
+            :
+            <div>
+              <CheckoutButton
+                className="btn btn-dark w-100 mt-3"
+                shippingMethod={shippingMethod}
+                cartProduct={cartProduct}
+                checkoutData={checkoutData}
+              />
+            </div>
+          }
         </div>
         {addressModalType !== null && (
           <Modal

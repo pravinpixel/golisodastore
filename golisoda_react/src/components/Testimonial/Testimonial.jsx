@@ -136,7 +136,7 @@ function TestimonialSlider() {
           <Slider {...settings}>
             {testimonailContent?.map(
               (item, index) =>
-                <div>
+                <div key={index}>
                   <div className="patron text-left">
                     {/* <div className="patron-detil"> */}
                     <ReadMore>

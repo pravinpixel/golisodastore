@@ -34,7 +34,9 @@ function AddFavButton({ className, product, action, buttonType, roundRemove }) {
     <Tooltip title="Favourites" placement="bottom" arrow>
       <button
         style={{
-          backgroundColor: isSelected ? "#edf2ff" : "none",
+          backgroundColor: isSelected ? "transparent"
+            // "#edf2ff" 
+            : "none",
           border: roundRemove && "none"
         }}
         loading={`${loading}`}

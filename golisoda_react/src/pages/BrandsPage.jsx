@@ -3,7 +3,7 @@ import HomeProductsSlider from 'components/Home/HomeProductsSlider/HomeProductsS
 import React, { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { brandsListApi } from 'services/customer.service'
 import { homePageApi } from 'services/page.service'
 
@@ -13,6 +13,7 @@ function BrandsPage() {
   const [take, setTake] = useState(20);
   const [brands, setBrands] = useState(null);
   const [tackLoader, setTackLoader] = useState(false);
+  const navigate = useNavigate()
 
   const brandListApi = () => {
     setTackLoader(true)
@@ -45,12 +46,13 @@ function BrandsPage() {
             <ul>
               {
                 brands?.brands?.map((item, i) => (
-                  <li key={i}>
-                    <Link to={`/products?brands=${item.slug}`}>
-                      <img src={item.image}
-                        alt="Alhambra" />
-                      <span>{item.title}</span>
-                    </Link>
+                  <li key={i} onClick={() => navigate(`/products?brands=${item.slug}`)}
+                    className='cursor-pointer'>
+                    {/* <Link to={`/products?brands=${item.slug}`}> */}
+                    <img src={item.image}
+                      alt="Alhambra" />
+                    <span>{item.title}</span>
+                    {/* </Link> */}
                   </li>
                 ))}
             </ul>

@@ -136,7 +136,7 @@ const ProductDetails = ({
             >
               <div className="d-md-flex col-lg-8 ">
                 <span
-                  className="cursor cursor-clickable"
+                  className="cursor"
                   onClick={() =>
                     navigate(`/products/${product.product_url}`)
                   }
@@ -146,6 +146,11 @@ const ProductDetails = ({
                     alt="product-thumnail"
                     className="product-thumnail "
                   />
+                  {product.discount_percentage !== 0 &&
+                    <div className="off-prc-1">
+                      <h6> {product.discount_percentage}% <br /> <span>OFF</span></h6>
+                    </div>
+                  }
                 </span>
                 <div className="ps-md-3">
                   <span
@@ -156,9 +161,18 @@ const ProductDetails = ({
                   >
                     {product.product_name}
                   </span>
-                  <div className="text-info fw-bold mt-2 mb-2 mb-md-0">
+                  <h4 className="h5  mt-2 mb-2 mb-md-0">
+                    <span className="new-price text-info fw-bold">₹{product?.price?.replace('.00', '')}</span>
+                    {product.discount_percentage !== 0 &&
+                      <i className='old-price px-2'>₹{product.strike_price.replace('.00', '')}</i>
+                    }
+                    {product.discount_percentage !== 0 &&
+                      <span className="text-info fs-6">You Save (₹ {product.save_price}) </span>
+                    }
+                  </h4>
+                  {/* <div className="text-info fw-bold mt-2 mb-2 mb-md-0">
                     ₹{product.price}
-                  </div>
+                  </div> */}
                   {product.addons.length > 0 ? (
                     <ul className="border-top mt-3">
                       {product.addons.map((item, i) => (
@@ -211,6 +225,7 @@ const ProductDetails = ({
                   product={product}
                   fetchCartData={fetchCartData}
                   setCheckoutData={setCheckoutData}
+                  removeCouponCode={removeCouponCode}
                 />
               </div>
             </li>
@@ -326,7 +341,7 @@ const ProductDetails = ({
     </>
   );
 };
-const ProductDeleteButton = ({ product, fetchCartData, setCheckoutData }) => {
+const ProductDeleteButton = ({ product, fetchCartData, setCheckoutData, removeCouponCode }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const removeCartHandler = (product) => {
@@ -343,6 +358,7 @@ const ProductDeleteButton = ({ product, fetchCartData, setCheckoutData }) => {
         dispatch(removeCart(product));
         setTimeout(() => setLoading(false), 200);
         fetchCartData();
+        removeCouponCode()
       } else {
         toast.error("Network Error");
         setLoading(false);

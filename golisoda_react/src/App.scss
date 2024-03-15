@@ -1276,3 +1276,29 @@ button[loading="true"] {
 .text-secondaryColor {
   color: #929292 !important;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.off-prc-1 {
+  position: absolute;
+  content: "";
+  height: 30px;
+  width: 30px;
+  background: #00043a;
+  top: 15px;
+  left: 55px;
+  /* right: 15px; */
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.off-prc-1 h6 {
+  color: white;
+  font-size: 10px;
+  margin-bottom: 0px;
+  line-height: normal !important;
+}

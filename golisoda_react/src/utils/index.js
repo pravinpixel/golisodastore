@@ -110,7 +110,7 @@ const AuthUser = () => {
   return false;
 };
 function checkCartBucket(product_id) {
-  let currentCart = JSON.parse(localStorage.getItem("cart_list"));
+  let currentCart = localStorage.getItem("cart_list") ? JSON.parse(localStorage.getItem("cart_list")) : null;
   if (currentCart !== null) {
     function isExists(CurrentTest) {
       return CurrentTest.id === product_id;

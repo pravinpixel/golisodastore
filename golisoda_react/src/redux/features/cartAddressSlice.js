@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const customer_address = JSON.parse(localStorage.getItem("customer_address"))
+const customer_address = JSON.parse(localStorage.getItem("customer_address") ? localStorage.getItem("customer_address") : null)
 const shipping_address = JSON.parse(localStorage.getItem("shipping_address"));
 const billing_address = JSON.parse(localStorage.getItem("billing_address"));
 const store_address = JSON.parse(localStorage.getItem("store_address"));

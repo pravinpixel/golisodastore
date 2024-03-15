@@ -69,9 +69,9 @@ function CardComponent({ product, type, className, sliderComponent }) {
       <Card.Body className='p-0'>
         <div className='innerCardSec-1 position-relative'>
           <div className={sliderComponent ? "ari-cnt card-body-ctr-slider text-center" : "ari-cnt card-body-ctr text-center"}>
-            <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
+            <div className="cursor">
               <Stack direction="horizontal" gap={5} className="headerText">
-                <div><h2 className='text-start'>{product.category_name}</h2></div>
+                <div onClick={() => navigate(`/products/${product.product_url}`)}><h2 className='text-start'>{product.category_name}</h2></div>
                 <div>
                   <div className='cartFavBtn'>
                     <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product}
@@ -79,7 +79,7 @@ function CardComponent({ product, type, className, sliderComponent }) {
                   </div>
                 </div>
               </Stack>
-              <h3 className='product-name h3'>{product.product_name}</h3>
+              <h3 className='product-name h3' onClick={() => navigate(`/products/${product.product_url}`)}>{product.product_name}</h3>
             </div>
           </div>
         </div>
@@ -160,9 +160,9 @@ function CardComponent({ product, type, className, sliderComponent }) {
       <Card.Body className='p-0'>
         <div className='innerCardSec-1 position-relative'>
           <div className={sliderComponent ? "ari-cnt card-body-ctr-slider text-center" : "ari-cnt card-body-ctr text-center"}>
-            <div className="cursor" onClick={() => navigate(`/products/${product.product_url}`)}>
+            <div className="cursor">
               <Stack direction="horizontal" gap={5} className="headerText">
-                <div><h2 className='text-start'>{product.category_name}</h2></div>
+                <div onClick={() => navigate(`/products/${product.product_url}`)}><h2 className='text-start'>{product.category_name}</h2></div>
                 <div>
                   <div className='cartFavBtn'>
                     <AddFavButton buttonType="icon" className="btn btn-outline-info me-1 rounded-box-circle rounded-box-sm" product={product}
@@ -170,7 +170,7 @@ function CardComponent({ product, type, className, sliderComponent }) {
                   </div>
                 </div>
               </Stack>
-              <h3 className='product-name h3'>{product.product_name}</h3>
+              <h3 className='product-name h3' onClick={() => navigate(`/products/${product.product_url}`)}>{product.product_name}</h3>
             </div>
           </div>
         </div>
