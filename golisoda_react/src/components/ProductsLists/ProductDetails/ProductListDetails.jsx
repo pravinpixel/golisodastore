@@ -59,7 +59,8 @@ const ProductListDetails = ({
             </div>
           </div>
           {fetching ? (
-            <ProductGridPreloader />
+            activeGroup === "list" ? <ProductListPreloader /> :
+              <ProductGridPreloader />
           ) : (
             <>
               {products.length === 0 ? (
