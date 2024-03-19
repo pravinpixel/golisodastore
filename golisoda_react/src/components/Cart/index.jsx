@@ -13,12 +13,14 @@ const CartProduct = () => {
   const [fetching, setfetching] = useState(true)
   const [cartProduct, setCartProduct] = useState([])
   const [checkoutData, setCheckoutData] = useState(null)
+  const [cartData, setCartData] = useState(null)
   const [coupon, setCoupon] = useState(null)
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth)
   const fetchCartData = async () => {
     const response = await cartListApi()
     if (response) {
+      setCartData(response?.data)
       setCartProduct(response.data?.carts)
       setCheckoutData(response.data?.cart_total)
       localStorage.setItem('checkout_data', JSON.stringify(response.data?.cart_total))
@@ -35,6 +37,7 @@ const CartProduct = () => {
   useEffect(() => {
     fetchCartData()
   }, [authUser])
+
   if (fetching) return <Loader />
   if (cartProduct.length) {
     return (
@@ -47,7 +50,7 @@ const CartProduct = () => {
             </Col>
             <Col lg={4} className="align-self-start">
               <CartDetails coupon={coupon} checkoutData={checkoutData} setCheckoutData={setCheckoutData}
-                cartProduct={cartProduct} />
+                cartProduct={cartProduct} cartData={cartData} fetchCartData={fetchCartData} />
             </Col>
           </Row>
         </Container>

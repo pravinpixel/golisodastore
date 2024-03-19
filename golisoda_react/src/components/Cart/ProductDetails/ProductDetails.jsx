@@ -80,7 +80,7 @@ const ProductDetails = ({
         }
       });
   };
-  const removeCouponCode = async () => {
+  const removeCouponCode = async (toastRemove) => {
     setLoading(true);
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/remove/coupon`, {
@@ -90,9 +90,10 @@ const ProductDetails = ({
       .then((response) => {
         setLoading(false);
         if (response.data.status === "error") {
-          toast.error(response.data.message);
+          !toastRemove &&
+            toast.error(response.data.message);
         } else {
-          toast.success(response.data.message);
+          !toastRemove && toast.success(response.data.message);
           reset();
           setCouponApplyed(false);
           setCoupon(null);
@@ -225,7 +226,7 @@ const ProductDetails = ({
                   product={product}
                   fetchCartData={fetchCartData}
                   setCheckoutData={setCheckoutData}
-                  removeCouponCode={removeCouponCode}
+                  removeCouponCode={() => removeCouponCode(true)}
                 />
               </div>
             </li>

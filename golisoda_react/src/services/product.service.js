@@ -69,6 +69,15 @@ export const paymentVerifyApi = async (token) => {
 export const checkoutApi = async (formData) => {
     return await axios.post(`${process.env.REACT_APP_BASE_URL}/proceed/checkout`, formData);
 }
+
+export const checkoutCheckApi = async (formData) => {
+    return await axios.post(`${process.env.REACT_APP_BASE_URL}/calculation/cod`, formData);
+}
+
+export const checkoutCodApi = async (formData) => {
+    return await axios.post(`${process.env.REACT_APP_BASE_URL}/proceed/cod`, formData);
+}
+
 export const getOrdersStstusListApi = async () => {
     return await axios.post(`${process.env.REACT_APP_BASE_URL}/get/orders-status/${AuthUser()?.id}`);
 }

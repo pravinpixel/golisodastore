@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import CheckoutButton from "components/CheckoutButton";
 import { useSelector } from "react-redux";
 import {
+  checkoutCheckApi,
+  checkoutCodApi,
   setShippingChargesApi,
   shippingChargesApi,
 } from "services/product.service";
 import AddressBookDetails from "components/MyAccount/MyAddressBook/AddressBookDetails";
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import PickupFromStoreAddress from "components/PickupFromStoreAddress/PickupFromStoreAddress";
 import { toast } from "react-hot-toast";
 // import { Tab } from "@mui/material";
 import { TabContext, TabPanel } from "@material-ui/lab";
-const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => {
+import { AuthUser } from "utils";
+const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartData, fetchCartData }) => {
 
   // const pickupSelector = useSelector((state) => state.footerCollection.siteInfo?.is_pickup_from_store);
 
@@ -27,6 +30,11 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
   const [shippingTypes, setshippingTypes] = useState([]);
   const [show, setShow] = useState(false);
   const [codCheck, setCODCheck] = useState(false);
+  const [codLoading, setCODLoading] = useState(false);
+
+  const billing_address = JSON.parse(localStorage.getItem('billing_address'))
+  const shipping_address = JSON.parse(localStorage.getItem('shipping_address'))
+  const store_address = JSON.parse(localStorage.getItem('store_address'));
 
   useEffect(() => {
     if (shippingMethod === "Standard_Shipping" && checkoutData) {
@@ -53,6 +61,61 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
     );
     toast.success(response.data.message)
   };
+
+  const cashOnDeliveryCheck = (e) => {
+    setCODCheck(e.target.checked)
+    const params = {
+      customer_id: AuthUser()?.id,
+      guest_token: localStorage.getItem("guest_token"),
+      is_cod: codCheck ? 0 : 1,
+      cod_amount: cartData?.cod_amount
+    }
+    checkoutCheckApi(params).then(response => {
+      fetchCartData()
+    })
+  }
+
+  const codSubmit = () => {
+    setCODLoading(true)
+    const checkData = {
+      customer_id: AuthUser()?.id,
+      billing_address_id: billing_address?.customer_address_id,
+      shipping_method: {
+        type: shippingMethod.toUpperCase(),
+        address_id: shippingMethod.toUpperCase() === "PICKUP_FROM_STORE" ? store_address?.id : shipping_address?.customer_address_id,
+        charge_id: shippingMethod.toUpperCase() === "PICKUP_FROM_STORE" ? null : shipping_charge_id
+      },
+      cart_items: cartProduct,
+      cart_total: checkoutData,
+      status: "cod",
+      ...coupon
+    }
+    checkoutCodApi(checkData).then(response => {
+      if (response.error === 1) {
+        toast.error(response.message);
+        setCODLoading(false);
+      } else if (response.data?.status === false) {
+        toast.error(response.data?.message);
+        setCODLoading(false);
+      }
+      else {
+        setCODLoading(false)
+        localStorage.removeItem("shipping_address");
+        localStorage.removeItem("billing_address");
+        localStorage.removeItem("cart_list");
+        localStorage.removeItem("shiprocket_charges");
+        localStorage.removeItem("cart_coupon");
+        localStorage.removeItem("flat_charge");
+        // dispatch(setCartCount(0));
+        // dispatch(clearCart());
+        // toast.success(response.data.message);
+        // navigate("/payment-success");
+        window.location.href = '/payment-success'
+        // verifyPayment(response.data);
+      }
+
+    })
+  }
 
   if (checkoutData)
     return (
@@ -173,24 +236,27 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
           </TabContext>
           : null
         }
-
-        {/* <ul className="list-group mb-3">
-          <label htmlFor={"cashon_delivery"}
-            onChange={(e) => setCODCheck(e.target.checked)}
-            className="list-group-item list-group-item-action d-flex justify-content-between"
-          >
-            <span>
-              <input
-                type="checkbox"
-                name="shipping_type"
-                id="cashon_delivery"
-                className="me-2 form-check-input"
-              />Cash on delivery</span>
-            <div>
-              <b><span className="text-success">20.00</span></b>
-            </div>
-          </label>
-        </ul> */}
+        {cartData?.is_cod === 1 &&
+          <ul className="list-group mb-3">
+            <label htmlFor={"cashon_delivery"}
+              onChange={(e) =>
+                cashOnDeliveryCheck(e)
+              }
+              className="list-group-item list-group-item-action d-flex justify-content-between"
+            >
+              <span>
+                <input
+                  type="checkbox"
+                  name="shipping_type"
+                  id="cashon_delivery"
+                  className="me-2 form-check-input"
+                />Cash on delivery</span>
+              <div>
+                <b><span>{cartData?.cod_amount}</span></b>
+              </div>
+            </label>
+          </ul>
+        }
 
         <div className="mb-2"><b className="fw-500 text-primary">Cart details</b></div>
         <div>
@@ -217,7 +283,8 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct }) => 
           {codCheck ?
             <div>
               <button className="btn btn-dark w-100 mt-3"
-              // onClick={() => authUser.isLoggedIn ? checkoutHandler() : dispatch(setLayoutStatus({ status: true, type: 'login' }))}
+                onClick={() => codLoading ? null : codSubmit()}
+                loading={`${codLoading}`} disabled={codLoading}
               >
                 Cash On Delivery
               </button>
