@@ -1302,3 +1302,13 @@ button[loading="true"] {
   margin-bottom: 0px;
   line-height: normal !important;
 }
+
+.old-price {
+  font-weight: 500;
+  font-size: 18px;
+  margin-right: 10px;
+  line-height: 23px;
+  display: inline-block;
+  text-decoration-line: line-through;
+  color: #929292;
+}

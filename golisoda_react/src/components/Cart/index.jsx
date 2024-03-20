@@ -46,7 +46,7 @@ const CartProduct = () => {
           <Row>
             <Col lg={8} className="align-self-start">
               <ProductDetails setCoupon={setCoupon} cartProduct={cartProduct} setCheckoutData={setCheckoutData}
-                fetchCartData={fetchCartData} />
+                fetchCartData={fetchCartData} cartData={cartData} />
             </Col>
             <Col lg={4} className="align-self-start">
               <CartDetails coupon={coupon} checkoutData={checkoutData} setCheckoutData={setCheckoutData}

@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux";
 import { BsDash, BsPlus, BsX } from "react-icons/bs";
 import { clearCart, removeCart } from "redux/features/cartSlice";
 import { FaTrash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   clearCartList,
   removeFromCartApi,
@@ -22,20 +23,29 @@ const ProductDetails = ({
   setCheckoutData,
   setCoupon,
   fetchCartData,
+  cartData
 }) => {
 
-  // console.log('cartProduct', cartProduct);
+  // console.log('cartData', cartData?.cart_total);
   // console.log('setCheckoutData', setCheckoutData);
   // console.log('setCoupon', setCoupon);
   // console.log('fetchCartData', fetchCartData);
 
   const navigate = useNavigate();
+
   const {
     handleSubmit,
     register,
     formState: { errors },
     reset,
-  } = useForm();
+    setValue
+  } = useForm(
+    {
+      defaultValues: {
+        coupon_code: cartData?.cart_total?.coupon_code
+      }
+    }
+  );
   const [loading, setLoading] = useState(false);
   const [couponApplyed, setCouponApplyed] = useState(false);
   const [deleteAlert, setDeleteAlert] = useState(false);
@@ -47,6 +57,7 @@ const ProductDetails = ({
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/apply/coupon`, {
         ...data,
+        coupon_code: cartData?.cart_total?.is_coupon === 1 ? cartData?.cart_total?.coupon_code : data?.coupon_code,
         customer_id: AuthUser()?.id,
         shipping_fee_id: localStorage.getItem("shipping_charge_id"),
       })
@@ -55,7 +66,8 @@ const ProductDetails = ({
         if (response.data.status === "error") {
           toast.error(response.data.message);
         } else {
-          toast.success(response.data.message);
+          data !== true &&
+            toast.success(response.data.message);
           setCouponApplyed(true);
           localStorage.setItem('coupon_amount', response.data.coupon_amount)
           localStorage.setItem("coupon_data", JSON.stringify(response.data))
@@ -68,6 +80,7 @@ const ProductDetails = ({
         }
       });
   };
+
   const removeAddons = (data) => {
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/delete/addon`, data)
@@ -80,6 +93,7 @@ const ProductDetails = ({
         }
       });
   };
+
   const removeCouponCode = async (toastRemove) => {
     setLoading(true);
     axios
@@ -89,14 +103,20 @@ const ProductDetails = ({
       })
       .then((response) => {
         setLoading(false);
+        setValue("coupon_code", "")
         if (response.data.status === "error") {
           !toastRemove &&
             toast.error(response.data.message);
+          setValue("coupon_code", "")
+          fetchCartData()
         } else {
-          !toastRemove && toast.success(response.data.message);
+          !toastRemove &&
+            toast.success(response.data.message);
           reset();
+          setValue("coupon_code", "")
           setCouponApplyed(false);
           setCoupon(null);
+          fetchCartData()
           localStorage.removeItem('coupon_amount')
           localStorage.removeItem("coupon_data");
           setCheckoutData(response.data.cart_info.cart_total);
@@ -107,6 +127,7 @@ const ProductDetails = ({
         }
       });
   };
+
   const clearCartData = () => {
     clearCartList().then((response) => {
       if (response.data.error === 0) {
@@ -118,6 +139,12 @@ const ProductDetails = ({
       }
     });
   };
+
+  useEffect(() => {
+    cartData?.cart_total?.is_coupon === 1 &&
+      CouponHandler(true)
+  }, [])
+
   // useEffect(() => {
   //   var coupon_data = JSON.parse(localStorage.getItem('coupon_data'))
   //   if (coupon_data !== null) {
@@ -165,7 +192,7 @@ const ProductDetails = ({
                   <h4 className="h5  mt-2 mb-2 mb-md-0">
                     <span className="new-price text-info fw-bold">₹{product?.price?.replace('.00', '')}</span>
                     {product.discount_percentage !== 0 &&
-                      <i className='old-price px-2'>₹{product.strike_price.replace('.00', '')}</i>
+                      <i className='old-price ps-2'>₹{product.strike_price.replace('.00', '')}</i>
                     }
                     {product.discount_percentage !== 0 &&
                       <span className="text-info fs-6">You Save (₹ {product.save_price}) </span>
@@ -244,22 +271,23 @@ const ProductDetails = ({
                 >
                   <b className="col-lg-4">Have a Coupon?</b>
                   <input
-                    disabled={couponApplyed}
+                    disabled={couponApplyed || cartData?.cart_total?.is_coupon}
                     type="text"
                     placeholder="Enter Coupon code here"
                     id="coupon"
                     name="coupon"
                     maxLength="12"
+                    // defaultValue={couponApplyed || cartData?.cart_total?.is_coupon ? couponCode : ""}
                     className={`form-control ms-2 w-lg-50 ${errors.coupon_code ? "border-danger" : ""
                       }`}
                     {...register("coupon_code", { required: true })}
                   />
                   <div>
-                    {couponApplyed ? (
+                    {couponApplyed || cartData?.cart_total?.is_coupon ? (
                       <button
                         loading={`${loading}`}
                         type="button"
-                        onClick={removeCouponCode}
+                        onClick={() => removeCouponCode(false)}
                         className="btn-link btn text-info"
                       >
                         Remove
@@ -359,7 +387,7 @@ const ProductDeleteButton = ({ product, fetchCartData, setCheckoutData, removeCo
         dispatch(removeCart(product));
         setTimeout(() => setLoading(false), 200);
         fetchCartData();
-        removeCouponCode()
+        removeCouponCode(false)
       } else {
         toast.error("Network Error");
         setLoading(false);

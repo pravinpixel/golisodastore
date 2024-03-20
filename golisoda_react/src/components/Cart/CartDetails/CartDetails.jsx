@@ -9,7 +9,7 @@ import {
   shippingChargesApi,
 } from "services/product.service";
 import AddressBookDetails from "components/MyAccount/MyAddressBook/AddressBookDetails";
-import { Modal, Spinner } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import PickupFromStoreAddress from "components/PickupFromStoreAddress/PickupFromStoreAddress";
 import { toast } from "react-hot-toast";
 // import { Tab } from "@mui/material";
@@ -29,7 +29,8 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
   const [addressModalType, setAddressModalType] = useState(null);
   const [shippingTypes, setshippingTypes] = useState([]);
   const [show, setShow] = useState(false);
-  const [codCheck, setCODCheck] = useState(false);
+  const [codInputCheck, setCODInputCheck] = useState(cartData?.cart_total?.is_cod);
+
   const [codLoading, setCODLoading] = useState(false);
 
   const billing_address = JSON.parse(localStorage.getItem('billing_address'))
@@ -63,11 +64,11 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
   };
 
   const cashOnDeliveryCheck = (e) => {
-    setCODCheck(e.target.checked)
+    setCODInputCheck(e.target.checked)
     const params = {
       customer_id: AuthUser()?.id,
       guest_token: localStorage.getItem("guest_token"),
-      is_cod: codCheck ? 0 : 1,
+      is_cod: codInputCheck ? 0 : 1,
       cod_amount: cartData?.cod_amount
     }
     checkoutCheckApi(params).then(response => {
@@ -150,7 +151,8 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
                                 name="shipping_type"
                                 id={type.shipping_title}
                                 className="me-2 form-check-input"
-                                checked={shipping_charge_id == type.id}
+                                checked={type.id === 2}
+                              // checked={shipping_charge_id == type.id}
                               />
                               {type.shipping_title}</span>
                             <div>
@@ -250,6 +252,7 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
                   name="shipping_type"
                   id="cashon_delivery"
                   className="me-2 form-check-input"
+                  checked={codInputCheck}
                 />Cash on delivery</span>
               <div>
                 <b><span>{cartData?.cod_amount}</span></b>
@@ -269,10 +272,17 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
               <span>Taxes</span>
               <div>₹ {checkoutData.tax_total}</div>
             </li>
+            {codInputCheck ?
+              <li className="list-group-item d-flex align-items-center justify-content-between">
+                <span>COD</span>
+                <div>₹ {checkoutData.cod_amount}</div>
+              </li> : null
+            }
             {coupon ?
               <li className="list-group-item d-flex align-items-center justify-content-between">
-                <span>Coupon</span>
-                <div className="text-success"> - ₹ {coupon.coupon_amount}</div>
+                <span>Coupon <b>{coupon.coupon_info.coupon_type?.discount_type === "percentage" ?
+                  `(${Number(coupon.coupon_info.coupon_type?.discount_value)}%)` : null}</b></span>
+                <div className="text-success">- ₹ {coupon.coupon_amount}</div>
               </li>
               : null}
             <li className="text-primary list-group-item d-flex align-items-center justify-content-between">
@@ -280,7 +290,7 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
               <span className="lead fw-bold">₹ {checkoutData.total}</span>
             </li>
           </ul>
-          {codCheck ?
+          {codInputCheck ?
             <div>
               <button className="btn btn-dark w-100 mt-3"
                 onClick={() => codLoading ? null : codSubmit()}
