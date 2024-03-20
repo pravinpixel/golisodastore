@@ -296,6 +296,7 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
                 shippingMethod={shippingMethod}
                 cartProduct={cartProduct}
                 checkoutData={checkoutData}
+                coupon={coupon}
               />
             </div>
           }

@@ -7,7 +7,7 @@ import { AuthUser, Loader } from 'utils'
 import useRazorpay from "react-razorpay";
 import axios from 'axios'
 
-function CheckoutButton({ className, shippingMethod, cartProduct, checkoutData }) {
+function CheckoutButton({ className, shippingMethod, cartProduct, checkoutData, coupon }) {
     const authUser = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const Razorpay = useRazorpay();
@@ -51,7 +51,8 @@ function CheckoutButton({ className, shippingMethod, cartProduct, checkoutData }
                 charge_id: shippingMethod.toUpperCase() === "PICKUP_FROM_STORE" ? null : shipping_charge_id
             },
             cart_items: cartProduct,
-            cart_total: checkoutData
+            cart_total: checkoutData,
+            ...coupon
         }
         if (validateProcess(checkData)) {
             setLoader(true)
