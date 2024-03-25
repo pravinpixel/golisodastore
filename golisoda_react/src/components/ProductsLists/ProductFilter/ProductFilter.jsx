@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useMemo } from "react";
 import { Col, Accordion } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,14 +17,14 @@ const ProductFilter = ({
   setCurrentLocation,
   setClearFilter,
   filterData,
-  products
+  products,
+  min, max
 }) => {
   const filter = useSelector((state) => state.filter)
-
   const [defaultActiveKey, setDefaultActiveKey] = useState(['brands', 'exclusive', 'categories', 'discounts']);
   const [isActive, setActive] = useState(window.innerWidth > 992 ? true : false);
   const [Filters, setFilters] = useState(false);
-  const [priceRange, setPriceRange] = useState([Number(products?.min_value), Number(products?.max_value)]);
+  const [priceRange, setPriceRange] = useState([min, max]);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +34,6 @@ const ProductFilter = ({
   filterData = filterData && filterData[1].split("_");
 
   const clearAllFilters = () => {
-    setPriceRange([Number(products?.min_value), Number(products?.max_value)])
     navigate("/products");
     dispatch(setfilter(''))
     var checkboxes = document.querySelectorAll(`.product-check-input`)
@@ -60,7 +58,6 @@ const ProductFilter = ({
 
 
   const filterHandler = (e) => {
-    setPriceRange([Number(products?.min_value), Number(products?.max_value)])
     if (e.target.value) {
       setFilterParams("sort_by", e.target.value)
       setClearFilter(true)
@@ -76,6 +73,18 @@ const ProductFilter = ({
     navigate(`/products?${searchParams.toString()}`)
     dispatch(setfilter(`/products?${searchParams.toString()}`));
   }
+
+  useEffect(() => {
+    const currentfilter = filter.split('?')[1].split('=')
+    if (currentfilter[0] === 'prices') {
+      setPriceRange(currentfilter[1].split('-'))
+      // setPriceRange([Number(products?.min_value), Number(products?.max_value)])
+    } else {
+      setPriceRange([Number(products?.min_value), Number(products?.max_value)])
+    }
+    // setPriceRange([Number(products?.min_value), Number(products?.max_value)])
+  }, [products])
+
   useMemo(() => {
     try {
       const currentfilter = filter.split('?')[1].split('=')
@@ -85,10 +94,6 @@ const ProductFilter = ({
     } catch (error) {
     }
   }, [filter])
-
-  useEffect(() => {
-    setPriceRange([Number(products?.min_value), Number(products?.max_value)])
-  }, [products])
 
   useEffect(() => {
     filterMenuApi().then(({ data }) => {
@@ -164,22 +169,17 @@ const ProductFilter = ({
                 <div className="d-flex align-items-center justify-content-between">
                   <h6 className="filter-title py-2">PRICE</h6>
                   <div >
-                    <small>₹{priceRange[0]}</small>
+                    <small>₹{min}</small>
                     <small> to </small>
-                    <small>₹{priceRange[1]}</small>
+                    <small>₹{max}</small>
                   </div>
                 </div>
-                <RangeSlider step={1} max={priceRange[1]} min={priceRange[0]}
-                  defaultValue={[priceRange[0], priceRange[1]]}
+                <RangeSlider step={10} max={max} min={min} defaultValue={priceRange}
                   key={Math.random()}
-                  onChange={(e) => {
-                    setPriceRange([e[0], e[1]])
-                    setPriceRange(e);
-                    setFilterParams("prices", e.join('-'))
-                  }} />
+                  onChange={(e) => { setPriceRange(e); setFilterParams("prices", e.join('-')) }} />
                 <div className="d-flex text-secondary align-items-center justify-content-between pt-2">
-                  <small><i>₹{priceRange[0]}</i></small>
-                  <small><i>₹{priceRange[1]}</i></small>
+                  <small><i>₹{min}</i></small>
+                  <small><i>₹{max}</i></small>
                 </div>
               </div>
               {

@@ -61,6 +61,8 @@ const ProductLists = () => {
               clearFilter={clearFilter}
               setClearFilter={setClearFilter}
               products={products}
+              min={Number(products?.min_value)}
+              max={Number(products?.max_value)}
             />
             <ProductListDetails
               setCurrentLocation={setCurrentLocation}
