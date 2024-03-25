@@ -24,12 +24,14 @@ const ProductLists = () => {
   let filterData = searchParams.toString();
   const [subcategory, setSubcategory] = useState([]);
 
+
   useMemo(() => {
     if (take === 20) {
       setfetching(true);
     } else {
       setTackLoader(true)
     }
+    console.log("take", take);
     productsApi(search, take).then(({ data }) => {
       setProduct(data);
       setfetching(false);
@@ -50,28 +52,31 @@ const ProductLists = () => {
 
   return (
     <div>
-      <section className="p-0 ps-lg-5 ps-3 pt-4">
-        <Row className="m-0  bg-white" >
-          <ProductFilter
-            filterData={filterData}
-            setCurrentLocation={setCurrentLocation}
-            clearFilter={clearFilter}
-            setClearFilter={setClearFilter}
-          />
-          <ProductListDetails
-            setCurrentLocation={setCurrentLocation}
-            clearFilter={clearFilter}
-            setClearFilter={setClearFilter}
-            products={products}
-            fetching={fetching}
-            setTake={setTake}
-            take={take}
-            tackLoader={tackLoader}
-            subcategory={subcategory}
-          />
-        </Row>
-        <ScrollToTop smooth />
-      </section>
+      {products?.length !== 0 &&
+        <section className="p-0 ps-lg-5 ps-3 pt-4">
+          <Row className="m-0  bg-white" >
+            <ProductFilter
+              filterData={filterData}
+              setCurrentLocation={setCurrentLocation}
+              clearFilter={clearFilter}
+              setClearFilter={setClearFilter}
+              products={products}
+            />
+            <ProductListDetails
+              setCurrentLocation={setCurrentLocation}
+              clearFilter={clearFilter}
+              setClearFilter={setClearFilter}
+              products={products}
+              fetching={fetching}
+              setTake={setTake}
+              take={take}
+              tackLoader={tackLoader}
+              subcategory={subcategory}
+            />
+          </Row>
+          <ScrollToTop smooth />
+        </section>
+      }
     </div>
   );
 };

@@ -1320,3 +1320,45 @@ button[loading="true"] {
 .tab-content p {
   margin-bottom: 5px !important;
 }
+
+// .productSidemenu input {
+//   background-color: #0000;
+//   border: 1px solid #232362;
+//   height: 20px;
+//   width: 20px;
+// }
+
+// .productSidemenu .form-check-input[type=radio] {
+//   border-radius: 0px !important;
+// }
+
+.cstm-chkbx input[type=radio]:checked~.checkmark {
+  background: white !important;
+  border: none;
+}
+
+.cstm-chkbx .checkmarkRadio {
+  border-radius: 50%;
+}
+
+.cstm-chkbx .checkmarkRadio::after {
+  border: 6px solid #232362 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+  position: unset;
+  transform: unset !important;
+}
+
+// .productSidemenu.form-check-input:checked {
+//   height: 20px;
+//   width: 20px;
+// }
+
+// .productSidemenu .filter-text {
+//   font-size: 12px !important;
+//   text-transform: capitalize !important;
+//   padding-left: 10px;
+//   position: relative;
+//   top: 1px;
+// }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useMemo } from "react";
 import { Col, Accordion } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -17,12 +18,14 @@ const ProductFilter = ({
   setCurrentLocation,
   setClearFilter,
   filterData,
+  products
 }) => {
   const filter = useSelector((state) => state.filter)
+
   const [defaultActiveKey, setDefaultActiveKey] = useState(['brands', 'exclusive', 'categories', 'discounts']);
   const [isActive, setActive] = useState(window.innerWidth > 992 ? true : false);
   const [Filters, setFilters] = useState(false);
-  const [priceRange, setPriceRange] = useState([25000, 75000]);
+  const [priceRange, setPriceRange] = useState([Number(products?.min_value), Number(products?.max_value)]);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,6 +35,7 @@ const ProductFilter = ({
   filterData = filterData && filterData[1].split("_");
 
   const clearAllFilters = () => {
+    setPriceRange([Number(products?.min_value), Number(products?.max_value)])
     navigate("/products");
     dispatch(setfilter(''))
     var checkboxes = document.querySelectorAll(`.product-check-input`)
@@ -56,6 +60,7 @@ const ProductFilter = ({
 
 
   const filterHandler = (e) => {
+    setPriceRange([Number(products?.min_value), Number(products?.max_value)])
     if (e.target.value) {
       setFilterParams("sort_by", e.target.value)
       setClearFilter(true)
@@ -63,6 +68,7 @@ const ProductFilter = ({
       setClearFilter(false)
     }
   };
+
   const setFilterParams = (name, value) => {
     const searchParams = new URLSearchParams(location.search)
     searchParams.set(name, value)
@@ -79,6 +85,11 @@ const ProductFilter = ({
     } catch (error) {
     }
   }, [filter])
+
+  useEffect(() => {
+    setPriceRange([Number(products?.min_value), Number(products?.max_value)])
+  }, [products])
+
   useEffect(() => {
     filterMenuApi().then(({ data }) => {
       filterAccordionHandler(data);
@@ -155,13 +166,20 @@ const ProductFilter = ({
                   <div >
                     <small>₹{priceRange[0]}</small>
                     <small> to </small>
-                    <small>₹{toPriceString(priceRange[1])}</small>
+                    <small>₹{priceRange[1]}</small>
                   </div>
                 </div>
-                <RangeSlider step={5000} max={200000} min={5000} defaultValue={priceRange} onChange={(e) => { setPriceRange(e); setFilterParams("prices", e.join('-')) }} />
+                <RangeSlider step={1} max={priceRange[1]} min={priceRange[0]}
+                  defaultValue={[priceRange[0], priceRange[1]]}
+                  key={Math.random()}
+                  onChange={(e) => {
+                    setPriceRange([e[0], e[1]])
+                    setPriceRange(e);
+                    setFilterParams("prices", e.join('-'))
+                  }} />
                 <div className="d-flex text-secondary align-items-center justify-content-between pt-2">
-                  <small><i>₹5000</i></small>
-                  <small><i>₹200000</i></small>
+                  <small><i>₹{priceRange[0]}</i></small>
+                  <small><i>₹{priceRange[1]}</i></small>
                 </div>
               </div>
               {

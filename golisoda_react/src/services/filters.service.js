@@ -18,8 +18,8 @@ const subcategoryMenuApi = async (payload) => {
 const productListCategoryMenuApi = async (payload) => {
   return await axios.post(
     `${process.env.REACT_APP_BASE_URL}/get/product/list/category`, {
-      category_slug: payload
-    }
+    category_slug: payload
+  }
   );
 };
 const productsApi = async (search, take) => {
