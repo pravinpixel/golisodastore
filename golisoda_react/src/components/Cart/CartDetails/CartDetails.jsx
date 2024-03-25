@@ -21,6 +21,7 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
 
   const authUser = useSelector((state) => state.auth);
   const address = useSelector((state) => state.cartAddress);
+  localStorage.setItem("shipping_charge_id", 2);
 
   // const [shippingMethod, setShippingMethod] = useState(pickupSelector !== 1 ?
   //   "Standard_Shipping" : "Pickup_From_Store");
@@ -76,6 +77,36 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
     })
   }
 
+  const validateProcess = (data) => {
+    if (data.shipping_method.type === null) {
+      toast.error('Select Shipping Method!')
+      setCODLoading(false);
+      return false
+    }
+    if (data.shipping_method.type === "STANDARD_SHIPPING" && data.shipping_method.charge_id === null) {
+      toast.error('Select Shipping Charge type!')
+      setCODLoading(false);
+      return false
+    }
+    if (data.shipping_method.type === "STANDARD_SHIPPING" && shipping_address === null) {
+      toast.error('Shippping address is required!')
+      setCODLoading(false);
+      return false
+    }
+    if (data.billing_address_id === undefined) {
+      toast.error('Billing address is required!')
+      setCODLoading(false);
+      return false
+    }
+    if (data.shipping_method.type === "PICKUP_FROM_STORE" && store_address === null) {
+      toast.error('Store address is required!')
+      setCODLoading(false);
+      return false
+    }
+
+    return true;
+  }
+
   const codSubmit = () => {
     setCODLoading(true)
     const checkData = {
@@ -91,31 +122,33 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
       status: "cod",
       ...coupon
     }
-    checkoutCodApi(checkData).then(response => {
-      if (response.error === 1) {
-        toast.error(response.message);
-        setCODLoading(false);
-      } else if (response.data?.status === false) {
-        toast.error(response.data?.message);
-        setCODLoading(false);
-      }
-      else {
-        setCODLoading(false)
-        localStorage.removeItem("shipping_address");
-        localStorage.removeItem("billing_address");
-        localStorage.removeItem("cart_list");
-        localStorage.removeItem("shiprocket_charges");
-        localStorage.removeItem("cart_coupon");
-        localStorage.removeItem("flat_charge");
-        // dispatch(setCartCount(0));
-        // dispatch(clearCart());
-        // toast.success(response.data.message);
-        // navigate("/payment-success");
-        window.location.href = '/payment-success'
-        // verifyPayment(response.data);
-      }
+    if (validateProcess(checkData)) {
+      checkoutCodApi(checkData).then(response => {
+        if (response.error === 1) {
+          toast.error(response.message);
+          setCODLoading(false);
+        } else if (response.data?.status === false) {
+          toast.error(response.data?.message);
+          setCODLoading(false);
+        }
+        else {
+          setCODLoading(false)
+          localStorage.removeItem("shipping_address");
+          localStorage.removeItem("billing_address");
+          localStorage.removeItem("cart_list");
+          localStorage.removeItem("shiprocket_charges");
+          localStorage.removeItem("cart_coupon");
+          localStorage.removeItem("flat_charge");
+          // dispatch(setCartCount(0));
+          // dispatch(clearCart());
+          // toast.success(response.data.message);
+          // navigate("/payment-success");
+          window.location.href = '/payment-success'
+          // verifyPayment(response.data);
+        }
 
-    })
+      })
+    }
   }
 
   if (checkoutData)

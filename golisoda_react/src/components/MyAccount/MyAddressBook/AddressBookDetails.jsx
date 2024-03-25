@@ -114,9 +114,12 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
           Add New Address
         </button>
       </div>
-      {addresses.length > 0 ? (
+
+      {console.log("addresses", addresses)}
+
+      {addresses?.length > 0 ? (
         <ul className="list-group">
-          {addresses.map((address, i) => (
+          {addresses?.map((address, i) => (
             <label
               htmlFor={address?.name}
               key={i}
@@ -210,7 +213,7 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
         </ul>
       ) : null}
       {isFetching && <HalfHeightLoader />}
-      {addresses.length === 0 && isFetching === false && <NoDataComponent />}
+      {addresses?.length === 0 && isFetching === false && <NoDataComponent />}
       {/* <AddNewAddressModal show={modalShow} onHide={() => setModalShow(false)} /> */}
       <SweetAlert
         warning

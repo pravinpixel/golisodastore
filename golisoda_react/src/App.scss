@@ -1312,3 +1312,11 @@ button[loading="true"] {
   text-decoration-line: line-through;
   color: #929292;
 }
+
+.tab-content ul li {
+  display: list-item;
+}
+
+.tab-content p {
+  margin-bottom: 5px !important;
+}

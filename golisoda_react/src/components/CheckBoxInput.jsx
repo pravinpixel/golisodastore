@@ -14,6 +14,10 @@ function CheckBoxInput({ data, name }) {
     const searchParams = new URLSearchParams(search)
     const filter = useSelector((state) => state.filter)
 
+    const radioTypes = [
+        "categories", "brands"
+    ]
+
     const handler = () => {
         setisChecked(!isChecked)
         var array = []
@@ -44,10 +48,9 @@ function CheckBoxInput({ data, name }) {
 
     if (data !== undefined) return (
         <div>
-
             <label className="cstm-chkbx" htmlFor={data.slug} >
                 <div className="filter-text">{data.name}</div>
-                <input type={name === 'categories' ? 'radio' : 'checkbox'} id={data.slug} value={data.slug} name={name}
+                <input type={radioTypes?.includes(name) ? 'radio' : 'checkbox'} id={data.slug} value={data.slug} name={name}
                     className={`${name}-product-check-input product-check-input`} onChange={handler}
                     defaultChecked={searchParams.get(name) === data.slug}
                 />
