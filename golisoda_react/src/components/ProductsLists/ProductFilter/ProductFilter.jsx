@@ -1,8 +1,9 @@
-import { useState, useEffect, useMemo } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
 import { Col, Accordion } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { filterMenuApi } from "services/filters.service";
-import { Text, toPriceString } from "utils";
+import { Text } from "utils";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { setfilter } from "redux/features/filterSlice";
@@ -25,6 +26,8 @@ const ProductFilter = ({
   const [isActive, setActive] = useState(window.innerWidth > 992 ? true : false);
   const [Filters, setFilters] = useState(false);
   const [priceRange, setPriceRange] = useState([min, max]);
+  const [minValue, setMinValue] = useState(min);
+  const [maxValue, setMaxValue] = useState(max);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,42 +61,45 @@ const ProductFilter = ({
 
 
   const filterHandler = (e) => {
+    setPriceRange([Number(products?.min_value), Number(products?.max_value)])
     if (e.target.value) {
-      setFilterParams("sort_by", e.target.value)
+      setFilterParams("sort_by", e.target.value, true)
       setClearFilter(true)
     } else {
       setClearFilter(false)
     }
   };
 
-  const setFilterParams = (name, value) => {
+  const setFilterParams = (name, value, priceCheck) => {
     const searchParams = new URLSearchParams(location.search)
     searchParams.set(name, value)
+    if (priceCheck) {
+      searchParams.delete("prices")
+    }
     setCurrentLocation(`?${searchParams.toString()}`)
     navigate(`/products?${searchParams.toString()}`)
     dispatch(setfilter(`/products?${searchParams.toString()}`));
   }
 
   useEffect(() => {
-    const currentfilter = filter.split('?')[1].split('=')
-    if (currentfilter[0] === 'prices') {
-      setPriceRange(currentfilter[1].split('-'))
+    if (searchParams.get('prices') !== null) {
+      // setPriceRange(currentfilter[1].split('-'))
       // setPriceRange([Number(products?.min_value), Number(products?.max_value)])
     } else {
       setPriceRange([Number(products?.min_value), Number(products?.max_value)])
+      setMinValue(Number(products?.min_value))
+      setMaxValue(Number(products?.max_value))
     }
-    // setPriceRange([Number(products?.min_value), Number(products?.max_value)])
   }, [products])
 
-  useMemo(() => {
-    try {
-      const currentfilter = filter.split('?')[1].split('=')
-      if (currentfilter[0] === 'prices') {
-        setPriceRange(currentfilter[1].split('-'))
-      }
-    } catch (error) {
-    }
-  }, [filter])
+  // useMemo(() => {
+  //   try {
+  //     const currentfilter = filter.split('?')[1].split('=')
+  //     if (searchParams.get('prices') !== null) {
+  //     }
+  //   } catch (error) {
+  //   }
+  // }, [filter])
 
   useEffect(() => {
     filterMenuApi().then(({ data }) => {
@@ -134,7 +140,8 @@ const ProductFilter = ({
             <div className={`${isActive ? "active" : ""} pt-0  product-filters filter-lists`}>
               <div className="sticky-top bg-white">
                 {
-                  window.innerWidth < 992 ? <button className="float-end btn btn-sm btn-light border py-1 mt-1 rounded-pill" onClick={() => setActive(!isActive)}>
+                  window.innerWidth < 992 ? <button className="float-end btn btn-sm btn-light border py-1 mt-1 rounded-pill"
+                    onClick={() => setActive(!isActive)}>
                     <IoMdClose />
                   </button> : null
                 }
@@ -169,17 +176,20 @@ const ProductFilter = ({
                 <div className="d-flex align-items-center justify-content-between">
                   <h6 className="filter-title py-2">PRICE</h6>
                   <div >
-                    <small>₹{min}</small>
+                    <small>₹{searchParams.get('prices') === null ? minValue : searchParams.get('prices').split("-")[0]}</small>
                     <small> to </small>
-                    <small>₹{max}</small>
+                    <small>₹{searchParams.get('prices') === null ? maxValue : searchParams.get('prices').split("-")[1]}</small>
                   </div>
                 </div>
-                <RangeSlider step={10} max={max} min={min} defaultValue={priceRange}
+                <RangeSlider step={10} max={maxValue} min={minValue} defaultValue={priceRange}
                   key={Math.random()}
-                  onChange={(e) => { setPriceRange(e); setFilterParams("prices", e.join('-')) }} />
+                  onChange={(e) => {
+                    setPriceRange(e);
+                    setFilterParams("prices", e.join('-'), false)
+                  }} />
                 <div className="d-flex text-secondary align-items-center justify-content-between pt-2">
-                  <small><i>₹{min}</i></small>
-                  <small><i>₹{max}</i></small>
+                  <small><i>₹{minValue}</i></small>
+                  <small><i>₹{maxValue}</i></small>
                 </div>
               </div>
               {

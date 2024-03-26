@@ -31,7 +31,6 @@ const ProductLists = () => {
     } else {
       setTackLoader(true)
     }
-    console.log("take", take);
     productsApi(search, take).then(({ data }) => {
       setProduct(data);
       setfetching(false);

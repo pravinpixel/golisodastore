@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Chip, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,13 +25,23 @@ function FilterChips() {
             var tempArray = []
             tempFilter.forEach(item => {
                 if (item.split('=')[0] !== "fbclid") {
+                    const itemKey = item.split('=')[0]
+                    console.log("itemKey", itemKey);
+
                     item = item.replace('?', '')
                     item = item.split('=')[1]
                     if (item.includes('_')) {
                         const tempstr = item.split('_')
-                        tempArray.push(...tempstr)
+                        // tempArray.push(...tempstr)
+                        tempArray.push({
+                            key: itemKey,
+                            label: tempstr,
+                        })
                     } else {
-                        tempArray.push(item)
+                        tempArray.push({
+                            key: itemKey,
+                            label: item
+                        })
                     }
                 }
             })
@@ -76,15 +87,21 @@ function FilterChips() {
     if (search) {
         return (
             <div className="pt-2">
+                {console.log("currentFilters", currentFilters)}
                 <Stack direction="row" className="flex-wrap" gap={1}>
                     {
                         currentFilters.length && currentFilters.map((item, index) => (
                             <Chip
                                 key={index}
-                                label={item?.replaceAll('-', ' ')}
+                                label={
+                                    item?.key === "discounts" ? `${item?.label?.split("-")[0]}% to ${item?.label?.split("-")[1]}%` :
+                                        item?.key === "prices" ?
+                                            item?.label?.replaceAll('-', ' to ') :
+                                            item?.label?.replaceAll('-', ' ')
+                                }
                                 size="small"
                                 color="warning"
-                                onDelete={(e) => removeFilter(item)}
+                                onDelete={(e) => removeFilter(item?.label)}
                             />
                         ))
                     }

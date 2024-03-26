@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -46,11 +47,11 @@ function CheckBoxInput({ data, name }) {
         <div className="mb-1">
             <label className="cstm-chkbx" htmlFor={data.slug} >
                 <div className="filter-text">{data.name}</div>
-                <input type={name === 'categories' ? 'radio' : 'checkbox'} id={data.slug} value={data.slug} name={name}
+                <input type={name === 'categories' || name === 'discounts' ? 'radio' : 'checkbox'} id={data.slug} value={data.slug} name={name}
                     className={`${name}-product-check-input product-check-input`} onChange={handler}
                     defaultChecked={searchParams.get(name) === data.slug}
                 />
-                <span className={name === 'categories' ? "checkmarkRadio checkmark" : "checkmark"}></span>
+                <span className={name === 'categories' || name === 'discounts' ? "checkmarkRadio checkmark" : "checkmark"}></span>
             </label>
         </div>
     )
