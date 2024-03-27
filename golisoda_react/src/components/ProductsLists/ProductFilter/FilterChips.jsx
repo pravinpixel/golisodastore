@@ -26,8 +26,6 @@ function FilterChips() {
             tempFilter.forEach(item => {
                 if (item.split('=')[0] !== "fbclid") {
                     const itemKey = item.split('=')[0]
-                    console.log("itemKey", itemKey);
-
                     item = item.replace('?', '')
                     item = item.split('=')[1]
                     if (item.includes('_')) {
@@ -87,22 +85,37 @@ function FilterChips() {
     if (search) {
         return (
             <div className="pt-2">
-                {console.log("currentFilters", currentFilters)}
                 <Stack direction="row" className="flex-wrap" gap={1}>
                     {
                         currentFilters.length && currentFilters.map((item, index) => (
-                            <Chip
-                                key={index}
-                                label={
-                                    item?.key === "discounts" ? `${item?.label?.split("-")[0]}% to ${item?.label?.split("-")[1]}%` :
-                                        item?.key === "prices" ?
-                                            item?.label?.replaceAll('-', ' to ') :
-                                            item?.label?.replaceAll('-', ' ')
-                                }
-                                size="small"
-                                color="warning"
-                                onDelete={(e) => removeFilter(item?.label)}
-                            />
+                            typeof item?.label === "string" ?
+                                <Chip
+                                    key={index}
+                                    label={
+                                        item?.key === "discounts" ? `${item?.label?.split("-")[0]}% to ${item?.label?.split("-")[1]}%` :
+                                            item?.key === "prices" ?
+                                                item?.label?.replaceAll('-', ' to ') :
+                                                item?.label?.replaceAll('-', ' ')
+                                    }
+                                    size="small"
+                                    color="warning"
+                                    onDelete={(e) => removeFilter(item?.label)}
+                                /> : <>
+                                    {item?.label?.map((itemArray, index) => (
+                                        <Chip
+                                            key={index}
+                                            label={
+                                                item?.key === "discounts" ? `${itemArray?.split("-")[0]}% to ${itemArray?.split("-")[1]}%` :
+                                                    item?.key === "prices" ?
+                                                        itemArray?.replaceAll('-', ' to ') :
+                                                        itemArray?.replaceAll('-', ' ')
+                                            }
+                                            size="small"
+                                            color="warning"
+                                            onDelete={(e) => removeFilter(itemArray)}
+                                        />
+                                    ))}
+                                </>
                         ))
                     }
                 </Stack>

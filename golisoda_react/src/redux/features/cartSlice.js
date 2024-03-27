@@ -4,6 +4,8 @@ import { createSlice } from '@reduxjs/toolkit'
 // import { AuthUser } from 'utils';
 
 const cartList = JSON.parse(localStorage.getItem('cart_list'))
+console.log("cartList", cartList);
+
 const initialState = {
   value: cartList ? cartList.length : 0,
   data: cartList ? cartList : [],
@@ -21,9 +23,10 @@ export const cartSlice = createSlice({
       }
     },
     setCartCount: (state, action) => {
+      console.log("action", action?.payload?.length);
       return state = {
-        value: action.payload,
-        data: cartList ? cartList : [],
+        value: action?.payload?.length,
+        // data: cartList ? cartList : [],
       }
     },
     setCart: (state, action) => {
@@ -64,6 +67,6 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { setCart, removeCart, setCartList, clearCart,setCartCount } = cartSlice.actions
+export const { setCart, removeCart, setCartList, clearCart, setCartCount } = cartSlice.actions
 
 export default cartSlice.reducer

@@ -36,6 +36,7 @@ function Login() {
         data: response.data.customer_data,
         isLoggedIn: true
       }))
+      localStorage.setItem('cart_list', JSON.stringify(response.data.cart_count))
       dispatch(setCartCount(response.data.cart_count))
       dispatch(setLayoutStatus({
         status: false,
