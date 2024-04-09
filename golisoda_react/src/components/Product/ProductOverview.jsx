@@ -6,13 +6,13 @@ function ProductOverview({ product }) {
                 <h5>Product Overview</h5>
                 {product?.no_of_items !== null ?
                     <div className="row">
-                        <div className="col-md-3 text-title">
+                        <div className="col-md-4 text-title">
                             <ul className="bullet-points">
                                 <li><span className="text-info">No of Items</span></li>
                             </ul>
                         </div>
                         <div className="w-auto"><span> : </span></div>
-                        <div className="col-md-8">
+                        <div className="col-md-7">
                             <ul>
                                 <li>{product?.no_of_items}</li>
                             </ul>
@@ -21,13 +21,13 @@ function ProductOverview({ product }) {
                 }
                 {product?.material_ingredients !== null ?
                     <div className="row">
-                        <div className="col-md-3 text-title">
+                        <div className="col-md-4 text-title">
                             <ul className="bullet-points">
-                                <li><span className="text-info">Material Ingredients</span></li>
+                                <li><span className="text-info">Material / Ingredients</span></li>
                             </ul>
                         </div>
                         <div className="w-auto"><span> : </span></div>
-                        <div className="col-md-8">
+                        <div className="col-md-7">
                             <ul>
                                 <li>{product?.material_ingredients}</li>
                             </ul>
@@ -36,13 +36,13 @@ function ProductOverview({ product }) {
                 }
                 {product?.features !== null ?
                     <div className="row">
-                        <div className="col-md-3 text-title">
+                        <div className="col-md-4 text-title">
                             <ul className="bullet-points">
                                 <li><span className="text-info">Features</span></li>
                             </ul>
                         </div>
                         <div className="w-auto"><span> : </span></div>
-                        <div className="col-md-8">
+                        <div className="col-md-7">
                             <ul>
                                 <li>{product?.features}</li>
                             </ul>
@@ -51,13 +51,13 @@ function ProductOverview({ product }) {
                 }
                 {product?.benefits !== null ?
                     <div className="row">
-                        <div className="col-md-3 text-title">
+                        <div className="col-md-4 text-title">
                             <ul className="bullet-points">
                                 <li><span className="text-info">Benefits</span></li>
                             </ul>
                         </div>
                         <div className="w-auto"><span> : </span></div>
-                        <div className="col-md-8">
+                        <div className="col-md-7">
                             <ul>
                                 <li>{product?.benefits}</li>
                             </ul>
@@ -66,7 +66,7 @@ function ProductOverview({ product }) {
                 }
                 {product.overview.map((view) => (
                     <div className="row">
-                        <div className="col-md-3 text-title">
+                        <div className="col-md-4 text-title">
                             <ul className="bullet-points">
                                 <li key={view.id}>
                                     <span className="text-info">{view.title}</span>
@@ -76,7 +76,7 @@ function ProductOverview({ product }) {
                         <div className="w-auto">
                             <span> : </span>
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-md-7">
                             <ul>
                                 <li>
                                     {view.attribute_values}
