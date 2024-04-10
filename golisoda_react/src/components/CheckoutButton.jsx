@@ -57,8 +57,11 @@ function CheckoutButton({ className, shippingMethod, cartProduct, checkoutData, 
         if (validateProcess(checkData)) {
             setLoader(true)
             checkoutApi(checkData).then(response => {
-                if (response.error === 1) {
-                    toast.error(response.message);
+                if (response?.data?.error === 1) {
+                    toast.error(response.data?.message);
+                    setLoader(false);
+                } else if (response?.data?.error === "1") {
+                    toast.error(response.data?.message);
                     setLoader(false);
                 } else if (response.data?.status === false) {
                     toast.error(response.data?.message);
