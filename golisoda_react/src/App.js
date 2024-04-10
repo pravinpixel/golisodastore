@@ -29,6 +29,7 @@ import {
   ComparePage,
   StoreLocationDetailsPage,
   PaymentSuccess,
+  OrderSuccess,
   TermsConditions,
   VerifyPayment,
   PaymentFaild
@@ -75,6 +76,7 @@ function App() {
             <Route path="/verify-account/:token" element={<VerifyAccount />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/payment-faild" element={<PaymentFaild />} />
             <Route path="/verify-payment/:token" element={<VerifyPayment />} />
             <Route path="/terms-conditions" element={<TermsConditions />} />

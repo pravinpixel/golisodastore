@@ -30,7 +30,7 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
   const [addressModalType, setAddressModalType] = useState(null);
   const [shippingTypes, setshippingTypes] = useState([]);
   const [show, setShow] = useState(false);
-  const [codInputCheck, setCODInputCheck] = useState(cartData?.cart_total?.is_cod);
+  const [codInputCheck, setCODInputCheck] = useState(false);
 
   const [codLoading, setCODLoading] = useState(false);
 
@@ -124,8 +124,11 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
     }
     if (validateProcess(checkData)) {
       checkoutCodApi(checkData).then(response => {
-        if (response.error === 1) {
-          toast.error(response.message);
+        if (response?.data?.error === 1) {
+          toast.error(response.data?.message);
+          setCODLoading(false);
+        } else if (response?.data?.error === "1") {
+          toast.error(response.data?.message);
           setCODLoading(false);
         } else if (response.data?.status === false) {
           toast.error(response.data?.message);
@@ -139,12 +142,7 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
           localStorage.removeItem("shiprocket_charges");
           localStorage.removeItem("cart_coupon");
           localStorage.removeItem("flat_charge");
-          // dispatch(setCartCount(0));
-          // dispatch(clearCart());
-          // toast.success(response.data.message);
-          // navigate("/payment-success");
-          window.location.href = '/payment-success'
-          // verifyPayment(response.data);
+          window.location.href = '/order-success'
         }
 
       })

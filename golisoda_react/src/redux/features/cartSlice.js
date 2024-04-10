@@ -4,7 +4,6 @@ import { createSlice } from '@reduxjs/toolkit'
 // import { AuthUser } from 'utils';
 
 const cartList = JSON.parse(localStorage.getItem('cart_list'))
-console.log("cartList", cartList);
 
 const initialState = {
   value: cartList ? cartList.length : 0,

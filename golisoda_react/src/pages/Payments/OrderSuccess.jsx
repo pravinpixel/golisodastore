@@ -14,7 +14,7 @@ export default function PaymentSuccess() {
       }}
     >
       <img
-        style={{ position: "absolute", top: 0, left: 0 ,height:"100%"}}
+        style={{ position: "absolute", top: 0, left: 0, height: "100%" }}
         src="https://i.pinimg.com/originals/12/4d/e3/124de3d1b5e12f1d8fcec1685e634361.gif"
         width="100%"
         alt="Success-gif"
@@ -26,7 +26,7 @@ export default function PaymentSuccess() {
           className="mx-auto"
           alt="img"
         />
-        <h2 className="mt-3 mb-2">Payment Successful</h2>
+        <h2 className="mt-3 mb-2">Order Successful</h2>
         {/* <h1 className="fw-bold mb-3" style={{color: '#48914b' }}>₹{state?.amount}</h1>
         <p className="text-secondary">#Order ID : <Link to={`/my-account/myorders/${state?.order_no}`} className="text-dark mb-2"><u>{state?.order_no}</u></Link></p>
         <p className="text-secondary">#Transaction  ID :  <u>{state?.payment_no}</u> </p> */}
