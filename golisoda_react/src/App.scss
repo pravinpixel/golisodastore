@@ -1350,6 +1350,14 @@ button[loading="true"] {
   transform: unset !important;
 }
 
+.html-list-order ul li {
+  display: list-item;
+}
+
+.html-list-order ul {
+  margin-bottom: 15px;
+}
+
 // .productSidemenu.form-check-input:checked {
 //   height: 20px;
 //   width: 20px;

@@ -13,9 +13,10 @@ function ProductOverview({ product }) {
                         </div>
                         <div className="w-auto"><span> : </span></div>
                         <div className="col-md-7">
-                            <ul>
+                            {product?.no_of_items}
+                            {/* <ul>
                                 <li>{product?.no_of_items}</li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div> : null
                 }
@@ -28,9 +29,10 @@ function ProductOverview({ product }) {
                         </div>
                         <div className="w-auto"><span> : </span></div>
                         <div className="col-md-7">
-                            <ul>
-                                <li>{product?.material_ingredients}</li>
-                            </ul>
+                            <div className="html-list-order" dangerouslySetInnerHTML={{ __html: product?.material_ingredients }} />
+                            {/* <ul>
+                                <li dangerouslySetInnerHTML={{ __html: product?.material_ingredients }}></li>
+                            </ul> */}
                         </div>
                     </div> : null
                 }
@@ -43,9 +45,10 @@ function ProductOverview({ product }) {
                         </div>
                         <div className="w-auto"><span> : </span></div>
                         <div className="col-md-7">
-                            <ul>
-                                <li>{product?.features}</li>
-                            </ul>
+                            <div className="html-list-order" dangerouslySetInnerHTML={{ __html: product?.features }} />
+                            {/* <ul>
+                                <li dangerouslySetInnerHTML={{ __html: product?.features }}></li>
+                            </ul> */}
                         </div>
                     </div> : null
                 }
@@ -58,9 +61,10 @@ function ProductOverview({ product }) {
                         </div>
                         <div className="w-auto"><span> : </span></div>
                         <div className="col-md-7">
-                            <ul>
+                            <div className="html-list-order" dangerouslySetInnerHTML={{ __html: product?.benefits }} />
+                            {/* <ul>
                                 <li>{product?.benefits}</li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div> : null
                 }
