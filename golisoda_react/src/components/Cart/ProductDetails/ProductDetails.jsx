@@ -247,6 +247,7 @@ const ProductDetails = ({
               <div className="d-flex d-md-inline-block justify-content-between">
                 <ProductQuantityInput
                   product={product}
+                  fetchCartData={fetchCartData}
                   setCheckoutData={setCheckoutData}
                 />
                 <ProductDeleteButton
@@ -406,7 +407,8 @@ const ProductDeleteButton = ({ product, fetchCartData, setCheckoutData, removeCo
     </div>
   );
 };
-const ProductQuantityInput = ({ product, setCheckoutData }) => {
+
+const ProductQuantityInput = ({ product, setCheckoutData, fetchCartData }) => {
   const [count, setCount] = useState(
     Number(product.quantity) === 0 ? 1 : Number(product.quantity)
   );
@@ -431,7 +433,10 @@ const ProductQuantityInput = ({ product, setCheckoutData }) => {
       <button
         disabled={count <= 1 ? true : false}
         // disabled={count <= Number(product.quantity) || loading}
-        onClick={() => updateCart("DECREASE")}
+        onClick={() => {
+          updateCart("DECREASE")
+          fetchCartData()
+        }}
         className="btn btn-sm btn-light"
       >
         <BsDash />
@@ -441,7 +446,10 @@ const ProductQuantityInput = ({ product, setCheckoutData }) => {
       </button>
       <button
         // disabled={count >= Number(product.max_quantity) || loading}
-        onClick={() => updateCart("INCREASE")}
+        onClick={() => {
+          updateCart("INCREASE")
+          fetchCartData()
+        }}
         className="btn btn-sm btn-light"
       >
         <BsPlus />

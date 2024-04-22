@@ -25,31 +25,31 @@ function ProductPage() {
   }, [slug])
   return (
     <div className="dark-section">
-      <Container>
-        {
-          fetching ?
-            <Loader />
-            :
-            <>
-              {
-                product.length === 0 ?
-                  <Navigate to='/404' />
-                  :
-                  <>
-                    <Helmet>
-                      <title>{product?.meta?.meta_title || "Golisoda | Product Details"}</title>
-                      <link rel="canonical" href={window.location.href} />
-                      <title>{product?.meta?.meta_title || "Golisoda | Product Details"}</title>
-                      <meta name="title" content={product?.meta?.meta_title || "Golisoda | Product Details"} />
-                      <meta name="description" content={product?.meta?.meta_description} />
-                      <meta name="keywords" content={product?.meta?.meta_keyword} />
-                    </Helmet>
-                    <ProductDetails product={product} />
-                  </>
-              }
-            </>
-        }
-      </Container>
+      {/* <Container> */}
+      {
+        fetching ?
+          <Loader />
+          :
+          <>
+            {
+              product.length === 0 ?
+                <Navigate to='/404' />
+                :
+                <>
+                  <Helmet>
+                    <title>{product?.meta?.meta_title || "Golisoda | Product Details"}</title>
+                    <link rel="canonical" href={window.location.href} />
+                    <title>{product?.meta?.meta_title || "Golisoda | Product Details"}</title>
+                    <meta name="title" content={product?.meta?.meta_title || "Golisoda | Product Details"} />
+                    <meta name="description" content={product?.meta?.meta_description} />
+                    <meta name="keywords" content={product?.meta?.meta_keyword} />
+                  </Helmet>
+                  <ProductDetails product={product} />
+                </>
+            }
+          </>
+      }
+      {/* </Container> */}
     </div>
   )
 }

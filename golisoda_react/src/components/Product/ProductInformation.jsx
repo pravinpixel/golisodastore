@@ -12,7 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RiMapPinLine } from "react-icons/ri";
 import { setStoreAddress } from "redux/features/cartAddressSlice";
 import { toast } from "react-hot-toast";
-import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
+import {
+  EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton,
+  TwitterShareButton, WhatsappIcon, WhatsappShareButton
+} from "react-share";
 import { useNavigate } from "react-router-dom";
 function ProductInformation({ product }) {
   const address = useSelector((state) => state.cartAddress);
@@ -50,7 +53,7 @@ function ProductInformation({ product }) {
 
   return (
     <div>
-      <h1 className="h6 product-title">{product.product_name}</h1>
+      <h2 className="product-title fw-bold">{product.product_name}</h2>
       <div className="d-md-flex align-items-end mb-md-3 mb-2">
         <div className="text-sku mb-md-0 mb-2">SKU: {product?.sku}</div>
         {product?.common_review?.rating ? (
@@ -86,7 +89,7 @@ function ProductInformation({ product }) {
           ₹ {product.price}
         </div>
         {product.discount_percentage !== 0 &&
-          <div className="text-info fs-6">You Save (₹ {product.save_price}) </div>
+          <div className="text-info text-save-price fs-6">You Save (₹ {product.save_price}) </div>
         }
       </div>
       <div className="d-md-flex align-items-end gap-1 mb-md-4 mb-2">
@@ -95,7 +98,8 @@ function ProductInformation({ product }) {
           <FacebookIcon size={32} round />
         </FacebookShareButton>
         <TwitterShareButton url={window.location.href} title={product.product_name} >
-          <TwitterIcon size={32} round />
+          <svg viewBox="0 0 64 64" width="32" height="32"><circle cx="32" cy="32" r="32" fill="#000000"></circle><path d="M 41.116 18.375 h 4.962 l -10.8405 12.39 l 12.753 16.86 H 38.005 l -7.821 -10.2255 L 21.235 47.625 H 16.27 l 11.595 -13.2525 L 15.631 18.375 H 25.87 l 7.0695 9.3465 z m -1.7415 26.28 h 2.7495 L 24.376 21.189 H 21.4255 z" fill="white"></path></svg>
+          {/* <XIcon size={32} round /> */}
         </TwitterShareButton>
         <WhatsappShareButton url={window.location.href} title={product.product_name} separator=":: ">
           <WhatsappIcon size={32} round />

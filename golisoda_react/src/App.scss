@@ -1013,6 +1013,10 @@ button[loading="true"] {
     padding-top: 70px !important;
   }
 
+  .sticky-padding-1 {
+    padding-top: 80px !important;
+  }
+
   .sticky-padding-2 {
     padding-top: 100px !important;
   }
@@ -1356,6 +1360,27 @@ button[loading="true"] {
 
 .html-list-order ul {
   margin-bottom: 15px;
+}
+
+// product overview design
+
+.details-bcrumb {
+  background: #f7f7f7;
+  padding: 15px 0px;
+}
+
+.details-bcrumb .text-secondary {
+  font-size: 14px !important;
+}
+
+.details-bcrumb .text-dark {
+  font-size: 14px !important;
+  font-weight: 500;
+}
+
+.text-save-price {
+  color: #009839 !important;
+  font-weight: 500;
 }
 
 // .productSidemenu.form-check-input:checked {
