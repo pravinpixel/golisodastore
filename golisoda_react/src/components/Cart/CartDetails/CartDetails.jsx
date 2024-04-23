@@ -311,9 +311,9 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
             }
             {coupon ?
               <li className="list-group-item d-flex align-items-center justify-content-between">
-                <span>Coupon <b>{coupon.coupon_info.coupon_type?.discount_type === "percentage" ?
-                  `(${Number(coupon.coupon_info.coupon_type?.discount_value)}%)` : null}</b></span>
-                <div className="text-success">- ₹ {coupon.coupon_amount}</div>
+                <span>Coupon <b>{checkoutData.coupon_type === "percentage" ?
+                  `(${Number(checkoutData?.coupon_percentage)}%)` : null}</b></span>
+                <div className="text-success">- ₹ {checkoutData.coupon_amount}</div>
               </li>
               : null}
             <li className="text-primary list-group-item d-flex align-items-center justify-content-between">

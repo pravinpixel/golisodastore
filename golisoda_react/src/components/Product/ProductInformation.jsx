@@ -128,7 +128,7 @@ function ProductInformation({ product }) {
           product={product}
         />
       </div>
-      <h3 className="sub-product-title my-3">
+      {/* <h3 className="sub-product-title my-3">
         Check availability for Delivery
       </h3>
       {errorMessage ? (
@@ -172,7 +172,7 @@ function ProductInformation({ product }) {
         </div>
       ) : (
         ""
-      )}
+      )} */}
       {pickupSelector === 1 &&
         <div className="flex-wrap align-c gap-2">
           <div className="me-1">
