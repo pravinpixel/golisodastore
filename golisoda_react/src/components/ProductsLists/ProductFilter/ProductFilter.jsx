@@ -19,7 +19,7 @@ const ProductFilter = ({
   setClearFilter,
   filterData,
   products,
-  min, max
+  min, max, slugName, slugCategoryName
 }) => {
   const filter = useSelector((state) => state.filter)
   const [defaultActiveKey, setDefaultActiveKey] = useState(['brands', 'exclusive', 'categories', 'discounts']);
@@ -33,6 +33,7 @@ const ProductFilter = ({
   const dispatch = useDispatch();
 
   const searchParams = new URLSearchParams(location.search);
+
   filterData = filterData && filterData.split("=");
   filterData = filterData && filterData[1].split("_");
 
@@ -102,7 +103,9 @@ const ProductFilter = ({
   // }, [filter])
 
   useEffect(() => {
-    filterMenuApi().then(({ data }) => {
+    var formdata = new FormData();
+    formdata.append(slugCategoryName === "brands" ? "brand_slug" : "category_slug", slugName);
+    filterMenuApi(formdata).then(({ data }) => {
       filterAccordionHandler(data);
       setFilters(data);
     });

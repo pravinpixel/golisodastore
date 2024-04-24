@@ -62,6 +62,8 @@ const ProductLists = () => {
               products={products}
               min={Number(products?.min_value)}
               max={Number(products?.max_value)}
+              slugCategoryName={searchParams.toString().split("=")[0]}
+              slugName={searchParams.toString().split("=")[1]}
             />
             <ProductListDetails
               setCurrentLocation={setCurrentLocation}

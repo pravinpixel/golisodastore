@@ -29,7 +29,6 @@ const ProductListDetails = ({
 
   return (
     <Col lg={10} className="align-self-start px-0 sticky-padding" >
-
       <CategoryFilters setCurrentLocation={setCurrentLocation} subcategory={subcategory} setCurrValue={setCurrValue} />
       {subcategory?.banner_image &&
         <div>
