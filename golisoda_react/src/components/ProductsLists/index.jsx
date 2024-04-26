@@ -40,7 +40,13 @@ const ProductLists = () => {
   }, [take, currentLocation, filterData]);
 
   useEffect(() => {
-    productListCategoryMenuApi(searchParams.toString().split("=")[1]).then(
+    const params = searchParams.toString().split("=")[0] === "brands" ?
+      {
+        brand_slug: searchParams.toString().split("=")[1]
+      } : {
+        category_slug: searchParams.toString().split("=")[1]
+      }
+    productListCategoryMenuApi(params).then(
       (response) => {
         if (response.data.length === undefined) setSubcategory(response.data);
       }
