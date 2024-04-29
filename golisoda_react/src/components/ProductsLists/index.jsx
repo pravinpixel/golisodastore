@@ -40,7 +40,7 @@ const ProductLists = () => {
   }, [take, currentLocation, filterData]);
 
   useEffect(() => {
-    const params = searchParams.toString().split("=")[0] === "brands" ?
+    const params = searchParams.toString().split("=")[0] === "brands" || searchParams.toString().split("=")[0] === "exclusive" ?
       {
         brand_slug: searchParams.toString().split("=")[1]
       } : {
