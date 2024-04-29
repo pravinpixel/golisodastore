@@ -75,7 +75,7 @@ export const NavMenuList = ({ className, toggleHeader }) => {
 
           <div className="menu-list" style={{ maxHeight: windowSize[1] - 100, overflow: 'auto' }}>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item px-3" onClick={() => linkHandler(`products?exclusive=goli_soda`)}  >
+              <li className="list-group-item px-3" onClick={() => linkHandler(`products?exclusive=goli-soda`)}  >
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35px" height="35px" viewBox="0 0 35 35">
                     <title>Exclusive</title>
@@ -298,7 +298,7 @@ export const NavMenuList = ({ className, toggleHeader }) => {
           :
           <div className="ak">
             <MenuItem>
-              <a href={`products?exclusive=goli_soda`} style={{ color: 'black' }}>
+              <a href={`products?exclusive=goli-soda`} style={{ color: 'black' }}>
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35px" height="35px" viewBox="0 0 35 35">
                     <title>Exclusive</title>
