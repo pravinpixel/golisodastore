@@ -1383,6 +1383,26 @@ button[loading="true"] {
   font-weight: 500;
 }
 
+.color-code{
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.colorcoder-border{
+  border:3px solid #00000073;
+}
+
+.size-box{
+  border: 1px solid black;
+  padding: 5px 20px;
+}
+
+.box-borderapply{
+  border: 2px solid black;
+}
+
 // .productSidemenu.form-check-input:checked {
 //   height: 20px;
 //   width: 20px;

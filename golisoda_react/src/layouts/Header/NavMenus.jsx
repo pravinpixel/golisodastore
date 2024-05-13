@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { Placeholder } from "react-bootstrap";
-import { useNavMenuQuery } from "redux/features/homePage/navMenuService";
-import React, { useEffect, useMemo, useState } from "react";
+import {useNavigate} from "react-router-dom";
+import {Placeholder} from "react-bootstrap";
+import {useNavMenuQuery} from "redux/features/homePage/navMenuService";
+import React, {useEffect, useMemo, useState} from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setfilter } from "redux/features/filterSlice";
-import { MenuItem, SubMenu } from "@szhsin/react-menu";
+import {useDispatch} from "react-redux";
+import {setfilter} from "redux/features/filterSlice";
+import {MenuItem, SubMenu} from "@szhsin/react-menu";
 
-export default function NavMenus({ toggleHeader }) {
+export default function NavMenus({toggleHeader}) {
   return (
     <div>
       <NavMenuList className="acc-list" toggleHeader={toggleHeader} />
@@ -15,12 +15,11 @@ export default function NavMenus({ toggleHeader }) {
   );
 }
 
-export const NavMenuList = ({ className, toggleHeader }) => {
-
-  const { data, isSuccess, isLoading } = useNavMenuQuery();
-  const [topBrand, setTopBrand] = useState('')
+export const NavMenuList = ({className, toggleHeader}) => {
+  const {data, isSuccess, isLoading} = useNavMenuQuery();
+  const [topBrand, setTopBrand] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
@@ -29,24 +28,26 @@ export const NavMenuList = ({ className, toggleHeader }) => {
   const linkHandler = (slug) => {
     if (toggleHeader) toggleHeader();
     navigate(slug);
-    dispatch(setfilter(slug))
+    dispatch(setfilter(slug));
   };
 
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowSize([window.innerWidth, window.innerHeight]);
     };
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener("resize", handleWindowResize);
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
 
   useMemo(() => {
-    axios.get(`${process.env.REACT_APP_BASE_URL}/get/brands/top`).then(res => {
-      setTopBrand(res.data.slug)
-    })
-  }, [])
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/get/brands/top`)
+      .then((res) => {
+        setTopBrand(res.data.slug);
+      });
+  }, []);
 
   return (
     <>
@@ -69,13 +70,17 @@ export const NavMenuList = ({ className, toggleHeader }) => {
           </Placeholder>
         </>
       )}
-      {isSuccess && (
-
-        window.innerWidth < 992 ?
-
-          <div className="menu-list" style={{ maxHeight: windowSize[1] - 100, overflow: 'auto' }}>
+      {isSuccess &&
+        (window.innerWidth < 992 ? (
+          <div
+            className="menu-list"
+            style={{maxHeight: windowSize[1] - 100, overflow: "auto"}}
+          >
             <ul className="list-group list-group-flush">
-              <li className="list-group-item px-3" onClick={() => linkHandler(`products?exclusive=goli-soda`)}  >
+              <li
+                className="list-group-item px-3"
+                onClick={() => linkHandler(`/products?exclusive=goli-soda`)}
+              >
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35px" height="35px" viewBox="0 0 35 35">
                     <title>Exclusive</title>
@@ -125,11 +130,14 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                     </g>
                   </svg>
                   <div className={`me-auto text-dark ms-2`}>
-                    Exclusive at Golisoda Store
+                    Exclusive at Goli Soda Store
                   </div>
                 </div>
               </li>
-              <li className="list-group-item px-3" onClick={() => linkHandler(`/products?brands=${topBrand}`)}>
+              <li
+                className="list-group-item px-3"
+                onClick={() => linkHandler(`/products?brands=${topBrand}`)}
+              >
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35" height="35" viewBox="0 0 35 35" fill="none">
                     <path
@@ -176,7 +184,10 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                   <div className={`me-auto text-dark ms-2`}>Best Sellers</div>
                 </div>
               </li>
-              <li className="list-group-item px-3" onClick={() => linkHandler(`/brands`)}>
+              <li
+                className="list-group-item px-3"
+                onClick={() => linkHandler(`/brands`)}
+              >
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35px" height="35px" viewBox="0 0 35 35">
                     <g
@@ -252,8 +263,13 @@ export const NavMenuList = ({ className, toggleHeader }) => {
               {data &&
                 data.data.map((item) => (
                   <div className="dropdown" key={item.id}>
-                    <li className="list-group-item px-3" style={{ border: "0" }} >
-                      <div className="d-flex justify-content-between align-items-center" onClick={() => linkHandler(`/products?categories=${item.slug}`)}>
+                    <li className="list-group-item px-3" style={{border: "0"}}>
+                      <div
+                        className="d-flex justify-content-between align-items-center"
+                        onClick={() =>
+                          linkHandler(`/products?categories=${item.slug}`)
+                        }
+                      >
                         <span className={`me-auto text-dark dropbtn`}>
                           {item.name}
                         </span>
@@ -283,7 +299,11 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                             <li
                               key={data.id}
                               className="list-group-item px-3"
-                              onClick={() => linkHandler(`/products?categories=${data.slug.toLowerCase()}`)}
+                              onClick={() =>
+                                linkHandler(
+                                  `/products?categories=${data.slug.toLowerCase()}`
+                                )
+                              }
                             >
                               {data.name}
                             </li>
@@ -295,10 +315,13 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                 ))}
             </ul>
           </div>
-          :
+        ) : (
           <div className="ak">
             <MenuItem>
-              <a href={`products?exclusive=goli-soda`} style={{ color: 'black' }}>
+              <a
+                href={`/products?exclusive=goli-soda`}
+                style={{color: "black"}}
+              >
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35px" height="35px" viewBox="0 0 35 35">
                     <title>Exclusive</title>
@@ -348,7 +371,7 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                     </g>
                   </svg>
                   <div className={`me-auto text-dark ms-2`}>
-                    Exclusive at GOLISODA STORE
+                    Exclusive at Goli Soda Store
                   </div>
                 </div>
                 {data?.name}
@@ -357,7 +380,7 @@ export const NavMenuList = ({ className, toggleHeader }) => {
             <MenuItem
             // onClick={() => linkHandler(`/products?brands=${topBrand}`)}
             >
-              <a href={`/products?brands=${topBrand}`} style={{ color: 'black' }}>
+              <a href={`/products?brands=${topBrand}`} style={{color: "black"}}>
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35" height="35" viewBox="0 0 35 35" fill="none">
                     <path
@@ -406,7 +429,7 @@ export const NavMenuList = ({ className, toggleHeader }) => {
               </a>
             </MenuItem>
             <MenuItem>
-              <a href={`/brands`} style={{ color: 'black' }}>
+              <a href={`/brands`} style={{color: "black"}}>
                 <div className="d-flex justify-content-between align-items-center">
                   <svg width="35px" height="35px" viewBox="0 0 35 35">
                     <g
@@ -478,10 +501,10 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                   <div className={`me-auto text-dark ms-2`}>Shop by Brand</div>
                 </div>
               </a>
-            </MenuItem >
+            </MenuItem>
             {data &&
-              data.data.map((item) => (
-                item.child && item.child.length > 0 ?
+              data.data.map((item) =>
+                item.child && item.child.length > 0 ? (
                   <React.Fragment key={item?.id}>
                     <div className="innerLi">
                       <SubMenu label={item?.name}>
@@ -492,7 +515,10 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                           // }
                           // }
                           >
-                            <a href={`/products?categories=${data.slug.toLowerCase()}`} style={{ color: 'black' }}>
+                            <a
+                              href={`/products?categories=${data.slug.toLowerCase()}`}
+                              style={{color: "black"}}
+                            >
                               {data?.name}
                             </a>
                           </MenuItem>
@@ -500,12 +526,18 @@ export const NavMenuList = ({ className, toggleHeader }) => {
                       </SubMenu>
                     </div>
                   </React.Fragment>
-                  :
-                  <MenuItem onClick={() => linkHandler(`/products?categories=${item.slug}`)}>{item?.name}</MenuItem>
-              ))
-            }
-          </div >
-      )}
+                ) : (
+                  <MenuItem
+                    onClick={() =>
+                      linkHandler(`/products?categories=${item.slug}`)
+                    }
+                  >
+                    {item?.name}
+                  </MenuItem>
+                )
+              )}
+          </div>
+        ))}
     </>
   );
 };

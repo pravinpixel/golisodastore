@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./styles.scss";
-import { Row } from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import ProductFilter from "./ProductFilter/ProductFilter";
 import ProductListDetails from "./ProductDetails/ProductListDetails";
-import { useEffect, useState } from "react";
-import { useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import { productListCategoryMenuApi, productsApi } from "services/filters.service";
-import { SetAllCheckBoxes } from "utils";
+import {useEffect, useState} from "react";
+import {useMemo} from "react";
+import {useLocation} from "react-router-dom";
+import {
+  productListCategoryMenuApi,
+  productsApi,
+} from "services/filters.service";
+import {SetAllCheckBoxes} from "utils";
 // import { IoCaretUpCircle } from "react-icons/io5";
 import ScrollToTop from "react-scroll-to-top";
 
@@ -17,49 +20,55 @@ const ProductLists = () => {
   const [tackLoader, setTackLoader] = useState(false);
   const [take, setTake] = useState(20);
   const location = useLocation();
-  const { search } = useLocation();
+  const {search} = useLocation();
   const [clearFilter, setClearFilter] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(location.search);
   const searchParams = new URLSearchParams(location.search);
   let filterData = searchParams.toString();
   const [subcategory, setSubcategory] = useState([]);
 
-
   useMemo(() => {
     if (take === 20) {
       setfetching(true);
     } else {
-      setTackLoader(true)
+      setTackLoader(true);
     }
-    productsApi(search, take).then(({ data }) => {
+    productsApi(search, take).then(({data}) => {
       setProduct(data);
       setfetching(false);
-      setTackLoader(false)
+      setTackLoader(false);
       SetAllCheckBoxes(location);
     });
   }, [take, currentLocation, filterData]);
 
   useEffect(() => {
-    const params = searchParams.toString().split("=")[0] === "brands" || searchParams.toString().split("=")[0] === "exclusive" ?
-      {
-        brand_slug: searchParams.toString().split("=")[1]
-      } : {
-        category_slug: searchParams.toString().split("=")[1]
-      }
-    productListCategoryMenuApi(params).then(
-      (response) => {
+    const params =
+      searchParams.toString().split("=")[0] === "brands"
+        ? {
+            brand_slug: searchParams.toString().split("=")[1],
+          }
+        : searchParams.toString().split("=")[0] === "exclusive"
+        ? {
+            brand_slug: searchParams.toString().split("=")[1],
+            exclusive: searchParams.toString().split("=")[1],
+          }
+        : {
+            category_slug: searchParams.toString().split("=")[1],
+          };
+    productListCategoryMenuApi(params)
+      .then((response) => {
         if (response.data.length === undefined) setSubcategory(response.data);
-      }
-    ).catch(() => {
-      setSubcategory([]);
-    });
+      })
+      .catch(() => {
+        setSubcategory([]);
+      });
   }, [searchParams.toString()]);
 
   return (
     <div>
-      {products?.length !== 0 &&
+      {products?.length !== 0 && (
         <section className="p-0 ps-lg-5 ps-3 pt-4">
-          <Row className="m-0  bg-white" >
+          <Row className="m-0  bg-white">
             <ProductFilter
               filterData={filterData}
               setCurrentLocation={setCurrentLocation}
@@ -85,7 +94,7 @@ const ProductLists = () => {
           </Row>
           <ScrollToTop smooth />
         </section>
-      }
+      )}
     </div>
   );
 };

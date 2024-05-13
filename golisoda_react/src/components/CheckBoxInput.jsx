@@ -1,60 +1,79 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useLocation, useNavigate } from "react-router-dom"
-import { setfilter } from "redux/features/filterSlice"
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation, useNavigate} from "react-router-dom";
+import {setfilter} from "redux/features/filterSlice";
 
-function CheckBoxInput({ data, name }) {
-    const [
-        isChecked,
-        setisChecked
-    ] = useState(false)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const { search } = useLocation()
-    const searchParams = new URLSearchParams(search)
-    const filter = useSelector((state) => state.filter)
+function CheckBoxInput({data, name}) {
+  const [isChecked, setisChecked] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {search} = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const filter = useSelector((state) => state.filter);
 
-    const handler = () => {
-        setisChecked(!isChecked)
-        var array = []
-        var checkboxes = document.querySelectorAll(`.${name}-product-check-input:checked`)
-        for (var i = 0; i < checkboxes.length; i++) {
-            array.push(checkboxes[i].value)
-        }
-        array.length > 0 ? searchParams.set(name, array.join("_")) : searchParams.delete(name)
-        navigate(`/products?${searchParams.toString()}`);
-        dispatch(setfilter(`/products?${searchParams.toString()}`))
-        window.scroll(0, 0)
+  const handler = () => {
+    setisChecked(!isChecked);
+    var array = [];
+    var checkboxes = document.querySelectorAll(
+      `.${name}-product-check-input:checked`
+    );
+    for (var i = 0; i < checkboxes.length; i++) {
+      array.push(checkboxes[i].value);
     }
+    array.length > 0
+      ? searchParams.set(name, array.join("_"))
+      : searchParams.delete(name);
+    navigate(`/products?${searchParams.toString()}`);
+    dispatch(setfilter(`/products?${searchParams.toString()}`));
+    window.scroll(0, 0);
+  };
 
-    useEffect(() => {
-        const baseFilterUrl = search.toString().split("=")[1]
-        if (baseFilterUrl !== undefined) {
-            var checkboxes = document.querySelectorAll(`.${name}-product-check-input`)
-            for (let index = 0; index < checkboxes.length; index++) {
-                const element = checkboxes[index];
-                baseFilterUrl.split("_").forEach(item => {
-                    if (element.id === item) {
-                        element.checked = true
-                    }
-                })
+  useEffect(() => {
+    const baseFilterUrl = search.toString().split("=")[1];
+    if (baseFilterUrl !== undefined) {
+      var checkboxes = document.querySelectorAll(
+        `.${name}-product-check-input`
+      );
+      for (let index = 0; index < checkboxes.length; index++) {
+        const element = checkboxes[index];
+        baseFilterUrl.split("_").forEach((item) => {
+          if (element.id === item) {
+            element.checked = true;
+          }
+        });
+      }
+    }
+  }, [filter]);
+
+  if (data !== undefined)
+    return (
+      <div className="mb-1">
+        <label className="cstm-chkbx" htmlFor={data.slug}>
+          <div className="filter-text">{data.name}</div>
+          <input
+            type={
+              name === "categories" || name === "discounts"
+                ? "radio"
+                : "checkbox"
             }
-        }
-    }, [filter])
-
-    if (data !== undefined) return (
-        <div className="mb-1">
-            <label className="cstm-chkbx" htmlFor={data.slug} >
-                <div className="filter-text">{data.name}</div>
-                <input type={name === 'categories' || name === 'discounts' ? 'radio' : 'checkbox'} id={data.slug} value={data.slug} name={name}
-                    className={`${name}-product-check-input product-check-input`} onChange={handler}
-                    defaultChecked={searchParams.get(name) === data.slug}
-                />
-                <span className={name === 'categories' || name === 'discounts' ? "checkmarkRadio checkmark" : "checkmark"}></span>
-            </label>
-        </div>
-    )
+            id={data.slug}
+            value={data.slug}
+            name={name}
+            className={`${name}-product-check-input product-check-input`}
+            onChange={handler}
+            defaultChecked={searchParams.get(name) === data.slug}
+          />
+          <span
+            className={
+              name === "categories" || name === "discounts"
+                ? "checkmarkRadio checkmark"
+                : "checkmark"
+            }
+          ></span>
+        </label>
+      </div>
+    );
 }
 
-export default CheckBoxInput
+export default CheckBoxInput;

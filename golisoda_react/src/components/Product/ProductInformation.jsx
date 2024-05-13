@@ -1,26 +1,35 @@
 import ProductAddOns from "./ProductAddOns";
 import ProductOverview from "./ProductOverview";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Form } from "react-bootstrap";
-import { CheckProductAvailabilityApi } from "services/product.service";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
+import {Form} from "react-bootstrap";
+import {CheckProductAvailabilityApi} from "services/product.service";
 import AddCartButton from "components/AddCartButton";
 import AddFavButton from "components/AddFavButton";
 import BuyButton from "components/BuyButton";
 import PickupFromStoreAddress from "components/PickupFromStoreAddress/PickupFromStoreAddress";
-import { useDispatch, useSelector } from "react-redux";
-import { RiMapPinLine } from "react-icons/ri";
-import { setStoreAddress } from "redux/features/cartAddressSlice";
-import { toast } from "react-hot-toast";
+import {useDispatch, useSelector} from "react-redux";
+import {RiMapPinLine} from "react-icons/ri";
+import {setStoreAddress} from "redux/features/cartAddressSlice";
+import {toast} from "react-hot-toast";
 import {
-  EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton,
-  TwitterShareButton, WhatsappIcon, WhatsappShareButton
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
 } from "react-share";
-import { useNavigate } from "react-router-dom";
-function ProductInformation({ product }) {
+import {useNavigate} from "react-router-dom";
+function ProductInformation({product, variationCheck, varCheck}) {
   const address = useSelector((state) => state.cartAddress);
 
-  const pickupSelector = useSelector((state) => state.footerCollection.siteInfo?.is_pickup_from_store);
+  const pickupSelector = useSelector(
+    (state) => state.footerCollection.siteInfo?.is_pickup_from_store
+  );
 
   const dispatch = useDispatch();
   const [checkAvailability, setAvailability] = useState(false);
@@ -28,16 +37,19 @@ function ProductInformation({ product }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [cartId, setCartId] = useState(product.cart_id);
-  const navigate = useNavigate()
+
+  const [vCheck, setVCheck] = useState(false);
+
+  const navigate = useNavigate();
   const {
     register,
-    formState: { errors },
+    formState: {errors},
     handleSubmit,
     reset,
   } = useForm();
   const CheckAvailabilityHander = async (formData) => {
     setLoading(true);
-    const { data } = await CheckProductAvailabilityApi(formData);
+    const {data} = await CheckProductAvailabilityApi(formData);
     if (data.error === 1) {
       setErrorMessage(data.message);
       setTimeout(() => {
@@ -82,35 +94,99 @@ function ProductInformation({ product }) {
         )}
       </div>
       <div className="d-md-flex align-items-end mb-md-4 mb-2">
-        {product.discount_percentage !== 0 &&
+        {product.discount_percentage !== 0 && (
           <del className="text-secondary fw-600">₹ {product.strike_price}</del>
-        }
+        )}
         <div className="fw-bold fs-3 text-info mx-md-3 lh-1 py-md-0 py-2">
           ₹ {product.price}
         </div>
-        {product.discount_percentage !== 0 &&
-          <div className="text-info text-save-price fs-6">You Save (₹ {product.save_price}) </div>
-        }
+        {product.discount_percentage !== 0 && (
+          <div className="text-info text-save-price fs-6">
+            You Save (₹ {product.save_price}){" "}
+          </div>
+        )}
       </div>
       <div className="d-md-flex align-items-end gap-1 mb-md-4 mb-2">
         <b>Share via : </b>
-        <FacebookShareButton url={window.location.href} quote={product.product_name} >
+        <FacebookShareButton
+          url={window.location.href}
+          quote={product.product_name}
+        >
           <FacebookIcon size={32} round />
         </FacebookShareButton>
-        <TwitterShareButton url={window.location.href} title={product.product_name} >
-          <svg viewBox="0 0 64 64" width="32" height="32"><circle cx="32" cy="32" r="32" fill="#000000"></circle><path d="M 41.116 18.375 h 4.962 l -10.8405 12.39 l 12.753 16.86 H 38.005 l -7.821 -10.2255 L 21.235 47.625 H 16.27 l 11.595 -13.2525 L 15.631 18.375 H 25.87 l 7.0695 9.3465 z m -1.7415 26.28 h 2.7495 L 24.376 21.189 H 21.4255 z" fill="white"></path></svg>
+        <TwitterShareButton
+          url={window.location.href}
+          title={product.product_name}
+        >
+          <svg viewBox="0 0 64 64" width="32" height="32">
+            <circle cx="32" cy="32" r="32" fill="#000000"></circle>
+            <path
+              d="M 41.116 18.375 h 4.962 l -10.8405 12.39 l 12.753 16.86 H 38.005 l -7.821 -10.2255 L 21.235 47.625 H 16.27 l 11.595 -13.2525 L 15.631 18.375 H 25.87 l 7.0695 9.3465 z m -1.7415 26.28 h 2.7495 L 24.376 21.189 H 21.4255 z"
+              fill="white"
+            ></path>
+          </svg>
           {/* <XIcon size={32} round /> */}
         </TwitterShareButton>
-        <WhatsappShareButton url={window.location.href} title={product.product_name} separator=":: ">
+        <WhatsappShareButton
+          url={window.location.href}
+          title={product.product_name}
+          separator=":: "
+        >
           <WhatsappIcon size={32} round />
         </WhatsappShareButton>
-        <LinkedinShareButton url={window.location.href} >
+        <LinkedinShareButton url={window.location.href}>
           <LinkedinIcon size={32} round />
         </LinkedinShareButton>
-        <EmailShareButton url={window.location.href} subject={product.product_name} body="body" >
+        <EmailShareButton
+          url={window.location.href}
+          subject={product.product_name}
+          body="body"
+        >
           <EmailIcon size={32} round />
         </EmailShareButton>
       </div>
+
+      {Object.entries(product?.variation_option).map((filters, key) => (
+        <div className="hstack gap-3 mb-3">
+          <div className="fw-bold">{filters[0]} :</div>
+          {filters[0] === "Color"
+            ? filters[1].map((color, i) => (
+                <div
+                  key={i}
+                  className="cursor d-flex align-items-center"
+                  onClick={() => {
+                    variationCheck(color);
+                    // colorClick(color?.variation_value);
+                  }}
+                >
+                  <span
+                    className={
+                      varCheck?.Color === color?.variation_option_id
+                        ? "color-code colorcoder-border"
+                        : "color-code"
+                    }
+                    style={{backgroundColor: color?.variation_value}}
+                  ></span>
+                </div>
+              ))
+            : filters[1].map((size, i) => (
+                <div
+                  key={i}
+                  className={
+                    // sizeCheckState === size?.variation_value
+                    //   ? "cursor d-flex align-items-center size-box box-borderapply" :
+                    "cursor d-flex align-items-center size-box"
+                  }
+                  onClick={() => {
+                    variationCheck(size);
+                    // sizeCheck(size?.variation_value);
+                  }}
+                >
+                  {size?.variation_value}
+                </div>
+              ))}
+        </div>
+      ))}
 
       <div className="action-group mb-lg-4">
         <BuyButton
@@ -173,7 +249,7 @@ function ProductInformation({ product }) {
       ) : (
         ""
       )} */}
-      {pickupSelector === 1 &&
+      {pickupSelector === 1 && (
         <div className="flex-wrap align-c gap-2">
           <div className="me-1">
             <img
@@ -182,19 +258,30 @@ function ProductInformation({ product }) {
               alt="gps"
             />
           </div>
-          <div className="fw-bold" onClick={() => navigate('/cart')} style={{ cursor: 'pointer' }}>Pickup From Store:</div>
+          <div
+            className="fw-bold"
+            onClick={() => navigate("/cart")}
+            style={{cursor: "pointer"}}
+          >
+            Pickup From Store:
+          </div>
           <div>
-            {product.has_pickup_store ? "Available for Pickup" : "Un available for Pickup"}
+            {product.has_pickup_store
+              ? "Available for Pickup"
+              : "Un available for Pickup"}
           </div>
           <div>
             {product.has_pickup_store && (
               <div>
-                <PickupFromStoreAddress type="button" brandId={product.brand_id} />
+                <PickupFromStoreAddress
+                  type="button"
+                  brandId={product.brand_id}
+                />
               </div>
             )}
           </div>
         </div>
-      }
+      )}
       {product?.has_pickup_store && address.store_address?.address && (
         <div>
           <div className="fw-bold mt-1">
@@ -210,7 +297,7 @@ function ProductInformation({ product }) {
                 onClick={() => {
                   localStorage.removeItem("store_address");
                   dispatch(setStoreAddress(""));
-                  toast.success("Store location removed")
+                  toast.success("Store location removed");
                 }}
                 loading="false"
                 className="custom-btn border shadow-sm mx-3 rounded-pill btn btn-outline-primary btn-sm border-0"
