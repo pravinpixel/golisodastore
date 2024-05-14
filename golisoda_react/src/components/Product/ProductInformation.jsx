@@ -38,8 +38,6 @@ function ProductInformation({product, variationCheck, varCheck}) {
   const [loading, setLoading] = useState(false);
   const [cartId, setCartId] = useState(product.cart_id);
 
-  const [vCheck, setVCheck] = useState(false);
-
   const navigate = useNavigate();
   const {
     register,
@@ -147,57 +145,60 @@ function ProductInformation({product, variationCheck, varCheck}) {
       </div>
 
       {Object.entries(product?.variation_option).map((filters, key) => (
-        <div className="hstack gap-3 mb-3">
+        <div className="hstack gap-3 mb-3" key={key}>
           <div className="fw-bold">{filters[0]} :</div>
           {filters[0] === "Color"
-            ? filters[1].map((color, i) => (
+            ? filters[1].map((variationColor, i) => (
                 <div
                   key={i}
                   className="cursor d-flex align-items-center"
                   onClick={() => {
-                    variationCheck(color);
-                    // colorClick(color?.variation_value);
+                    variationCheck(variationColor);
                   }}
                 >
                   <span
                     className={
-                      varCheck?.Color === color?.variation_option_id
+                      varCheck?.[filters[0]] ===
+                      variationColor?.variation_option_id
                         ? "color-code colorcoder-border"
                         : "color-code"
                     }
-                    style={{backgroundColor: color?.variation_value}}
+                    style={{
+                      backgroundColor: variationColor?.variation_value,
+                    }}
                   ></span>
                 </div>
               ))
-            : filters[1].map((size, i) => (
+            : filters[1].map((variationProps, i) => (
                 <div
                   key={i}
                   className={
-                    // sizeCheckState === size?.variation_value
-                    //   ? "cursor d-flex align-items-center size-box box-borderapply" :
-                    "cursor d-flex align-items-center size-box"
+                    varCheck?.[filters[0]] ===
+                    variationProps?.variation_option_id
+                      ? "cursor d-flex align-items-center size-box box-borderapply"
+                      : "cursor d-flex align-items-center size-box"
                   }
                   onClick={() => {
-                    variationCheck(size);
-                    // sizeCheck(size?.variation_value);
+                    variationCheck(variationProps);
                   }}
                 >
-                  {size?.variation_value}
+                  {variationProps?.variation_value}
                 </div>
               ))}
         </div>
       ))}
 
-      <div className="action-group mb-lg-4">
+      <div className="action-group mb-lg-4 mt-2">
         <BuyButton
           className="mb-md-0 mb-3 btn btn-primary px-5 fw-semibold"
           product={product}
         />
         <AddCartButton
           setCartId={setCartId}
-          type="button"
+          type="button-add"
           className="ms-md-3 mb-md-0 mb-3 btn btn-outline-primary px-5 fw-semibold"
           product={product}
+          varCheck={varCheck}
         />
         <AddFavButton
           className="ms-md-3 mb-md-0 mb-3 btn btn-outline-info rounded-box-circle"

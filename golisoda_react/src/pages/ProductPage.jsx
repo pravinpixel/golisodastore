@@ -3,7 +3,7 @@ import ProductDetails from "components/Product/ProductDetails";
 import axios from "axios";
 import {Container} from "react-bootstrap";
 import {useParams, Navigate} from "react-router-dom";
-import {useMemo} from "react";
+import {useEffect, useMemo} from "react";
 import {useState} from "react";
 import {AuthUser, Loader} from "../utils/index";
 import {Helmet} from "react-helmet";
@@ -12,33 +12,39 @@ function ProductPage() {
   const [product, setProduct] = useState([]);
   const [fetching, setfetching] = useState(true);
 
-  const [varCheck, setVarCheck] = useState({});
+  const [varCheck, setVarCheck] = useState(product?.default_value);
 
   const variationCheck = (data) => {
     setVarCheck({
       ...varCheck,
       [data?.variation_name]: data?.variation_option_id,
     });
+    getProduct({
+      ...varCheck,
+      [data?.variation_name]: data?.variation_option_id,
+    });
   };
 
-  const getProduct = async () => {
+  const getProduct = async (dataE = false) => {
     setfetching(true);
     const {data} = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/get/products/by/slug`,
       {
         customer_id: AuthUser()?.id,
         product_url: slug,
-        variation_option_ids: Object.values(varCheck),
+        variation_option_ids: Object.values(dataE) ?? Object.values(varCheck),
       }
     );
     setProduct({
       ...data,
     });
+    setVarCheck(data?.default_value);
     setfetching(false);
   };
+
   useMemo(() => {
     getProduct();
-  }, [slug, varCheck]);
+  }, [slug]);
 
   return (
     <div className="dark-section">

@@ -55,7 +55,8 @@ function CardComponent({product, type, className, sliderComponent}) {
                 <h4 className="h5">
                   {product.discount_percentage !== 0 && (
                     <i className="old-price">
-                      ₹{product?.strike_price?.replace(".00", "")}
+                      ₹{product?.strike_price}
+                      {/* ₹{product?.strike_price?.replace(".00", "")} */}
                     </i>
                   )}
                   <span className="new-price text-info fw-bold">
@@ -78,6 +79,7 @@ function CardComponent({product, type, className, sliderComponent}) {
                   type="button"
                   className="btn btn-primary ms-2"
                   product={product}
+                  varCheck={product?.default_value}
                 />
               </div>
             </div>
@@ -145,7 +147,8 @@ function CardComponent({product, type, className, sliderComponent}) {
               <h4 className="h4">
                 {product.discount_percentage !== 0 && (
                   <span className="old-price">
-                    ₹{product?.strike_price?.replace(".00", "")}
+                    ₹{product?.strike_price}
+                    {/* ₹{product?.strike_price?.replace(".00", "")} */}
                   </span>
                 )}
                 <span className="new-price">{`₹${product?.price}.00`}</span>
@@ -161,6 +164,7 @@ function CardComponent({product, type, className, sliderComponent}) {
                 type="button"
                 className="btn btn-primary"
                 product={product}
+                varCheck={product?.default_value}
               />
             </div>
           </div>
@@ -292,6 +296,7 @@ function CardComponent({product, type, className, sliderComponent}) {
                 type="button"
                 className="btn btn-primary"
                 product={product}
+                varCheck={product?.default_value}
               />
             </div>
           </div>

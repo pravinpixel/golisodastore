@@ -34,11 +34,11 @@ export const cartSlice = createSlice({
       }
       if (localStorage.getItem('cart_list') !== undefined || localStorage.getItem('cart_list') !== null) {
         let currentCart = JSON.parse(localStorage.getItem('cart_list'));
-        localStorage.setItem('cart_list', JSON.stringify([...currentCart, action.payload]));
+        localStorage.setItem('cart_list', JSON.stringify([...currentCart, action.payload?.product]));
       }
-      var counter = state.value + 1
+      // var counter = state.value + 1
       return state = {
-        value: counter,
+        value: action?.payload?.count,
         data: cartList ? cartList : [],
       }
     },
