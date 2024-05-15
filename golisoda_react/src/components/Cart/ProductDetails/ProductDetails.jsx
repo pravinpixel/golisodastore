@@ -15,7 +15,7 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import SweetAlert from "react-bootstrap-sweetalert";
 import {useNavigate} from "react-router-dom";
-import {Alert} from "react-bootstrap";
+import {Alert, Stack} from "react-bootstrap";
 import {setLayoutStatus} from "redux/features/authLayoutSlice";
 
 const ProductDetails = ({
@@ -207,6 +207,16 @@ const ProductDetails = ({
                         </span>
                       )}
                     </h4>
+
+                    {Object.entries(product?.chosen_variation).map(
+                      (filters, key) => (
+                        <span className="pe-3" key={key}>
+                          <span className="pe-1 fw-bold">{filters[0]}:</span>
+                          <span>{filters[1]}</span>
+                        </span>
+                      )
+                    )}
+
                     {/* <div className="text-info fw-bold mt-2 mb-2 mb-md-0">
                     ₹{product.price}
                   </div> */}
@@ -403,12 +413,12 @@ const ProductDeleteButton = ({
   const removeCartHandler = (product) => {
     setLoading(true);
     removeFromCartApi({
-      product_id: product.id,
+      cart_id: product?.cart_id,
+      product_id: product?.id,
       customer_id: AuthUser()?.id,
       guest_token: localStorage.getItem("guest_token"),
     }).then((response) => {
       if (response.data.error === 0) {
-        // console.log(response.data)
         toast.success(response.data.message);
         setCheckoutData(response.data.cart_total);
         dispatch(removeCart(product));
