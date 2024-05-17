@@ -448,6 +448,10 @@ const ProductQuantityInput = ({product, setCheckoutData, fetchCartData}) => {
   const [count, setCount] = useState(
     Number(product.quantity) === 0 ? 1 : Number(product.quantity)
   );
+  useEffect(() => {
+    setCount(Number(product.quantity) === 0 ? 1 : Number(product.quantity));
+  }, [product]);
+
   const [loading, setLoading] = useState(false);
   const updateCart = async (type) => {
     setLoading(true);

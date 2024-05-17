@@ -55,8 +55,8 @@ function CardComponent({product, type, className, sliderComponent}) {
                 <h4 className="h5">
                   {product.discount_percentage !== 0 && (
                     <i className="old-price">
-                      ₹{product?.strike_price}
-                      {/* ₹{product?.strike_price?.replace(".00", "")} */}
+                      {/* ₹{product?.strike_price} */}₹
+                      {product?.strike_price?.replace(".00", "")}
                     </i>
                   )}
                   <span className="new-price text-info fw-bold">
@@ -147,11 +147,17 @@ function CardComponent({product, type, className, sliderComponent}) {
               <h4 className="h4">
                 {product.discount_percentage !== 0 && (
                   <span className="old-price">
-                    ₹{product?.strike_price}
-                    {/* ₹{product?.strike_price?.replace(".00", "")} */}
+                    {/* ₹{product?.strike_price} */}₹
+                    {product?.strike_price?.replace(".00", "")}
                   </span>
                 )}
-                <span className="new-price">{`₹${product?.price}.00`}</span>
+                <span className="new-price">
+                  {typeof product?.price === "string" ? (
+                    <div> ₹{product?.price?.replace(".00", "")}</div>
+                  ) : (
+                    <div> ₹{product?.price}</div>
+                  )}
+                </span>
                 {product.discount_percentage !== 0 && (
                   <div className="text-info fs-6">
                     You Save (₹ {product.save_price}){" "}
