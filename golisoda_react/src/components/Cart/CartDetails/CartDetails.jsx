@@ -13,6 +13,7 @@ import { Modal } from "react-bootstrap";
 import PickupFromStoreAddress from "components/PickupFromStoreAddress/PickupFromStoreAddress";
 import { toast } from "react-hot-toast";
 // import { Tab } from "@mui/material";
+import { trackEvent } from "utils";
 import { TabContext, TabPanel } from "@material-ui/lab";
 import { AuthUser } from "utils";
 const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartData, fetchCartData }) => {
@@ -107,8 +108,20 @@ const CartDetails = ({ checkoutData, setCheckoutData, coupon, cartProduct, cartD
     return true;
   }
 
+  const connectFB = async () => {
+    try {
+      const response = await trackEvent("Purchase", {
+        value: checkoutData?.total,
+        currency: "INR",
+      });
+    } catch (error) {
+      console.log(error, "err");
+    }
+  };
+
   const codSubmit = () => {
     setCODLoading(true)
+    connectFB()
     const checkData = {
       customer_id: AuthUser()?.id,
       billing_address_id: billing_address?.customer_address_id,

@@ -1,6 +1,21 @@
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { trackEvent } from "utils";
 export default function PaymentSuccess() {
   const { state } = useLocation();
+
+  const connectFB = async () => {
+    try {
+      const response = await trackEvent("Purchase", {
+        value: JSON.parse(localStorage.getItem('checkout_data'))?.total,
+        currency: "INR",
+      });
+    } catch (error) {
+      console.log(error, "err");
+    }
+  };
+
+  useEffect(() => connectFB(), []);
 
   return (
     <div

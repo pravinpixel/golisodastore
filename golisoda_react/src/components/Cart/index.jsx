@@ -24,6 +24,7 @@ const CartProduct = () => {
       setCartProduct(response.data?.carts)
       setCheckoutData(response.data?.cart_total)
       localStorage.setItem('checkout_data', JSON.stringify(response.data?.cart_total))
+      localStorage.setItem('checkout_data_total',(response.data?.cart_total))
       if (response.data?.carts?.length > 0) {
         dispatch(setCartList({
           value: response.data?.carts.length,

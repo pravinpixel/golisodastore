@@ -1,15 +1,17 @@
-import {useEffect} from "react";
-import {Link, useLocation} from "react-router-dom";
-import {trackEvent} from "utils";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { trackEvent } from "utils";
 export default function PaymentSuccess() {
-  const {state} = useLocation();
+  const { state } = useLocation();
+  const details = useSelector((state) => state);
+
   const connectFB = async () => {
     try {
       const response = await trackEvent("Purchase", {
-        value: 99.99,
-        currency: "USD",
+        value: JSON.parse(localStorage.getItem('checkout_data'))?.total,
+        currency: "INR",
       });
-      console.log(response, "response");
     } catch (error) {
       console.log(error, "err");
     }
@@ -27,13 +29,13 @@ export default function PaymentSuccess() {
       }}
     >
       <img
-        style={{position: "absolute", top: 0, left: 0, height: "100%"}}
+        style={{ position: "absolute", top: 0, left: 0, height: "100%" }}
         src="https://i.pinimg.com/originals/12/4d/e3/124de3d1b5e12f1d8fcec1685e634361.gif"
         width="100%"
         alt="Success-gif"
       />
       <div
-        style={{zIndex: 1}}
+        style={{ zIndex: 1 }}
         className="card p-4 text-center shadow border-0 rounded-4"
       >
         <img

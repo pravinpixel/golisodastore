@@ -6,6 +6,7 @@ import { checkoutApi } from 'services/product.service'
 import { AuthUser, Loader } from 'utils'
 import useRazorpay from "react-razorpay";
 import axios from 'axios'
+import { trackEvent } from "utils";
 
 function CheckoutButton({ className, shippingMethod, cartProduct, checkoutData, coupon }) {
     const authUser = useSelector((state) => state.auth)
@@ -41,7 +42,21 @@ function CheckoutButton({ className, shippingMethod, cartProduct, checkoutData, 
 
         return true;
     }
+
+    const connectFB = async () => {
+        try {
+            const response = await trackEvent("Purchase", {
+                value: checkoutData?.total,
+                currency: "INR",
+            });
+        } catch (error) {
+            console.log(error, "err");
+        }
+    };
+
+
     const checkoutHandler = () => {
+        connectFB()
         const checkData = {
             customer_id: AuthUser()?.id,
             billing_address_id: billing_address?.customer_address_id,
