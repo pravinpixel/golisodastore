@@ -206,6 +206,20 @@ const toPriceString = text => {
     return text
   }
 }
+
+const initFacebookPixel = () => {
+  if (window.fbq) {
+    window.fbq('init', 448794529332682); // Initialize Pixel with your ID
+    window.fbq('track', 'PageView'); // Track initial pageview
+  }
+};
+
+const trackEvent = async (event, params = {}) => {
+  if (window.fbq) {
+    window.fbq('track', event, params);
+  }
+};
+
 export {
   ContactResponse,
   SetAllCheckBoxes,
@@ -225,5 +239,7 @@ export {
   strRandom,
   HalfHeightLoader,
   Text,
-  toPriceString
+  toPriceString,
+  initFacebookPixel,
+  trackEvent
 };

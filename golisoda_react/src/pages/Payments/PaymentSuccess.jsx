@@ -1,7 +1,20 @@
-import { Link, useLocation } from "react-router-dom";
+import {useEffect} from "react";
+import {Link, useLocation} from "react-router-dom";
+import {trackEvent} from "utils";
 export default function PaymentSuccess() {
-  const { state } = useLocation();
-
+  const {state} = useLocation();
+  const connectFB = async () => {
+    try {
+      const response = await trackEvent("Purchase", {
+        value: 99.99,
+        currency: "USD",
+      });
+      console.log(response, "response");
+    } catch (error) {
+      console.log(error, "err");
+    }
+  };
+  useEffect(() => connectFB(), []);
   return (
     <div
       style={{
@@ -14,14 +27,17 @@ export default function PaymentSuccess() {
       }}
     >
       <img
-        style={{ position: "absolute", top: 0, left: 0 ,height:"100%"}}
+        style={{position: "absolute", top: 0, left: 0, height: "100%"}}
         src="https://i.pinimg.com/originals/12/4d/e3/124de3d1b5e12f1d8fcec1685e634361.gif"
         width="100%"
         alt="Success-gif"
       />
-      <div style={{ zIndex: 1 }} className="card p-4 text-center shadow border-0 rounded-4">
+      <div
+        style={{zIndex: 1}}
+        className="card p-4 text-center shadow border-0 rounded-4"
+      >
         <img
-          src={require('../../assets/images/check.png')}
+          src={require("../../assets/images/check.png")}
           width="80px"
           className="mx-auto"
           alt="img"

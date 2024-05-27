@@ -288,7 +288,11 @@ function CardComponent({product, type, className, sliderComponent}) {
                   </span>
                 )}
                 <span className="new-price">
-                  ₹{product?.price?.replace(".00", "")}
+                  {typeof product?.price === "string" ? (
+                    <div> ₹{product?.price?.replace(".00", "")}</div>
+                  ) : (
+                    <div> ₹{product?.price}</div>
+                  )}
                 </span>
                 {product.discount_percentage !== 0 && (
                   <div className="text-info fs-6">
