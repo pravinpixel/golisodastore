@@ -50,3 +50,8 @@
 .arrival-slider .slick-dots li.slick-active button {
   background-color: #dd1818 !important;
 }
+
+/* .newarrival-slider .slick-slider .slick-slide>div>div {
+  height: 58vh;
+  padding-bottom: 0px !important;
+} */

@@ -142,7 +142,7 @@ function CardComponent({product, type, className, sliderComponent}) {
           </div>
         </Card.Body>
         <Card.Footer className="bgCard border-0">
-          <div className="d-flex justify-content-between clk-optn-mobile align-items-center">
+          <div className="d-flex justify-content-between clk-optn-mobile align-items-center w-100">
             <div className="d-flex justify-content-center clk-optn">
               <h4 className="h4">
                 {product.discount_percentage !== 0 && (
@@ -279,7 +279,7 @@ function CardComponent({product, type, className, sliderComponent}) {
           </div>
         </Card.Body>
         <Card.Footer className="bgCard border-0">
-          <div className="d-flex justify-content-between clk-optn-mobile align-items-center">
+          <div className="d-flex justify-content-between clk-optn-mobile align-items-center w-100">
             <div className="d-flex justify-content-center clk-optn">
               <h4 className="h4">
                 {product.discount_percentage !== 0 && (
