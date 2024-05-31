@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { FiEdit, FiTrash } from "react-icons/fi";
-import { SlLocationPin } from "react-icons/sl";
+import {useState} from "react";
+import {FiEdit, FiTrash} from "react-icons/fi";
+import {SlLocationPin} from "react-icons/sl";
 import {
   customerAddressApi,
   deleteAddressApi,
   setDefaultAddressApi,
 } from "services/customer.service";
-import { useDispatch, useSelector } from "react-redux";
-import { setAddress, setAdressForm } from "../../../redux/features/addressSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {setAddress, setAdressForm} from "../../../redux/features/addressSlice";
 import SweetAlert from "react-bootstrap-sweetalert";
-import { toast } from "react-hot-toast";
-import { useEffect } from "react";
+import {toast} from "react-hot-toast";
+import {useEffect} from "react";
 import {
   clearBillingAddress,
   clearBillingShippingAddress,
@@ -19,10 +19,14 @@ import {
   setShippingAddress,
 } from "redux/features/cartAddressSlice";
 import NoDataComponent from "components/NoDataComponent/NoDataComponent";
-import { HalfHeightLoader } from "utils";
-const AddressBookDetails = ({ selectType, modalType, setShow }) => {
+import {HalfHeightLoader} from "utils";
+const AddressBookDetails = ({selectType, modalType, setShow}) => {
   const addresses = useSelector((state) => state.address.value);
   const cartAddress = useSelector((state) => state.cartAddress);
+  const addressList = JSON.parse(localStorage.getItem("addressList"));
+  useEffect(() => {
+    localStorage.setItem("addressList", JSON.stringify(addresses));
+  }, [addresses]);
 
   const dispatch = useDispatch();
   const [addressesId, setAddressId] = useState(null);
@@ -30,43 +34,60 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
   const [isFetching, setIsFetching] = useState(true);
   const fetchData = () => {
     setIsFetching(true);
-    customerAddressApi().then(response => {
-      dispatch(setAddress(response.data.addresses))
+    customerAddressApi().then((response) => {
+      dispatch(setAddress(response.data.addresses));
       setIsFetching(false);
     });
   };
   const deleteAddress = async () => {
-    let selectedAddress = cartAddress[modalType === 'SHIPPING_ADDRESS' ? 'shipping_address' : 'billing_address']['customer_address_id']
-    let selectedAddress12 = cartAddress['billing_address']['customer_address_id']
+    let selectedAddress =
+      cartAddress[
+        modalType === "SHIPPING_ADDRESS"
+          ? "shipping_address"
+          : "billing_address"
+      ] !== null
+        ? cartAddress[
+            modalType === "SHIPPING_ADDRESS"
+              ? "shipping_address"
+              : "billing_address"
+          ]["customer_address_id"]
+        : addressesId;
+    let selectedAddress12 =
+      cartAddress["billing_address"] !== null
+        ? cartAddress["billing_address"]["customer_address_id"]
+        : null;
 
-    if (selectedAddress === addressesId && selectedAddress12 === addressesId) {
-      dispatch(clearBillingShippingAddress())
-      localStorage.setItem("shipping_address", null)
-      localStorage.setItem("billing_address", null)
+    if (
+      cartAddress["billing_address"] !== null &&
+      selectedAddress === addressesId &&
+      selectedAddress12 === addressesId
+    ) {
+      dispatch(clearBillingShippingAddress());
+      localStorage.setItem("shipping_address", null);
+      localStorage.setItem("billing_address", null);
     } else if (selectedAddress === addressesId) {
-      console.log("second condition");
       if (modalType === "SHIPPING_ADDRESS") {
-        localStorage.setItem("shipping_address", null)
+        localStorage.setItem("shipping_address", null);
         dispatch(clearShippingAddress());
       }
       if (modalType === "BILLING_ADDRESS") {
-        localStorage.setItem("billing_address", null)
+        localStorage.setItem("billing_address", null);
         dispatch(clearBillingAddress());
       }
     }
 
     if (addressesId !== null) {
-      deleteAddressApi(addressesId).then(response => {
+      deleteAddressApi(addressesId).then((response) => {
         toast.success(response.data?.message);
         setDeleteAlert(false);
         setAddressId(null);
-        dispatch(setAddress(response.data.addresses))
-        fetchData()
-      })
+        dispatch(setAddress(response.data.addresses));
+        fetchData();
+      });
     }
   };
   const setDefaultAddressHanlder = async (id, address) => {
-    const { data } = await setDefaultAddressApi(id);
+    const {data} = await setDefaultAddressApi(id);
     toast.success(data?.message);
     if (modalType === "SHIPPING_ADDRESS") {
       dispatch(setShippingAddress(address));
@@ -74,7 +95,7 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
     if (modalType === "BILLING_ADDRESS") {
       dispatch(setBillingAddress(address));
     }
-    setShow(false)
+    setShow(false);
   };
   useEffect(() => {
     fetchData();
@@ -108,18 +129,16 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
         <button
           className="btn btn-outline-info"
           onClick={() => {
-            dispatch(setAdressForm({ status: true, type: "CREATE" }));
+            dispatch(setAdressForm({status: true, type: "CREATE"}));
           }}
         >
           Add New Address
         </button>
       </div>
 
-      {console.log("addresses", addresses)}
-
-      {addresses?.length > 0 ? (
+      {addressList?.length > 0 ? (
         <ul className="list-group">
-          {addresses?.map((address, i) => (
+          {addressList?.map((address, i) => (
             <label
               htmlFor={address?.name}
               key={i}
@@ -164,7 +183,8 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
                   </div>
                   <p>
                     {address?.address_line1} ,{address.city} -
-                    {address.post_code_number},{address.state}, {address.country}
+                    {address.post_code_number},{address.state},{" "}
+                    {address.country}
                   </p>
                   <span>Phone: {address.mobile_no}</span>
                 </div>
@@ -213,7 +233,7 @@ const AddressBookDetails = ({ selectType, modalType, setShow }) => {
         </ul>
       ) : null}
       {isFetching && <HalfHeightLoader />}
-      {addresses?.length === 0 && isFetching === false && <NoDataComponent />}
+      {addressList?.length === 0 && isFetching === false && <NoDataComponent />}
       {/* <AddNewAddressModal show={modalShow} onHide={() => setModalShow(false)} /> */}
       <SweetAlert
         warning

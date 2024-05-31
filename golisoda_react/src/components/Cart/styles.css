@@ -1,18 +1,26 @@
 * {
   font-family: "Outfit";
 }
+
 a.change-address {
   color: #000;
+}
+
+.popupclose-btn:hover {
+  background: transparent;
+  border-color: transparent;
 }
 
 a.change-address:hover {
   text-decoration: underline;
 }
+
 .card-cart {
   background: #ffffff;
   box-shadow: 11px 11px 15px rgba(0, 0, 0, 0.06);
   border-radius: 5px;
 }
+
 .cpn-btn {
   font-family: "Outfit";
   font-style: normal;
@@ -22,17 +30,18 @@ a.change-address:hover {
   text-decoration-line: underline;
   color: #212363;
 }
-.finalcart-list .table-bordered > :not(caption) > *:last-child {
+
+.finalcart-list .table-bordered> :not(caption)>*:last-child {
   border: 0px;
 }
 
-.finalcart-list .table-bordered > :not(caption) > * {
+.finalcart-list .table-bordered> :not(caption)>* {
   border: 0px;
   border-bottom: 1px solid #d0d0d0;
   vertical-align: middle;
 }
 
-.finalcart-list .table-bordered > :not(caption) > * > * {
+.finalcart-list .table-bordered> :not(caption)>*>* {
   border: 0px;
   border-bottom: 1px solid #d0d0d0;
 }
@@ -70,10 +79,12 @@ a.change-address:hover {
 .finalcart-list .table-bordered td a {
   color: #000;
 }
+
 .MuiButtonBase-root {
   text-transform: capitalize !important;
   font-family: "Outfit" !important;
 }
+
 .finalcart-list .table-bordered td input {
   height: 45px;
   background: #ebebeb;
@@ -175,16 +186,19 @@ button.refreshing img {
   font-size: 20px;
   color: #000000;
 }
+
 .address-details {
   font-family: "Mulish";
   font-size: 14px;
   line-height: 18px;
 }
+
 @media (max-width: 990px) {
   .card-cart {
     margin-top: 2rem;
     margin-left: auto;
   }
+
   .card-cart div div {
     gap: 3rem;
   }
