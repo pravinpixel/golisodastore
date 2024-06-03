@@ -147,7 +147,7 @@ function ProductInformation({product, variationCheck, varCheck}) {
       {Object.entries(product?.variation_option).map((filters, key) => (
         <div className="hstack gap-3 mb-3" key={key}>
           <div className="fw-bold">{filters[0]} :</div>
-          {filters[0] === "Color"
+          {filters[0] == "Color"
             ? filters[1].map((variationColor, i) => (
                 <div
                   key={i}
