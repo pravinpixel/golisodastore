@@ -236,9 +236,12 @@ function AddressForm() {
                   inputProps={{
                     type: "number",
                   }}
-                  {...register("post_code", {
-                    required: "This is required.",
-                  })}
+                  {...register(
+                    "post_code"
+                    //  {
+                    // required: "This is required.",
+                    // }
+                  )}
                   className={`${errors.post_code ? "border-danger" : ""}`}
                   clearButton
                   allowNew
