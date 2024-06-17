@@ -24,8 +24,7 @@ function AddressForm() {
     setValue,
     reset,
   } = useForm();
-  const [selectedOption, setSelectedOption] = useState([]);
-
+  const [selectedOption, setSelectedOption] = useState(null);
   const onSubmit = (formData) => {
     var payload = {
       ...formData,
@@ -126,7 +125,7 @@ function AddressForm() {
           </button>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <h3 className="fs-5 text-info">Contact Details</h3>
             <div className="flex-jc-btwn gap-1 flex-wrap">
               <Form.Group

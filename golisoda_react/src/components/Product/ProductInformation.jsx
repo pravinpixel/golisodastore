@@ -192,6 +192,8 @@ function ProductInformation({product, variationCheck, varCheck}) {
         <BuyButton
           className="mb-md-0 mb-3 btn btn-primary px-5 fw-semibold"
           product={product}
+          varCheck={varCheck}
+          setCartId={setCartId}
         />
         <AddCartButton
           setCartId={setCartId}
