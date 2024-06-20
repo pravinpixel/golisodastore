@@ -47,6 +47,12 @@ function AddCartButton({className, product, type, setCartId, varCheck}) {
         customer_id: AuthUser()?.id,
         guest_token: localStorage.getItem("guest_token"),
       }).then((response) => {
+        dispatch(
+          setCart({
+            product,
+            count: response?.data?.data?.cart_count,
+          })
+        );
         if (response.data.error === 0) {
           toast.success(response.data.message);
           dispatch(removeCart(product));

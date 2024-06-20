@@ -25,6 +25,15 @@ export const shippingChargesApi = async (amount) => {
         amount: amount,
     });
 }
+
+export const shipRocketChargesApi = async (addressID) => {
+    return await axios.post(`${process.env.REACT_APP_BASE_URL}/get/shipping/rocket/charges`, {
+        customer_id: AuthUser()?.id,
+        from_type: "shipping",
+        address: addressID
+    });
+}
+
 export const updateCartApi = async (data) => {
     return await axios.post(`${process.env.REACT_APP_BASE_URL}/update/cart`, data);
 }

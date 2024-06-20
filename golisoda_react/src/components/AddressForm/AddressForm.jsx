@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Modal, Form} from "react-bootstrap";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {addAddress, setAdressForm} from "redux/features/addressSlice";
 import {MdOutlineClose} from "react-icons/md";
 import {AuthUser} from "utils";
@@ -13,6 +13,8 @@ import {toast} from "react-hot-toast";
 import {useEffect, useState} from "react";
 import {Typeahead} from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {AddressValidationSchema} from "validate";
 
 function AddressForm() {
   const address = useSelector((state) => state.address);
@@ -22,16 +24,24 @@ function AddressForm() {
     formState: {errors},
     handleSubmit,
     setValue,
+    control,
     reset,
-  } = useForm();
-  const [selectedOption, setSelectedOption] = useState(null);
+  } = useForm({
+    mode: "onTouched",
+    reValidateMode: "onChange",
+    resolver: yupResolver(AddressValidationSchema),
+  });
+  console.log("errors", errors);
+  const [selectedOption, setSelectedOption] = useState([]);
   const onSubmit = (formData) => {
     var payload = {
       ...formData,
-      post_code: selectedOption[0]?.label,
+      post_code: formData?.post_code[0]?.label,
       customer_id: AuthUser()?.id,
       id: address?.edit_value?.customer_address_id,
     };
+    console.log("payload", payload);
+
     updateOrCreateAddressApi(payload).then((response) => {
       localStorage.setItem(
         "addressList",
@@ -85,16 +95,18 @@ function AddressForm() {
       setValue("city", address?.edit_value?.city);
       setValue("state", address?.edit_value?.stateid);
       setValue("country", address?.edit_value?.countryid);
-      setSelectedOption([
+      // setSelectedOption([
+      //   {
+      //     id: parseInt(address?.edit_value?.post_code),
+      //     label: address?.edit_value?.post_code_number,
+      //   },
+      // ]);
+      setValue("post_code", [
         {
           id: parseInt(address?.edit_value?.post_code),
           label: address?.edit_value?.post_code_number,
         },
       ]);
-      setValue("post_code", {
-        id: parseInt(address?.edit_value?.post_code),
-        value: address?.edit_value?.post_code_number,
-      });
     } else {
       reset();
     }
@@ -148,7 +160,7 @@ function AddressForm() {
                 style={{width: "49%"}}
               >
                 <Form.Control
-                  type="tel"
+                  type="number"
                   placeholder="Mobile Number"
                   className={`${errors.mobile_no ? "border-danger" : ""}`}
                   {...register("mobile_no", {
@@ -224,7 +236,38 @@ function AddressForm() {
                   className={`${errors.city ? "border-danger" : ""}`}
                 />
               </Form.Group>
-              <Form.Group
+              <Controller
+                name="post_code"
+                control={control}
+                render={({field}) => {
+                  return (
+                    <Form.Group
+                      className="mb-3"
+                      controlId="post_code"
+                      style={{width: "49%"}}
+                    >
+                      <Typeahead
+                        id="my-typeahead"
+                        labelKey="label"
+                        inputProps={{
+                          type: "number",
+                        }}
+                        className={`${errors.post_code ? "border-danger" : ""}`}
+                        clearButton
+                        allowNew
+                        placeholder="Pincode"
+                        options={pincodeMaster}
+                        selected={field.value}
+                        onChange={(e) => {
+                          field.onChange(e);
+                        }}
+                        positionFixed={true}
+                      />
+                    </Form.Group>
+                  );
+                }}
+              />
+              {/* <Form.Group
                 className="mb-3"
                 controlId="post_code"
                 style={{width: "49%"}}
@@ -249,7 +292,7 @@ function AddressForm() {
                   selected={selectedOption}
                   onChange={setSelectedOption}
                 />
-              </Form.Group>
+              </Form.Group> */}
               {/* <Form.Group
               className="mb-3"
               controlId="post_code"

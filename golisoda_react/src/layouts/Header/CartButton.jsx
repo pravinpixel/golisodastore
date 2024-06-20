@@ -1,7 +1,47 @@
-import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {cartListApi} from "services/product.service";
+import {setCartList} from "redux/features/cartSlice";
+
 const CartButton = ({className, text, size}) => {
   const cartCount = useSelector((state) => state.cart.value);
+  // const authUser = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const fetchCartData = async () => {
+    const response = await cartListApi();
+    if (response) {
+      localStorage.setItem(
+        "checkout_data",
+        JSON.stringify(response.data?.cart_total)
+      );
+      localStorage.setItem("checkout_data_total", response.data?.cart_total);
+      if (response.data?.carts?.length > 0) {
+        dispatch(
+          setCartList({
+            value: response.data?.carts.length,
+            data: response.data?.carts,
+          })
+        );
+      } else {
+        dispatch(
+          setCartList({
+            value: 0,
+            data: [],
+          })
+        );
+      }
+    }
+    return response;
+  };
+  useEffect(() => {
+    fetchCartData();
+  }, []);
+
+  // useEffect(() => {
+  //   fetchCartData();
+  // }, [authUser]);
+
   return (
     <Link to="/cart" className={`${className}`}>
       <span className="position-relative">

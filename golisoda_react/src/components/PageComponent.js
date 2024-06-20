@@ -14,7 +14,6 @@ export default function PageComponent() {
         axios.post(`${process.env.REACT_APP_BASE_URL}/store-service`, {
             slug: page_slug
         }).then(res => {
-            console.log(res.data.type)
             setPageType(res.data.type)
             setData(res.data.data)
         });

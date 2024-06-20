@@ -22,7 +22,6 @@ export const cartSlice = createSlice({
       }
     },
     setCartCount: (state, action) => {
-      console.log("action", action?.payload?.length);
       return state = {
         value: action?.payload?.length,
         // data: cartList ? cartList : [],
