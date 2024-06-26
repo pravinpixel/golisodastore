@@ -3,7 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import ProductDetails from "./ProductDetails/ProductDetails";
 import CartDetails from "./CartDetails/CartDetails";
 import {useEffect, useState} from "react";
-import {cartListApi} from "services/product.service";
+import {cartListApi, shipRocketChargesApi} from "services/product.service";
 import {useDispatch, useSelector} from "react-redux";
 import {setCartList} from "redux/features/cartSlice";
 import {Loader} from "utils";
@@ -14,11 +14,18 @@ const CartProduct = () => {
   const [cartProduct, setCartProduct] = useState([]);
   const [checkoutData, setCheckoutData] = useState(null);
   const [cartData, setCartData] = useState(null);
+
+  const [shipRocketTypes, setShipRocketTypes] = useState(null);
+  const [shipRocketLoading, setShipRocketLoading] = useState(false);
+
   const [coupon, setCoupon] = useState(null);
   const dispatch = useDispatch();
   const authUser = useSelector((state) => state.auth);
+
+  const shipping_address = JSON.parse(localStorage.getItem("shipping_address"));
+
   const fetchCartData = async () => {
-    const response = await cartListApi();
+    const response = await cartListApi(shipping_address);
     if (response) {
       setCartData(response?.data);
       setCartProduct(response.data?.carts);
@@ -40,6 +47,25 @@ const CartProduct = () => {
     setfetching(false);
     return response;
   };
+
+  const shirocketApiCall = async () => {
+    setShipRocketLoading(true);
+    try {
+      const response = await shipRocketChargesApi(
+        shipping_address?.customer_address_id
+      );
+      setShipRocketTypes(response?.data);
+      setShipRocketLoading(false);
+      fetchCartData();
+    } catch (error) {
+      setShipRocketLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    shirocketApiCall();
+  }, [shipping_address?.customer_address_id]);
+
   useEffect(() => {
     fetchCartData();
   }, [authUser]);
@@ -57,6 +83,7 @@ const CartProduct = () => {
                 setCheckoutData={setCheckoutData}
                 fetchCartData={fetchCartData}
                 cartData={cartData}
+                shirocketApiCall={shirocketApiCall}
               />
             </Col>
             <Col lg={4} className="align-self-start mt-5 pt-1">
@@ -67,6 +94,9 @@ const CartProduct = () => {
                 cartProduct={cartProduct}
                 cartData={cartData}
                 fetchCartData={fetchCartData}
+                shipRocketTypes={shipRocketTypes}
+                shipRocketLoading={shipRocketLoading}
+                shirocketApiCall={shirocketApiCall}
               />
             </Col>
           </Row>

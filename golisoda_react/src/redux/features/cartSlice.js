@@ -14,6 +14,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartList: (state, action) => {
+
       localStorage.setItem('cart_list', JSON.stringify(action.payload.data));
       let currentCart = JSON.parse(localStorage.getItem('cart_list'));
       return {
@@ -28,12 +29,13 @@ export const cartSlice = createSlice({
       }
     },
     setCart: (state, action) => {
+
       if (localStorage.getItem('cart_list') === undefined || localStorage.getItem('cart_list') === null) {
         localStorage.setItem('cart_list', JSON.stringify([]));
       }
       if (localStorage.getItem('cart_list') !== undefined || localStorage.getItem('cart_list') !== null) {
-        let currentCart = JSON.parse(localStorage.getItem('cart_list'));
-        localStorage.setItem('cart_list', JSON.stringify([...currentCart, action.payload?.product]));
+        // let currentCart = JSON.parse(localStorage.getItem('cart_list'));
+        localStorage.setItem('cart_list', JSON.stringify(action.payload?.carts === 0 ? [] : action.payload?.carts));
       }
       // var counter = state.value + 1
       return state = {

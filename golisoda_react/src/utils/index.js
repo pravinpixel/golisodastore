@@ -110,12 +110,12 @@ const AuthUser = () => {
   return false;
 };
 function checkCartBucket(product_id) {
-  let currentCart = localStorage.getItem("cart_list") ? JSON.parse(localStorage.getItem("cart_list")) : null;
+  let currentCart = localStorage.getItem("cart_list") ? JSON.parse(localStorage.getItem("cart_list")) : [];
   if (currentCart !== null) {
     function isExists(CurrentTest) {
       return CurrentTest.id === product_id;
     }
-    var Result = currentCart.find(isExists);
+    var Result = currentCart === 0 ? [] : currentCart?.find(isExists);
     if (Result !== undefined) {
       return true;
     } else {

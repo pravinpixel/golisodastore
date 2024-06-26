@@ -31,7 +31,6 @@ function AddressForm() {
     reValidateMode: "onChange",
     resolver: yupResolver(AddressValidationSchema),
   });
-  console.log("errors", errors);
   const [selectedOption, setSelectedOption] = useState([]);
   const onSubmit = (formData) => {
     var payload = {

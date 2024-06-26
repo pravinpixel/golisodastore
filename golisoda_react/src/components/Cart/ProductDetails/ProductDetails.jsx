@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useDispatch, useSelector} from "react-redux";
 import {BsDash, BsPlus, BsX} from "react-icons/bs";
-import {clearCart, removeCart} from "redux/features/cartSlice";
+import {clearCart, removeCart, setCartList} from "redux/features/cartSlice";
 import {FaTrash} from "react-icons/fa";
 import {useEffect, useState} from "react";
 import {
@@ -24,6 +24,7 @@ const ProductDetails = ({
   setCoupon,
   fetchCartData,
   cartData,
+  shirocketApiCall,
 }) => {
   // console.log('cartData', cartData?.cart_total);
   // console.log('setCheckoutData', setCheckoutData);
@@ -65,6 +66,7 @@ const ProductDetails = ({
         setLoading(false);
         if (response.data.status === "error") {
           toast.error(response.data.message);
+          setValue("coupon_code", "");
         } else {
           data !== true && toast.success(response.data.message);
           setCouponApplyed(true);
@@ -273,6 +275,7 @@ const ProductDetails = ({
                     product={product}
                     fetchCartData={fetchCartData}
                     setCheckoutData={setCheckoutData}
+                    shirocketApiCall={shirocketApiCall}
                     removeCouponCode={() => removeCouponCode(true)}
                   />
                 </div>
@@ -455,6 +458,7 @@ const ProductDeleteButton = ({
   fetchCartData,
   setCheckoutData,
   removeCouponCode,
+  shirocketApiCall,
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -468,11 +472,19 @@ const ProductDeleteButton = ({
     }).then((response) => {
       if (response.data.error === 0) {
         toast.success(response.data.message);
-        setCheckoutData(response.data.cart_total);
+        setCheckoutData(response.data.data.cart_total);
         dispatch(removeCart(product));
         setTimeout(() => setLoading(false), 200);
         fetchCartData();
+        shirocketApiCall();
         removeCouponCode(false);
+        console.log("response", response.data.data);
+        dispatch(
+          setCartList({
+            value: response.data.data?.cart_count,
+            data: response.data.data?.carts,
+          })
+        );
       } else {
         toast.error("Network Error");
         setLoading(false);

@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {toast} from "react-hot-toast";
 import {useDispatch} from "react-redux";
-import {removeCart, setCart} from "redux/features/cartSlice";
+import {removeCart, setCart, setCartList} from "redux/features/cartSlice";
 import {addToCartApi, removeFromCartApi} from "services/product.service";
 import {AuthUser, LoadingSpinner, checkCartBucket, strRandom} from "utils";
 
@@ -24,6 +24,7 @@ function AddCartButton({className, product, type, setCartId, varCheck}) {
           setCart({
             product,
             count: response?.data?.data?.cart_count,
+            carts: response?.data?.data?.carts,
           })
         );
         // dispatch(setCart(product));
@@ -40,28 +41,9 @@ function AddCartButton({className, product, type, setCartId, varCheck}) {
   };
 
   const addOrRemoveCart = () => {
+    setIsAddCart(!isAddCart);
     setLoading(true);
-    if (checkCartBucket(product.id)) {
-      removeFromCartApi({
-        product_id: product.id,
-        customer_id: AuthUser()?.id,
-        guest_token: localStorage.getItem("guest_token"),
-      }).then((response) => {
-        dispatch(
-          setCart({
-            product,
-            count: response?.data?.data?.cart_count,
-          })
-        );
-        if (response.data.error === 0) {
-          toast.success(response.data.message);
-          dispatch(removeCart(product));
-          setIsAddCart(false);
-        } else {
-          toast.error("Network Error");
-        }
-      });
-    } else {
+    if (!isAddCart) {
       addToCartApi({
         product_id: product.id,
         customer_id: AuthUser()?.id,
@@ -74,19 +56,110 @@ function AddCartButton({className, product, type, setCartId, varCheck}) {
             setCart({
               product,
               count: response?.data?.data?.cart_count,
+              carts: response?.data?.data?.carts,
             })
           );
           // dispatch(setCart(product));
           toast.success(response.data.message);
-          setIsAddCart(true);
+          // setIsAddCart(true);
           if (setCartId !== undefined) {
             setCartId(response.data.data.carts[0].cart_id);
           }
+          localStorage.setItem(
+            "cart_list",
+            JSON.stringify(response.data.data.carts)
+          );
+        } else {
+          toast.error("Network Error");
+        }
+      });
+    } else {
+      removeFromCartApi({
+        product_id: product.id,
+        customer_id: AuthUser()?.id,
+        guest_token: localStorage.getItem("guest_token"),
+      }).then((response) => {
+        dispatch(
+          setCart({
+            product,
+            count: response?.data?.data?.cart_count,
+            carts: response?.data?.data?.carts,
+          })
+        );
+        if (response.data.error === 0) {
+          // setIsAddCart(false);
+          dispatch(
+            setCartList({
+              value: response.data?.carts.length,
+              data: response.data?.carts,
+            })
+          );
+          toast.success(response.data.message);
+          // localStorage.setItem(
+          //   "cart_list",
+          //   JSON.stringify(response.data?.carts)
+          // );
+          dispatch(removeCart(product));
         } else {
           toast.error("Network Error");
         }
       });
     }
+    // setLoading(true);
+    // if (flag) {
+    //   removeFromCartApi({
+    //     product_id: product.id,
+    //     customer_id: AuthUser()?.id,
+    //     guest_token: localStorage.getItem("guest_token"),
+    //   }).then((response) => {
+    //     dispatch(
+    //       setCart({
+    //         product,
+    //         count: response?.data?.data?.cart_count,
+    //       })
+    //     );
+    //     if (response.data.error === 0) {
+    //       console.log("remove clicked");
+    //       setIsAddCart(false);
+    //       dispatch(
+    //         setCartList({
+    //           value: response.data?.carts.length,
+    //           data: response.data?.carts,
+    //         })
+    //       );
+    //       toast.success(response.data.message);
+    //       dispatch(removeCart(product));
+    //     } else {
+    //       toast.error("Network Error");
+    //     }
+    //   });
+    // } else {
+    //   addToCartApi({
+    //     product_id: product.id,
+    //     customer_id: AuthUser()?.id,
+    //     guest_token: localStorage.getItem("guest_token"),
+    //     quantity: 1,
+    //     variation_option_ids: Object.values(varCheck),
+    //   }).then((response) => {
+    //     if (response.data.error === 0) {
+    //       console.log("remove clicked 2");
+    //       dispatch(
+    //         setCart({
+    //           product,
+    //           count: response?.data?.data?.cart_count,
+    //         })
+    //       );
+    //       // dispatch(setCart(product));
+    //       toast.success(response.data.message);
+    //       setIsAddCart(true);
+    //       if (setCartId !== undefined) {
+    //         setCartId(response.data.data.carts[0].cart_id);
+    //       }
+    //     } else {
+    //       toast.error("Network Error");
+    //     }
+    //   });
+    // }
     setTimeout(() => setLoading(false), 1000);
   };
 
@@ -121,7 +194,8 @@ function AddCartButton({className, product, type, setCartId, varCheck}) {
     return (
       <button
         loading={`${loading}`}
-        onClick={addOrRemoveCart}
+        // onClick={() => setIsAddCart(!isAddCart)}
+        onClick={() => addOrRemoveCart()}
         className={
           isAddCart ? "btn btn-outline-primary ms-md-3 mb-md-0 mb-0" : className
         }
