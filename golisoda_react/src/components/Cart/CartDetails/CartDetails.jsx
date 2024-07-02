@@ -7,6 +7,7 @@ import {
   checkoutCodApi,
   setShippingChargesApi,
   shippingChargesApi,
+  shipRocketChargesApi,
 } from "services/product.service";
 import AddressBookDetails from "components/MyAccount/MyAddressBook/AddressBookDetails";
 import {Modal} from "react-bootstrap";
@@ -23,11 +24,15 @@ const CartDetails = ({
   cartProduct,
   cartData,
   fetchCartData,
+  shirocketApiCall,
+  shipRocketTypes,
+  shipRocketLoading,
 }) => {
   // const pickupSelector = useSelector((state) => state.footerCollection.siteInfo?.is_pickup_from_store);
 
   const authUser = useSelector((state) => state.auth);
   const address = useSelector((state) => state.cartAddress);
+
   localStorage.setItem("shipping_charge_id", 2);
 
   // const [shippingMethod, setShippingMethod] = useState(pickupSelector !== 1 ?
@@ -36,6 +41,10 @@ const CartDetails = ({
   const shipping_charge_id = localStorage.getItem("shipping_charge_id");
   const [addressModalType, setAddressModalType] = useState(null);
   const [shippingTypes, setshippingTypes] = useState([]);
+
+  // const [shipRocketTypes, setShipRocketTypes] = useState(null);
+  // const [shipRocketLoading, setShipRocketLoading] = useState(false);
+
   const [show, setShow] = useState(false);
   const [codInputCheck, setCODInputCheck] = useState(false);
 
@@ -45,31 +54,55 @@ const CartDetails = ({
   const shipping_address = JSON.parse(localStorage.getItem("shipping_address"));
   const store_address = JSON.parse(localStorage.getItem("store_address"));
 
+  // useEffect(() => {
+  //   if (shippingMethod === "Standard_Shipping" && checkoutData) {
+  //     shippingChargesApi(
+  //       checkoutData.product_tax_exclusive_total_without_format
+  //     ).then((response) => {
+  //       setshippingTypes(response.data);
+  //     });
+  //   }
+  // }, [checkoutData, shippingMethod]);
+
+  // const shirocketApiCall = async () => {
+  //   setShipRocketLoading(true);
+  //   try {
+  //     const response = await shipRocketChargesApi(
+  //       shipping_address?.customer_address_id
+  //     );
+  //     setShipRocketTypes(response?.data);
+  //     setShipRocketLoading(false);
+  //     fetchCartData();
+  //   } catch (error) {
+  //     setShipRocketLoading(false);
+  //   }
+  // };
+
   useEffect(() => {
-    if (shippingMethod === "Standard_Shipping" && checkoutData) {
-      shippingChargesApi(
-        checkoutData.product_tax_exclusive_total_without_format
-      ).then((response) => {
-        setshippingTypes(response.data);
-      });
+    if (
+      authUser.isLoggedIn &&
+      checkoutData &&
+      shipping_address?.customer_address_id
+    ) {
+      shirocketApiCall();
     }
-  }, [checkoutData, shippingMethod]);
+  }, [shipping_address?.customer_address_id]);
 
   // const shippingMethodHandler = (e, value) => {
   //   setShippingMethod(value);
   //   localStorage.setItem("shipping_method", value?.toUpperCase());
   // };
 
-  const setShippingCharges = async (id) => {
-    localStorage.setItem("shipping_charge_id", id);
-    const response = await setShippingChargesApi(id);
-    setCheckoutData(response.data.data.cart_total);
-    localStorage.setItem(
-      "checkout_data",
-      JSON.stringify(response.data.data.cart_total)
-    );
-    toast.success(response.data.message);
-  };
+  // const setShippingCharges = async (id) => {
+  //   localStorage.setItem("shipping_charge_id", id);
+  //   const response = await setShippingChargesApi(id);
+  //   setCheckoutData(response.data.data.cart_total);
+  //   localStorage.setItem(
+  //     "checkout_data",
+  //     JSON.stringify(response.data.data.cart_total)
+  //   );
+  //   toast.success(response.data.message);
+  // };
 
   const cashOnDeliveryCheck = (e) => {
     setCODInputCheck(e.target.checked);
@@ -203,40 +236,48 @@ const CartDetails = ({
               </div>
               <div>
                 <TabPanel value="Standard_Shipping" className="px-0 py-2">
-                  <ul className="list-group mb-3">
-                    {shippingTypes.length > 0
-                      ? shippingTypes.map((type, index) => (
+                  {authUser.isLoggedIn &&
+                    checkoutData &&
+                    shipping_address?.customer_address_id && (
+                      <ul className="list-group mb-3">
+                        {/* {shippingTypes.length > 0
+                      ? shippingTypes.map((type, index) => ( */}
+                        {shipRocketLoading ? (
+                          "Fetching..."
+                        ) : (
                           <label
-                            htmlFor={type.shipping_title}
-                            key={index}
-                            onChange={() => setShippingCharges(type?.id)}
+                            htmlFor={shipRocketTypes?.data?.shipping_title}
+                            // key={index}
+                            // onChange={() => setShippingCharges(type.id)}
                             className="list-group-item list-group-item-action d-flex justify-content-between"
                           >
                             <span>
                               <input
                                 type="radio"
                                 name="shipping_type"
-                                id={type.shipping_title}
+                                id={shipRocketTypes?.data?.shipping_title}
                                 className="me-2 form-check-input"
-                                checked={type?.id === 2}
+                                checked={true}
+                                // checked={type.id === 2}
                                 // checked={shipping_charge_id == type.id}
                               />
-                              {type.shipping_title}
+                              {shipRocketTypes?.data?.shipping_title}
                             </span>
                             <div>
                               <b>
-                                {type.charges === "0.00" ? (
+                                {shipRocketTypes?.data?.charges === "0.00" ? (
                                   <span className="text-success">FREE</span>
                                 ) : (
-                                  type.charges
+                                  shipRocketTypes?.data?.charges
                                 )}
                               </b>
                             </div>
                           </label>
-                        ))
-                      : "Fetching..."}
-                  </ul>
-
+                        )}
+                        {/* ))
+                      : "Fetching..."} */}
+                      </ul>
+                    )}
                   <div className="border rounded bg-white py-1 p-3">
                     <p className="m-0 text-info d-flex align-items-center justify-content-between">
                       <span>
@@ -261,7 +302,7 @@ const CartDetails = ({
                         )}
                       </button>
                     </p>
-                    {address.shipping_address ? (
+                    {shipping_address && address.shipping_address ? (
                       <div className="text-dark">
                         <b className="text-secondary fw-400">
                           {address.shipping_address?.name}
@@ -308,7 +349,7 @@ const CartDetails = ({
                         )}
                       </button>
                     </p>
-                    {address.billing_address !== null ? (
+                    {billing_address && address.billing_address !== null ? (
                       <div className="text-dark">
                         <b className="text-secondary fw-400">
                           {address.billing_address?.name}
@@ -368,6 +409,14 @@ const CartDetails = ({
               <span>Taxes</span>
               <div>₹ {checkoutData.tax_total}</div>
             </li>
+            {authUser.isLoggedIn &&
+              checkoutData &&
+              shipping_address?.customer_address_id && (
+                <li className="list-group-item d-flex align-items-center justify-content-between">
+                  <span>Shipping Charges</span>
+                  <div>₹ {checkoutData?.shipping_charge}</div>
+                </li>
+              )}
             {codInputCheck ? (
               <li className="list-group-item d-flex align-items-center justify-content-between">
                 <span>COD</span>
