@@ -19,7 +19,7 @@ function ResetPassword() {
       toast.error(response.data.message);
       navigate("/");
     } else {
-      setCustomerId(response.data.customer.id);
+      setCustomerId(response?.data?.customer?.id);
       setIsVerfying(false);
     }
   };

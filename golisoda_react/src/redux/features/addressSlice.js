@@ -31,7 +31,7 @@ export const addressSlice = createSlice(
                 }
             },
             removeAddress: (state, action) => {
-                const removeItem = state.value.filter((item) => item.id !== action.payload);
+                const removeItem = state.value.filter((item) => item?.id !== action.payload);
                 localStorage.setItem("customer_address", JSON.stringify(removeItem))
                 return state.value = removeItem;
             }

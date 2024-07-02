@@ -16,7 +16,7 @@ export default function BuyButton({className, product, varCheck, setCartId}) {
     //   navigate("/cart");
     // } else {
     addToCartApi({
-      product_id: product.id,
+      product_id: product?.id,
       customer_id: AuthUser()?.id,
       guest_token: localStorage.getItem("guest_token"),
       quantity: 1,

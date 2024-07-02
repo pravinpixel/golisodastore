@@ -1,16 +1,18 @@
 import NoDataComponent from "components/NoDataComponent/NoDataComponent";
 import CardComponent from "components/CardComponent/CardComponent";
 
-function ProductListComponent({ products, action, className }) {
+function ProductListComponent({products, action, className}) {
   if (products.length > 0) {
     return (
       <div className="row g-2 g-lg-0 border-start">
         {products.map((product) => (
           <CardComponent
             product={product}
-            key={product.id}
+            key={product?.id}
             type="list"
-            className={className ? className : 'col-6 col-lg-12 border-bottom col-md-4'}
+            className={
+              className ? className : "col-6 col-lg-12 border-bottom col-md-4"
+            }
           />
         ))}
       </div>

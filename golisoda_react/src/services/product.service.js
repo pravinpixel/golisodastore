@@ -17,7 +17,7 @@ export const cartListApi = async (shipping_address) => {
     return await axios.post(`${process.env.REACT_APP_BASE_URL}/get/cart`, {
         customer_id: AuthUser()?.id,
         guest_token: AuthUser() === false ? localStorage.getItem('guest_token') : "",
-        selected_shipping: shipping_address?.customer_address_id ?? null
+        // selected_shipping: shipping_address?.customer_address_id ?? null
     });
 }
 export const shippingChargesApi = async (amount) => {

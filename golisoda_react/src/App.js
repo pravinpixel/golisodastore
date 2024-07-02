@@ -38,8 +38,18 @@ import PageComponent from "components/PageComponent";
 import ServicesListingComponent from "components/ServicesListingComponent";
 import ReturnPolicy from "components/ReurnPolicy";
 import BrandsPage from "pages/BrandsPage";
+import { useSelector } from "react-redux";
 
 function App() {
+
+  // const datas = useSelector((state) => state?.auth);
+  // useEffect(() => {
+  //   if (datas?.data === null && datas?.isLoggedIn) {
+  //     localStorage.clear();
+  //     sessionStorage.clear();
+  //   }
+  // }, [])
+
   if (localStorage.getItem('guest_token') === null) {
     localStorage.setItem('guest_token', strRandom())
   }

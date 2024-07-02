@@ -46,7 +46,7 @@ export const cartSlice = createSlice({
     removeCart: (state, action) => {
       let currentCart = JSON.parse(localStorage.getItem('cart_list'));
       function isExists(product) {
-        return product.id === action.payload.id;
+        return product?.id === action.payload?.id;
       }
       var Result = currentCart.find(isExists)
       var index = currentCart.indexOf(Result)

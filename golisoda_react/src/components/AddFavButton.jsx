@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { addOrRemoveWhishListApi } from "services/product.service";
-import { AuthUser } from "utils";
+import {useState} from "react";
+import {toast} from "react-hot-toast";
+import {addOrRemoveWhishListApi} from "services/product.service";
+import {AuthUser} from "utils";
 import Tooltip from "@mui/material/Tooltip";
 
-function AddFavButton({ className, product, action, buttonType, roundRemove }) {
+function AddFavButton({className, product, action, buttonType, roundRemove}) {
   const [loading, setLoading] = useState(false);
   const [isSelected, setIsSelected] = useState(product.is_wishlist);
 
@@ -15,7 +15,7 @@ function AddFavButton({ className, product, action, buttonType, roundRemove }) {
     }
     setLoading(true);
     addOrRemoveWhishListApi({
-      product_id: product.id,
+      product_id: product?.id,
       status: !isSelected,
     }).then((response) => {
       if (response.data.error === 0) {
@@ -34,10 +34,11 @@ function AddFavButton({ className, product, action, buttonType, roundRemove }) {
     <Tooltip title="Favourites" placement="bottom" arrow>
       <button
         style={{
-          backgroundColor: isSelected ? "transparent"
-            // "#edf2ff" 
-            : "none",
-          border: roundRemove && "none"
+          backgroundColor: isSelected
+            ? "transparent"
+            : // "#edf2ff"
+              "none",
+          border: roundRemove && "none",
         }}
         loading={`${loading}`}
         className={className}

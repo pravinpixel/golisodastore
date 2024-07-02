@@ -7,13 +7,13 @@ import {AuthUser, LoadingSpinner, checkCartBucket, strRandom} from "utils";
 
 function AddCartButton({className, product, type, setCartId, varCheck}) {
   const dispatch = useDispatch();
-  const [isAddCart, setIsAddCart] = useState(checkCartBucket(product.id));
+  const [isAddCart, setIsAddCart] = useState(checkCartBucket(product?.id));
   const [loading, setLoading] = useState(false);
 
   const addCart = () => {
     setLoading(true);
     addToCartApi({
-      product_id: product.id,
+      product_id: product?.id,
       customer_id: AuthUser()?.id,
       guest_token: localStorage.getItem("guest_token"),
       quantity: 1,
@@ -45,7 +45,7 @@ function AddCartButton({className, product, type, setCartId, varCheck}) {
     setLoading(true);
     if (!isAddCart) {
       addToCartApi({
-        product_id: product.id,
+        product_id: product?.id,
         customer_id: AuthUser()?.id,
         guest_token: localStorage.getItem("guest_token"),
         quantity: 1,
@@ -75,7 +75,7 @@ function AddCartButton({className, product, type, setCartId, varCheck}) {
       });
     } else {
       removeFromCartApi({
-        product_id: product.id,
+        product_id: product?.id,
         customer_id: AuthUser()?.id,
         guest_token: localStorage.getItem("guest_token"),
       }).then((response) => {

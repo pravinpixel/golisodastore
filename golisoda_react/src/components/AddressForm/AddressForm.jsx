@@ -202,7 +202,7 @@ function AddressForm() {
                   <option value=""> Select Your Address type </option>
                   {addressMaster.length !== 0 &&
                     addressMaster.map((address_type) => (
-                      <option key={address_type.id} value={address_type.id}>
+                      <option key={address_type?.id} value={address_type?.id}>
                         {address_type.name}
                       </option>
                     ))}
@@ -334,7 +334,7 @@ function AddressForm() {
                   <option value=""> Select Your State </option>
                   {stateMaster.length !== 0 &&
                     stateMaster.map((state) => (
-                      <option key={state.id} value={state.id}>
+                      <option key={state?.id} value={state?.id}>
                         {state.state_name}
                       </option>
                     ))}
@@ -354,7 +354,7 @@ function AddressForm() {
                   <option value=""> Select Your Country </option>
                   {countryMaster.length !== 0 &&
                     countryMaster.map((country) => (
-                      <option key={country.id} value={country.id}>
+                      <option key={country?.id} value={country?.id}>
                         {country.name}
                       </option>
                     ))}

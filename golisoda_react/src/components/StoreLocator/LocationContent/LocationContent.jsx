@@ -1,15 +1,15 @@
 import React from "react";
-import { Col, Container } from "react-bootstrap";
-import { FiPhone } from "react-icons/fi";
-import { RiMapPinLine } from "react-icons/ri";
-import { TfiEmail } from "react-icons/tfi";
+import {Col, Container} from "react-bootstrap";
+import {FiPhone} from "react-icons/fi";
+import {RiMapPinLine} from "react-icons/ri";
+import {TfiEmail} from "react-icons/tfi";
 import "./styles.scss";
-import { Link } from "react-router-dom";
-import { HalfHeightLoader, openInNewTab } from "utils";
+import {Link} from "react-router-dom";
+import {HalfHeightLoader, openInNewTab} from "utils";
 import NoDataComponent from "components/NoDataComponent/NoDataComponent";
-import { BsWhatsapp } from "react-icons/bs";
+import {BsWhatsapp} from "react-icons/bs";
 
-const LocationContent = ({ storeData, fetching }) => {
+const LocationContent = ({storeData, fetching}) => {
   // console.log(storeData && storeData.data);
   return fetching ? (
     <HalfHeightLoader />
@@ -18,7 +18,7 @@ const LocationContent = ({ storeData, fetching }) => {
       <Container>
         {storeData &&
           storeData.data.map((item) => (
-            <div key={item.id}>
+            <div key={item?.id}>
               <div className="flex-jc-btwn flex-wrap location-content-div">
                 <Col lg={9}>
                   <div className="location-content">
@@ -34,7 +34,7 @@ const LocationContent = ({ storeData, fetching }) => {
                         <FiPhone />
                         {item.group_contacts.split(",").map((num, i) => (
                           <Link
-                            style={{ color: "black" }}
+                            style={{color: "black"}}
                             key={i}
                             rel="noopener noreferrer"
                             onClick={() => openInNewTab(`tel:${num}`)}
@@ -49,7 +49,7 @@ const LocationContent = ({ storeData, fetching }) => {
                         <TfiEmail />
                         {item.group_emails.split(",").map((mail, i) => (
                           <Link
-                            style={{ color: "black" }}
+                            style={{color: "black"}}
                             key={i}
                             rel="noopener noreferrer"
                             onClick={() => openInNewTab(`mailto:${mail}`)}
@@ -63,7 +63,7 @@ const LocationContent = ({ storeData, fetching }) => {
                       <div className="align-c gap-3">
                         <BsWhatsapp />
                         <Link
-                          style={{ color: "black" }}
+                          style={{color: "black"}}
                           rel="noopener noreferrer"
                           onClick={() =>
                             openInNewTab(`https://wa.me/${item.whatsapp_no}`)
@@ -76,16 +76,13 @@ const LocationContent = ({ storeData, fetching }) => {
                   </div>
                 </Col>
                 <Col className="flex-d-clm-align-c flex-jc-s-a find-us-on-map gap-1">
-                  <Link
-                    to={`/${item.slug}`}
-                    className="btn-red-outline"
-                  >
+                  <Link to={`/${item.slug}`} className="btn-red-outline">
                     More Details
                   </Link>
                   <div>
                     <p>Find us on</p>
                     <iframe
-                      style={{ width: "80px", height: "80px", border: "0" }}
+                      style={{width: "80px", height: "80px", border: "0"}}
                       src={item.map_link}
                       frameBorder="0"
                       allowFullScreen=""

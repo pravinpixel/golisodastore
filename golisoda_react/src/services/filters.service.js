@@ -23,7 +23,7 @@ const productListCategoryMenuApi = async (payload) => {
   );
 };
 const productsApi = async (search, take) => {
-  const product_search = `${search !== "" ? search : "?"}&customer_id=${AuthUser().id
+  const product_search = `${search !== "" ? search : "?"}&customer_id=${AuthUser()?.id
     }&take=${take}`;
   var urlParams = new URLSearchParams(product_search);
   urlParams.delete("fbclid");

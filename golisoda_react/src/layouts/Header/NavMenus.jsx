@@ -262,7 +262,7 @@ export const NavMenuList = ({className, toggleHeader}) => {
               <div className="px-3 py-2 nav-heading">Shop by Category</div>
               {data &&
                 data.data.map((item) => (
-                  <div className="dropdown" key={item.id}>
+                  <div className="dropdown" key={item?.id}>
                     <li className="list-group-item px-3" style={{border: "0"}}>
                       <div
                         className="d-flex justify-content-between align-items-center"
@@ -294,10 +294,10 @@ export const NavMenuList = ({className, toggleHeader}) => {
                         )}
                       </div>
                       {item.child && item.child.length > 0 && (
-                        <ul className="dropdown-content" key={item.id}>
+                        <ul className="dropdown-content" key={item?.id}>
                           {item.child.map((data) => (
                             <li
-                              key={data.id}
+                              key={data?.id}
                               className="list-group-item px-3"
                               onClick={() =>
                                 linkHandler(

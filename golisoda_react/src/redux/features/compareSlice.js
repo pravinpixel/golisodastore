@@ -31,7 +31,7 @@ export const compareSlice = createSlice(
                         if (currentList.length === 0) {
                             localStorage.setItem('compare_products', JSON.stringify([...currentList, action.payload.value]))
                         } else {
-                            var filters = currentList.filter(item => item.id !== action.payload.value.id)
+                            var filters = currentList.filter(item => item?.id !== action.payload.value?.id)
                             localStorage.setItem('compare_products', JSON.stringify([...filters, action.payload.value]));
                         }
                     } else {
@@ -46,7 +46,7 @@ export const compareSlice = createSlice(
             },
             removeProduct: (state, action) => {
                 let currentList = JSON.parse(localStorage.getItem('compare_products'));
-                const removeItem = currentList.filter((item) => item.id !== action.payload.value);
+                const removeItem = currentList.filter((item) => item?.id !== action.payload.value);
                 localStorage.setItem('compare_products', JSON.stringify(removeItem));
                 return state = {
                     status: action.payload.status,

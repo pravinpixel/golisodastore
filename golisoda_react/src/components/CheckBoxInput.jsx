@@ -38,7 +38,7 @@ function CheckBoxInput({data, name}) {
       for (let index = 0; index < checkboxes.length; index++) {
         const element = checkboxes[index];
         baseFilterUrl.split("_").forEach((item) => {
-          if (element.id === item) {
+          if (element?.id === item) {
             element.checked = true;
           }
         });

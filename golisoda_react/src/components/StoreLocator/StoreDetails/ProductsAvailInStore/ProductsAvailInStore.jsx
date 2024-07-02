@@ -1,8 +1,8 @@
 import React from "react";
 import "components/Home/CategoriesPoster/styles.css";
-import { useSelector } from "react-redux";
-import { Image } from "utils";
-import { useNavigate } from "react-router-dom";
+import {useSelector} from "react-redux";
+import {Image} from "utils";
+import {useNavigate} from "react-router-dom";
 
 const ProductsAvailInStore = () => {
   const subcategoryCollections = useSelector(
@@ -28,7 +28,7 @@ const ProductsAvailInStore = () => {
               (item, index) =>
                 index < 4 && (
                   <span
-                    key={item.id}
+                    key={item?.id}
                     className="col-lg-3 col-md-3 col-sm-6 col-xs-12"
                   >
                     <div

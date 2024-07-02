@@ -1,15 +1,15 @@
 /* eslint-disable no-mixed-operators */
 import "./styles.scss";
-import { FiPhone } from "react-icons/fi";
-import { RiMapPinLine } from "react-icons/ri";
-import { TfiEmail } from "react-icons/tfi";
-import { Link } from "react-router-dom";
-import { Loader, getCurrentYear, openInNewTab, scrollToTop } from "utils";
-import { Col, Container, ListGroup, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { getFooterApi } from "services/page.service";
-import { useEffect, useState } from "react";
-import { setfooterCollection } from "redux/features/footerSlice";
+import {FiPhone} from "react-icons/fi";
+import {RiMapPinLine} from "react-icons/ri";
+import {TfiEmail} from "react-icons/tfi";
+import {Link} from "react-router-dom";
+import {Loader, getCurrentYear, openInNewTab, scrollToTop} from "utils";
+import {Col, Container, ListGroup, Row} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {getFooterApi} from "services/page.service";
+import {useEffect, useState} from "react";
+import {setfooterCollection} from "redux/features/footerSlice";
 // import { AiOutlineInstagram } from "react-icons/ai";
 // import { RiFacebookFill, RiTwitterFill } from "react-icons/ri";
 import razorpayIcon from "assets/cards/razorpay_icon.png";
@@ -33,29 +33,29 @@ const Footer = () => {
   const cardsList = [
     {
       name: "razorpay",
-      image: razorpayIcon
+      image: razorpayIcon,
     },
     {
       name: "visa",
-      image: visaIcon
+      image: visaIcon,
     },
     {
       name: "express",
-      image: expressIcon
+      image: expressIcon,
     },
     {
       name: "mastercard",
-      image: mastercardIcon
+      image: mastercardIcon,
     },
     {
       name: "paytm",
-      image: paytmIcon
+      image: paytmIcon,
     },
     {
       name: "rupay",
-      image: rupayIcon
-    }
-  ]
+      image: rupayIcon,
+    },
+  ];
 
   const GetPageData = () => {
     getFooterApi().then((response) => {
@@ -81,14 +81,26 @@ const Footer = () => {
             <div className="footer-links">
               <div className="mt-2">
                 <span className="fs-14">
-                  At Goli Soda, we believe that we can help you make sustainable changes to your consumption patterns, with very minimal alterations to your lifestyle and with superior product satisfaction.By actively enabling a circular economy and generating net-positive environmental and health benefits, Goli Soda helps you live Sustainably, Every Day.
+                  At Goli Soda, we believe that we can help you make sustainable
+                  changes to your consumption patterns, with very minimal
+                  alterations to your lifestyle and with superior product
+                  satisfaction.By actively enabling a circular economy and
+                  generating net-positive environmental and health benefits,
+                  Goli Soda helps you live Sustainably, Every Day.
                 </span>
               </div>
               <div>
-                <Link to="/about-us"><p className="fs-14">Read More....</p></Link>
+                <Link to="/about-us">
+                  <p className="fs-14">Read More....</p>
+                </Link>
               </div>
             </div>
-            <img src={footerLogo} alt="footer-logo" height="110" className="footernewLogo mt-3" />
+            <img
+              src={footerLogo}
+              alt="footer-logo"
+              height="110"
+              className="footernewLogo mt-3"
+            />
           </Col>
           <Col xs={12} sm={12} md={6} lg={2} xl={2}>
             <h3>Quick Links</h3>
@@ -97,7 +109,15 @@ const Footer = () => {
                 // <div onClick={() => navigate(`${item.url}`)}>
                 //   {item.name}
                 // </div>
-                <Link to={item.url} key={item.id} target={item.name === "Blog" || item.name === "Catalog" ? "_blank" : "_self"}>
+                <Link
+                  to={item.url}
+                  key={item?.id}
+                  target={
+                    item.name === "Blog" || item.name === "Catalog"
+                      ? "_blank"
+                      : "_self"
+                  }
+                >
                   {item.name}
                 </Link>
               ))}
@@ -129,11 +149,33 @@ const Footer = () => {
           <Col xs={12} sm={12} md={6} lg={2} xl={2}>
             <h6>Forms</h6>
             <div className="footer-links">
-              <Link to="https://docs.google.com/forms/d/e/1FAIpQLSc85X4aST7gzZK2WB5nS3kDw616_uJPFR5kCqG3hWMk9D9YFA/viewform" target="_blank">Subscription</Link>
-              <Link to="https://docs.google.com/forms/d/e/1FAIpQLScFhQD4PDqEFaKdEw7yZWlNtZp9dkmqHKkyfiF7z92zVH3D8g/viewform" target="_blank">Website Review</Link>
-              <Link to="https://docs.google.com/forms/d/e/1FAIpQLSetAz-CIxTDAELz0Owp12rdpsm7FsTudVW0C_ZEP094v2oYfg/viewform?usp=send_form" target="_blank">Partner with us a Distributor</Link>
-              <Link to="https://forms.gle/CiYoECZCYVgiYxjdA" target="_blank">Stock in your store</Link>
-              <Link to="https://docs.google.com/forms/d/1cdarSRv3fgb-1Zo4SAiEYtEwj3JVP7OpLV15v0AUGdU/viewform?ts=61eff974&edit_requested=true" target="_blank">Sell with Goli Soda</Link>
+              <Link
+                to="https://docs.google.com/forms/d/e/1FAIpQLSc85X4aST7gzZK2WB5nS3kDw616_uJPFR5kCqG3hWMk9D9YFA/viewform"
+                target="_blank"
+              >
+                Subscription
+              </Link>
+              <Link
+                to="https://docs.google.com/forms/d/e/1FAIpQLScFhQD4PDqEFaKdEw7yZWlNtZp9dkmqHKkyfiF7z92zVH3D8g/viewform"
+                target="_blank"
+              >
+                Website Review
+              </Link>
+              <Link
+                to="https://docs.google.com/forms/d/e/1FAIpQLSetAz-CIxTDAELz0Owp12rdpsm7FsTudVW0C_ZEP094v2oYfg/viewform?usp=send_form"
+                target="_blank"
+              >
+                Partner with us a Distributor
+              </Link>
+              <Link to="https://forms.gle/CiYoECZCYVgiYxjdA" target="_blank">
+                Stock in your store
+              </Link>
+              <Link
+                to="https://docs.google.com/forms/d/1cdarSRv3fgb-1Zo4SAiEYtEwj3JVP7OpLV15v0AUGdU/viewform?ts=61eff974&edit_requested=true"
+                target="_blank"
+              >
+                Sell with Goli Soda
+              </Link>
             </div>
           </Col>
 
@@ -158,9 +200,8 @@ const Footer = () => {
                 <RiMapPinLine />
               </Col>
               <Col>
-                {address && address.map((item, index) => (
-                  <span key={index}>{item}</span>
-                ))}
+                {address &&
+                  address.map((item, index) => <span key={index}>{item}</span>)}
               </Col>
             </Row>
             <Row className="footer-text1 mt-2">
@@ -168,8 +209,10 @@ const Footer = () => {
                 <RiMapPinLine />
               </Col>
               <Col>
-                <Link target="_blank"
-                  to={`https://www.google.com/maps?ll=13.042498,80.270771&z=14&t=m&hl=en&gl=IN&mapclient=embed&cid=1671591006991696382`}>
+                <Link
+                  target="_blank"
+                  to={`https://www.google.com/maps?ll=13.042498,80.270771&z=14&t=m&hl=en&gl=IN&mapclient=embed&cid=1671591006991696382`}
+                >
                   Locate Us
                 </Link>
               </Col>
@@ -191,15 +234,9 @@ const Footer = () => {
               <Col>
                 {mobNum &&
                   mobNum.map((num, i) => (
-                    <Link key={i} to={`tel:${num}`}  >
+                    <Link key={i} to={`tel:${num}`}>
                       <>
-                        {i !== mobNum.length - 1 ? (
-                          <>
-                            {`${num},`}
-                          </>
-                        ) : (
-                          `${num}.`
-                        )}
+                        {i !== mobNum.length - 1 ? <>{`${num},`}</> : `${num}.`}
                       </>
                     </Link>
                   ))}
@@ -219,23 +256,22 @@ const Footer = () => {
             <ListGroup>
               {/* cardsList */}
               {cardsList?.map((i, index) => (
-                <ListGroup.Item key={index} className="footerPaymentLinks" style={{ width: "auto", height: "auto" }}>
-                  <img
-                    className="mt-4 w100"
-                    src={i.image}
-                    alt={i.name}
-                  />
+                <ListGroup.Item
+                  key={index}
+                  className="footerPaymentLinks"
+                  style={{width: "auto", height: "auto"}}
+                >
+                  <img className="mt-4 w100" src={i.image} alt={i.name} />
                 </ListGroup.Item>
               ))}
             </ListGroup>
-
           </Col>
         </Row>
       </Container>
       <div className="footer-bottom">
         <p className="footer-bottom-text1">
-          Copyright &copy; {getCurrentYear()} {siteInfo?.site_name} | All
-          Rights Reserved | Designed by Pixel Studios
+          Copyright &copy; {getCurrentYear()} {siteInfo?.site_name} | All Rights
+          Reserved | Designed by Pixel Studios
         </p>
       </div>
     </footer>
